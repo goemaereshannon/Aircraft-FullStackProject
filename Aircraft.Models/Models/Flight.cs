@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft_Backend.Models
+namespace Aircraft.Models.Models
 {
     public class Flight
     {
@@ -11,8 +11,8 @@ namespace Aircraft_Backend.Models
         public DateTime TimeOfDeparture { get; set; }
         public DateTime TimeOfArrival { get; set; }
 
-        public Guid DepartureId { get; set; }
-        public Guid DestinationId { get; set; }
+        public Guid? DepartureId { get; set; }
+        public Guid? DestinationId { get; set; }
         public Guid AirplaneId { get; set; }
 
 

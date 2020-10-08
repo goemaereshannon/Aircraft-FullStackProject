@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Aircraft_Backend": {
+    "Aircraft.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

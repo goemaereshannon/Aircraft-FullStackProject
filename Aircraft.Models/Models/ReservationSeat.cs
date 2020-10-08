@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft_Backend.Models
+namespace Aircraft.Models.Models
 {
     public class ReservationSeat
     {
@@ -12,7 +12,7 @@ namespace Aircraft_Backend.Models
         public Guid SeatId { get; set; }
         public Seat Seat { get; set; }
 
-        public Guid PersonId { get; set; }
+        public Guid? PersonId { get; set; }
         public Person Person { get; set; }
     }
 }

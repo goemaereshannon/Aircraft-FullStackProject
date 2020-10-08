@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft_Backend.Models
+namespace Aircraft.Models.Models
 {
     public class Seat
     {
@@ -11,7 +11,7 @@ namespace Aircraft_Backend.Models
         public string Name { get; set; }
 
         public Guid AirplaneId { get; set; }
-        public Guid ClassId { get; set; }
+        public Guid? ClassId { get; set; }
 
         public virtual Airplane Airplane { get; set; }
         public virtual Class Class { get; set; }

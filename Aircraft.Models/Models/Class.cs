@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft_Backend.Models
+namespace Aircraft.Models.Models
 {
     public class Class
     {
@@ -14,5 +14,6 @@ namespace Aircraft_Backend.Models
 
         public ICollection<Price> Prices { get; set; }
         public ICollection<AirplaneClass> AirplaneClasses { get; set; }
+        public ICollection<Seat> Seats { get; set;  }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft_Backend.Models
+namespace Aircraft.Models.Models
 {
     public class ReservationPrice
     {

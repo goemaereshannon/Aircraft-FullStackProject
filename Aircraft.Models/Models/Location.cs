@@ -1,10 +1,10 @@
-﻿using Aircraft_Backend.Models;
+﻿using Aircraft.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft_Backend
+namespace Aircraft.Models.Models
 {
     public class Location
     {

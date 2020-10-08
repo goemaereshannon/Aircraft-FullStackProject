@@ -2,13 +2,10 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Aircraft_Backend.Models
+namespace Aircraft.Models.Models
 {
-    public  class AircraftDbContext : IdentityDbContext<IdentityUser>
+    public  class AircraftDbContext : IdentityDbContext
     { 
 
         public AircraftDbContext(DbContextOptions<AircraftDbContext> options) : base(options)
@@ -27,6 +24,7 @@ namespace Aircraft_Backend.Models
         public virtual DbSet<Reservation> Reservations { get; set; }
         public virtual DbSet<ReservationPrice> ReservationPrices { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,25 +43,30 @@ namespace Aircraft_Backend.Models
                 entity.HasKey(e => new { e.ReservationId, e.SeatId });
             });
 
+            builder.Entity<Location>().HasMany(l => l.Departures).WithOne(d => d.Location).IsRequired();
+            builder.Entity<Location>().HasMany(l => l.Destinations).WithOne(d => d.Location).IsRequired();
 
-            builder.Entity<Flight>().HasMany(f => f.Prices).WithOne(p => p.Flight).HasForeignKey(e => e.FlightId).IsRequired();
-            builder.Entity<Location>().HasMany(l => l.Departures).WithOne(d => d.Location).HasForeignKey(d => d.LocationId);
-            builder.Entity<Location>().HasMany(l => l.Destinations).WithOne(d => d.Location).HasForeignKey(d => d.LocationId);
-            builder.Entity<Destination>().HasMany(d => d.Flights).WithOne(f => f.Destination).HasForeignKey(f => f.DestinationId);
-            builder.Entity<Departure>().HasMany(d => d.Flights).WithOne(f => f.Departure).HasForeignKey(f => f.DepartureId);
-            builder.Entity<Flight>().HasMany(f => f.Reservations).WithOne(r => r.Flight).HasForeignKey(r => r.FlightId);
-            builder.Entity<Airplane>().HasMany(a => a.Flights).WithOne(f => f.Airplane).HasForeignKey(f => f.AirplaneId);
-            builder.Entity<Airplane>().HasMany(a => a.Seats).WithOne(s => s.Airplane).HasForeignKey(s => s.AirplaneId);
-            builder.Entity<Person>().HasOne(p => p.ReservationSeat).WithOne(r => r.Person);
-            
+            builder.Entity<Departure>().HasMany(d => d.Flights).WithOne(f => f.Departure);
 
+            builder.Entity<Destination>().HasMany(d => d.Flights).WithOne(f => f.Destination);
+
+            builder.Entity<Flight>().HasMany(l => l.Prices).WithOne(d => d.Flight).IsRequired();
+            builder.Entity<Flight>().HasMany(l => l.Reservations).WithOne(d => d.Flight);
+
+            builder.Entity<Airplane>().HasMany(l => l.Flights).WithOne(d => d.Airplane);
+            builder.Entity<Airplane>().HasMany(l => l.Seats).WithOne(d => d.Airplane).IsRequired();
+
+            builder.Entity<Class>().HasMany(l => l.Seats).WithOne(d => d.Class);
+            builder.Entity<Class>().HasMany(l => l.Prices).WithOne(d => d.Class);
+
+            builder.Entity<Admin>().HasMany(l => l.Persons).WithOne(d => d.User);
+            builder.Entity<Admin>().HasMany(l => l.Reservations).WithOne(d => d.User);
+
+            builder.Entity<Person>().HasOne(p => p.ReservationSeat).WithOne(r => r.Person); 
 
         }
 
-        private Location d(Departure arg)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 
 
