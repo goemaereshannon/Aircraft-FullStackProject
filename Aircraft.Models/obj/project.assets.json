@@ -1557,21 +1557,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
-      },
-      "Aircraft.Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "dependencies": {
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.8",
-          "Microsoft.EntityFrameworkCore": "3.1.8",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.8"
-        },
-        "compile": {
-          "bin/placeholder/Aircraft.Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Aircraft.Models.dll": {}
-        }
       }
     }
   },
@@ -5843,16 +5828,10 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
-    },
-    "Aircraft.Models/1.0.0": {
-      "type": "project",
-      "path": "../Aircraft.Models/Aircraft.Models.csproj",
-      "msbuildProject": "../Aircraft.Models/Aircraft.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Aircraft.Models >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.8",
       "Microsoft.EntityFrameworkCore >= 3.1.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.8",
@@ -5867,11 +5846,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
-      "projectName": "Aircraft.API",
-      "projectPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
+      "projectUniqueName": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
+      "projectName": "Aircraft.Models",
+      "projectPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
       "packagesPath": "C:\\Users\\Shannon\\.nuget\\packages\\",
-      "outputPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\obj\\",
+      "outputPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -5891,11 +5870,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {
-            "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj": {
-              "projectPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -5937,9 +5912,6 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
