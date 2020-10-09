@@ -1,0 +1,12 @@
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\obj\Debug\netcoreapp3.1\Aircraft.Models.AssemblyInfoInputs.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\obj\Debug\netcoreapp3.1\Aircraft.Models.AssemblyInfo.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\obj\Debug\netcoreapp3.1\Aircraft.Models.csproj.CoreCompileInputs.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\bin\Debug\netcoreapp3.1\Aircraft.Models.deps.json
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\bin\Debug\netcoreapp3.1\Aircraft.Models.runtimeconfig.json
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\bin\Debug\netcoreapp3.1\Aircraft.Models.runtimeconfig.dev.json
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\bin\Debug\netcoreapp3.1\Aircraft.Models.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\bin\Debug\netcoreapp3.1\Aircraft.Models.pdb
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\obj\Debug\netcoreapp3.1\Aircraft.Models.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\obj\Debug\netcoreapp3.1\Aircraft.Models.pdb
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\obj\Debug\netcoreapp3.1\Aircraft.Models.genruntimeconfig.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft.Models\obj\Debug\netcoreapp3.1\Aircraft.Models.csprojAssemblyReference.cache
