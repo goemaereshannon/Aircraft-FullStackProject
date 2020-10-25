@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj": {}
+    "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj": {
+    "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
+        "projectUniqueName": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
         "projectName": "Aircraft.Models",
-        "projectPath": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
+        "projectPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
         "packagesPath": "C:\\Users\\alexi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\obj\\",
+        "outputPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -115,14 +115,14 @@
         }
       }
     },
-    "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj": {
+    "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
+        "projectUniqueName": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
         "projectName": "Aircraft.API",
-        "projectPath": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
+        "projectPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
         "packagesPath": "C:\\Users\\alexi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\obj\\",
+        "outputPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -142,8 +142,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj": {
-                "projectPath": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj"
+              "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj": {
+                "projectPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj"
               }
             }
           }
@@ -173,7 +173,15 @@
               "target": "Package",
               "version": "[3.1.8, )"
             },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Formatters.Xml": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.StaticFiles": {
               "target": "Package",
               "version": "[2.2.0, )"
             },

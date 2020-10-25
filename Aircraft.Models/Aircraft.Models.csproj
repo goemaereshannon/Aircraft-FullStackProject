@@ -5,18 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20201008164540_InitialMigration.cs" />
-    <Compile Remove="Migrations\20201008164540_InitialMigration.Designer.cs" />
-    <Compile Remove="Migrations\20201008165457_TryingToSolve_FKConstraints.cs" />
-    <Compile Remove="Migrations\20201008165457_TryingToSolve_FKConstraints.Designer.cs" />
-    <Compile Remove="Migrations\20201008174820_Solving_FKConstraints.cs" />
-    <Compile Remove="Migrations\20201008174820_Solving_FKConstraints.Designer.cs" />
-    <Compile Remove="Migrations\20201008180014_Solving_FKConstraints.cs" />
-    <Compile Remove="Migrations\20201008180014_Solving_FKConstraints.Designer.cs" />
-    <Compile Remove="Migrations\20201008180357_Solving_FKConstraints.cs" />
-    <Compile Remove="Migrations\20201008180357_Solving_FKConstraints.Designer.cs" />
-    <Compile Remove="Migrations\20201008180640_Solving_FKConstraints.cs" />
-    <Compile Remove="Migrations\20201008180640_Solving_FKConstraints.Designer.cs" />
+    <None Remove="Views\Shared\Error.cshtml" />
+    <None Remove="Views\Shared\_Layout.cshtml" />
+    <None Remove="Views\Shared\_LoginPartial.cshtml" />
+    <None Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

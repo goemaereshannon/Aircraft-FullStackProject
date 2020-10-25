@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "I1loJ8EeAqfTYTdlqEGuhOkaQRJ4hJSdh4AphcVsn/95805dHttCqhb7BSTMziB944aYS9GVvyS/ouI7Duk/pQ==",
+  "dgSpecHash": "HKJ5A0DuceJoFamlQGp//fwzEbNhHIZiy+AbmZCBnhoQhWWmKomRSXr1QrO5FAJ2k4Pjz/jM0SbM45QhBT49yQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alexi\\OneDrive\\Documenten\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
+  "projectFilePath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alexi\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.8\\microsoft.aspnetcore.authentication.jwtbearer.3.1.8.nupkg.sha512",

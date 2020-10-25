@@ -7,7 +7,7 @@ namespace Aircraft.Models.Models
 {
     public class Price
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
         public double Value { get; set; }

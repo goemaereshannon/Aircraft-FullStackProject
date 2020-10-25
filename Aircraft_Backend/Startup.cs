@@ -41,12 +41,14 @@ namespace Aircraft.API
             //2. context
             services.AddDbContext<AircraftDbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
             //3. identity/authorisation
-            services.AddIdentity<Admin, IdentityRole>()
+            
+            services.AddIdentity<RegisteredUser, IdentityRole<Guid>>()
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<AircraftDbContext>()
                 .AddDefaultTokenProviders()
-               .AddTokenProvider("Aircraft", typeof(DataProtectorTokenProvider<Admin>));
+               .AddTokenProvider("Aircraft", typeof(DataProtectorTokenProvider<RegisteredUser>));
             //4.cors
             services.AddCors(options =>
             {
@@ -61,6 +63,7 @@ namespace Aircraft.API
                 });
             });
             //5. repos
+            services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 
             //6. mapper
 

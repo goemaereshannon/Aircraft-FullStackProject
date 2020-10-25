@@ -9,13 +9,13 @@ namespace Aircraft.Models.Models
 {
     public class Reservation
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public double TotalPrice { get; set; }
 
-        public Guid? FlightId { get; set; }
+        public Guid FlightId { get; set; }
         public Guid UserId { get; set; }
         public virtual Flight Flight { get; set; }
-        public virtual Admin User { get; set; }
+        public virtual RegisteredUser User { get; set; }
 
         public ICollection<ReservationPrice> ReservationPrices { get; set; }
         public ICollection<ReservationSeat> ReservationSeats { get; set; }
