@@ -1,5 +1,7 @@
 app-aircraft-frontend/node_modules
-app-aircraft-frontend/DS_Store 
+app-aircraft-frontend/.DS_Store 
+
+.DS_Store
 
 app-aircraft-frontend/.env.local
 app-aircraft-frontend/.env.*.local
