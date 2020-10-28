@@ -1,0 +1,17 @@
+app-aircraft-frontend/node_modules
+app-aircraft-frontend/DS_Store 
+
+app-aircraft-frontend/.env.local
+app-aircraft-frontend/.env.*.local
+app-aircraft-frontend/.vscode
+
+app-aircraft-frontend/npm-debug.log*
+app-aircraft-frontend/yarn-debug.log*
+app-aircraft-frontend/yarn-error.log*
+app-aircraft-frontend/pnpm-debug.log*
+
+Aircraft_Backend/appsettings.json
+
+
+
+
