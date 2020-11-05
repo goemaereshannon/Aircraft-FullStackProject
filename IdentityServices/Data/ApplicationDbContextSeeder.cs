@@ -48,18 +48,19 @@ namespace IdentityServices.Data
                     User admin = new User
                     {
                         Id = Guid.NewGuid(),
-                        UserName="Admin@"+i,
+                        UserName = "Admin@" + i,
                         Email = "emailAdmin" + i + "@howest.be",
-                        CardNumber= $"{i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i}",
+                        //CardNumber= $"{i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i}",
                         Address = new Address
                         {
                             StreetName = "Graaf Karel De Goedelaan",
                             HouseNumber = 5,
                             PostCode = "8850",
-                            City="Kortrijk",
+                            City = "Kortrijk",
                             Country = "België"
-                            
-    }
+
+                        },
+                        BirthDate = Convert.ToDateTime("07/11/1995")
 
                     };
                     await userManager.CreateAsync(admin, "Admin@" + i);

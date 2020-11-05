@@ -13,13 +13,13 @@ namespace IdentityServices.Models
     public class User:IdentityUser<Guid>
     {
         public override Guid Id { get; set; } = Guid.NewGuid();
-        [Required]
-        public string CardNumber { get; set; }
+      //  [Required]
+       // public string CardNumber { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public string SocialSecurityNumber { get; set; }
+        public string SocialSecurityNumber { get; set; } //has to be editable
 
         [Required]
         public Address Address { get; set; }

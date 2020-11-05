@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServices.Models;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using IdentityServices.DTO_s;
+using IdentityServices.Models;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using AutoMapper;
+using System.Net;
+//using IdentityServices.Repositories;
 
 namespace IdentityServices.Controllers
 {
@@ -19,14 +25,18 @@ namespace IdentityServices.Controllers
     {
         private readonly SignInManager<User> signInMgr;
         private readonly IConfiguration configuration;
+        private readonly IGenericRepo<User> userRepo;
+        private readonly IMapper mapper;
         private readonly IPasswordHasher<User> hasher;
         private readonly UserManager<User> userManager;
         private readonly ILogger<AuthController> logger;
 
-        public AuthController(SignInManager<User> signInMgr, IPasswordHasher<User> hasher, UserManager<User> userManager, RoleManager<Role> roleManager, ILogger<AuthController> logger, IConfiguration configuration)
+        public AuthController(SignInManager<User> signInMgr, IPasswordHasher<User> hasher, UserManager<User> userManager, RoleManager<Role> roleManager, ILogger<AuthController> logger, IConfiguration configuration, IGenericRepo<User> userRepo, IMapper mapper)
         {
             this.signInMgr = signInMgr;
             this.configuration = configuration;
+            this.userRepo = userRepo;
+            this.mapper = mapper;
             this.hasher = hasher;
             this.userManager = userManager;
             RoleManager = roleManager;
@@ -34,6 +44,70 @@ namespace IdentityServices.Controllers
         }
 
         public RoleManager<Role> RoleManager { get; }
+
+        /// <summary>
+        /// Register a new administrator
+        /// </summary>
+        /// <remarks>
+        /// Sample Request:
+        /// 
+        ///     Post /register
+        ///     {
+        ///         "email": "John.Doe@hotmail.com",
+        ///         "password": "password",
+        ///         "ConfirmPassword": "password"
+        ///     }
+        /// </remarks>
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Register([FromBody] RegisterDTO registerDTO)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                   // var user = new User { Email = registerDTO.Email, UserName = registerDTO.Email };
+                    var user = mapper.Map<User>(registerDTO);
+                   
+                    var result = await userManager.CreateAsync(user, registerDTO.Password);
+                    List<IdentityError> resultList = new List<IdentityError>();
+
+
+                    if (result.Succeeded)
+                    {
+                        var role = await userManager.AddToRoleAsync(user, "Customer");
+                        string userId = userManager.FindByEmailAsync(user.Email).Result.Id.ToString();
+
+                       // AdministratorDTO administratorDTO = _mapper.Map<AdministratorDTO>(administrator);
+
+                        return Created("api/auth/register", user);
+                    }
+                    else
+                    {
+                        resultList = result.Errors.ToList();
+                        for (int i = 0; i < resultList.Count(); i++)
+                        {
+                            if (resultList[i].Code == "DuplicateUserName")
+                            {
+                                resultList[i].Description = "This emailadres '" + user.Email + "' is already in use.";
+                            }
+                        }
+                    }
+                    return BadRequest(string.Join(",", resultList?.Select(error => error.Description)));
+                }
+
+                string errorMessage = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                return BadRequest(errorMessage ?? "Bad Request");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return new StatusCodeResult(500);
+            }
+
+        }
 
         [HttpPost]
         [Route("login")]
@@ -44,40 +118,48 @@ namespace IdentityServices.Controllers
           // , [FromQuery(Name = "d")] string destination = "frontend")
         {
             var returnMessage = "";
-            //LoginViewModel met (Required) UserName en Password aanbrengen. 
-            if (!ModelState.IsValid)
-                return BadRequest("Onvolledige gegevens");
+          
             try
-            {
-                //geen persistence, geen lockout -> via false, false 
-                var result = await
-             signInMgr.PasswordSignInAsync(loginDTO.UserName, loginDTO.Password, false, false);
 
-                if (result.Succeeded)
+            {
+                if(ModelState.IsValid)
                 {
-                   try
-                    {                      
-                        //password controle gebeurt ook in de JWTService
-                        //extra checks zijn mogelijk . bvb op basis vd rol en een querystring item
-                        var jwtsvc = new JWTServices<User>(configuration, logger, userManager, hasher);
-                        var token = await jwtsvc.GenerateJwtToken(loginDTO);
-                        return Ok(token);  // HET TOKEN returnen
-                    }
-                    catch (Exception exc)
+                    var user = await userManager.FindByEmailAsync(loginDTO.Email);
+                    if (user == null)
+                        return StatusCode((int)HttpStatusCode.Unauthorized, "The combination of emailadres and password is wrong. Please try again.");
+
+                    //geen persistence, geen lockout -> via false, false 
+                    var result = await signInMgr.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, false, false);
+
+                    if (result.Succeeded)
                     {
-                        logger.LogError($"Exception thrown when creating JWT: {exc}");
+                        try
+                        {
+                            //password controle gebeurt ook in de JWTService
+                            //extra checks zijn mogelijk . bvb op basis vd rol en een querystring item
+                            var jwtsvc = new JWTServices<User>(configuration, logger, userManager, hasher);
+                            var token = await jwtsvc.GenerateJwtToken(loginDTO);
+                            return Ok(token);  // HET TOKEN returnen
+                        }
+                        catch (Exception exc)
+                        {
+                            logger.LogError($"Exception thrown when creating JWT: {exc}");
+                        }
                     }
+                    return StatusCode((int)HttpStatusCode.Unauthorized, "The combination of emailadres and password is wrong. Please try again.");
+                    //zo algemeen mogelijke boodschap. Vertel niet dat het pwd niet juist is.
                 }
-                throw new Exception("User of paswoord niet gevonden.");
-                //zo algemeen mogelijke boodschap. Vertel niet dat het pwd niet juist is.
+                throw new Exception("Please fill in all information");
+
             }
             catch (Exception exc)
             {
                 returnMessage = $"Foutief of ongeldig request: {exc.Message}";
                 ModelState.AddModelError("", returnMessage);
                 Debug.WriteLine(exc.Message);
+                return new StatusCodeResult(500);
             }
-            return BadRequest(returnMessage); //zo weinig mogelijk (hacker) info
+           // return BadRequest(returnMessage); //zo weinig mogelijk (hacker) info
         }
 
         [HttpGet("validate")]
@@ -99,6 +181,103 @@ namespace IdentityServices.Controllers
 
             return new OkObjectResult(userId);
         }
+
+        [HttpGet]
+        [Route("/api/auth/{id}")]
+        public async Task<ActionResult<UserDTO>> GetUserbyId(Guid userId)
+        {
+            try
+            {
+                var user = await userRepo.GetAsyncByGuid(userId);
+                if(user == null)
+                {
+                    return NotFound();
+                }
+                UserDTO userDTO = mapper.Map<UserDTO>(user);
+                return Ok(userDTO);
+
+
+            }
+            catch ( Exception ex)
+            {
+
+                logger.LogError(ex.Message);
+                return new StatusCodeResult(500);
+            }
+        }
+
+        /// <summary>
+        /// Update user profile based on userId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("/api/auth/{id}")]
+        public async Task<ActionResult<UserDTO>> EditUser(Guid userId, UserDTO userDTO)
+        {
+            try
+            {
+
+                //check object
+                if (userDTO == null || userId == null) return BadRequest();
+                var newUser = mapper.Map<User>(userDTO);
+                newUser.Id = userId;
+                if (!await userRepo.Exists(newUser, userId)) return NotFound("User not found");
+
+                ////get old object
+
+                //User olduser = await userRepo.GetAsyncByGuid(userId);
+                //if (olduser == null) return NotFound("User not found");
+
+                //update
+
+                await userRepo.Update(newUser, userId);
+                return NoContent();
+
+
+              
+
+
+            }
+            catch (Exception ex)
+            {
+
+                logger.LogError(ex.Message);
+                return BadRequest("User could not be updated.");
+            }
+        }
+        /// <summary>
+        /// Delete user profile based on userId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("/api/auth/{id}")]
+        public async Task<ActionResult> DeleteUser(Guid userId)
+        {
+            try
+            {
+
+                //check object
+                if (userId == null) return BadRequest();
+                var user = await userRepo.GetAsyncByGuid(userId);
+                if (user == null) return NotFound("User not Found");
+
+                await userRepo.Delete(user);
+                return NoContent();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                logger.LogError(ex.Message);
+                return BadRequest("User could not be updated.");
+            }
+
+        }
+
 
 
 
