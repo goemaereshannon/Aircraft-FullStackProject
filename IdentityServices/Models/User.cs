@@ -1,6 +1,5 @@
 ﻿
-using Aircraft.IdentityServices;
-using Aircraft.IdentityServices.Models;
+
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

@@ -15,6 +15,7 @@ using IdentityServices.Models;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using AutoMapper;
 using System.Net;
+using IdentityServices.Repositories;
 //using IdentityServices.Repositories;
 
 namespace IdentityServices.Controllers
@@ -25,16 +26,18 @@ namespace IdentityServices.Controllers
     {
         private readonly SignInManager<User> signInMgr;
         private readonly IConfiguration configuration;
-        private readonly IGenericRepo<User> userRepo;
+        private readonly IGenericRepo<User> repo;
+        private readonly IUserRepo userRepo;
         private readonly IMapper mapper;
         private readonly IPasswordHasher<User> hasher;
         private readonly UserManager<User> userManager;
         private readonly ILogger<AuthController> logger;
 
-        public AuthController(SignInManager<User> signInMgr, IPasswordHasher<User> hasher, UserManager<User> userManager, RoleManager<Role> roleManager, ILogger<AuthController> logger, IConfiguration configuration, IGenericRepo<User> userRepo, IMapper mapper)
+        public AuthController(SignInManager<User> signInMgr, IPasswordHasher<User> hasher, UserManager<User> userManager, RoleManager<Role> roleManager, ILogger<AuthController> logger, IConfiguration configuration, IGenericRepo<User> repo, IUserRepo userRepo, IMapper mapper)
         {
             this.signInMgr = signInMgr;
             this.configuration = configuration;
+            this.repo = repo;
             this.userRepo = userRepo;
             this.mapper = mapper;
             this.hasher = hasher;
@@ -127,6 +130,7 @@ namespace IdentityServices.Controllers
                     var user = await userManager.FindByEmailAsync(loginDTO.Email);
                     if (user == null)
                         return StatusCode((int)HttpStatusCode.Unauthorized, "The combination of emailadres and password is wrong. Please try again.");
+                    //TODO:inkomend emailadres strippen van spaties
 
                     //geen persistence, geen lockout -> via false, false 
                     var result = await signInMgr.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, false, false);
@@ -183,17 +187,18 @@ namespace IdentityServices.Controllers
         }
 
         [HttpGet]
-        [Route("/api/auth/{id}")]
-        public async Task<ActionResult<UserDTO>> GetUserbyId(Guid userId)
+        [Route("/api/auth/{userId}")]
+        public async Task<ActionResult<UserDTO>> GetUserProfilebyUserId(Guid userId)
         {
             try
             {
-                var user = await userRepo.GetAsyncByGuid(userId);
+              // var user = await repo.GetAsyncByGuid(userId);
+                var user = await userRepo.GetUserWithAddressByUserId(userId);
                 if(user == null)
                 {
                     return NotFound();
                 }
-                UserDTO userDTO = mapper.Map<UserDTO>(user);
+                UserDTO userDTO = mapper.Map<User, UserDTO>( user);
                 return Ok(userDTO);
 
 
@@ -213,7 +218,7 @@ namespace IdentityServices.Controllers
         /// <param name="userDTO"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("/api/auth/{id}")]
+        [Route("/api/auth/{userId}")]
         public async Task<ActionResult<UserDTO>> EditUser(Guid userId, UserDTO userDTO)
         {
             try
@@ -223,16 +228,16 @@ namespace IdentityServices.Controllers
                 if (userDTO == null || userId == null) return BadRequest();
                 var newUser = mapper.Map<User>(userDTO);
                 newUser.Id = userId;
-                if (!await userRepo.Exists(newUser, userId)) return NotFound("User not found");
+                if (!await repo.Exists(newUser, userId)) return NotFound("User not found");
 
                 ////get old object
 
-                //User olduser = await userRepo.GetAsyncByGuid(userId);
+                //User olduser = await repo.GetAsyncByGuid(userId);
                 //if (olduser == null) return NotFound("User not found");
 
                 //update
 
-                await userRepo.Update(newUser, userId);
+                await repo.Update(newUser, userId);
                 return NoContent();
 
 
@@ -253,7 +258,7 @@ namespace IdentityServices.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("/api/auth/{id}")]
+        [Route("/api/auth/{userId}")]
         public async Task<ActionResult> DeleteUser(Guid userId)
         {
             try
@@ -261,10 +266,10 @@ namespace IdentityServices.Controllers
 
                 //check object
                 if (userId == null) return BadRequest();
-                var user = await userRepo.GetAsyncByGuid(userId);
+                var user = await repo.GetAsyncByGuid(userId);
                 if (user == null) return NotFound("User not Found");
 
-                await userRepo.Delete(user);
+                await repo.Delete(user);
                 return NoContent();
 
 

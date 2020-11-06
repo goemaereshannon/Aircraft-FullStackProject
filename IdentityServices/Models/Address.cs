@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aircraft.IdentityServices.Models
+namespace IdentityServices.Models
 {
    public class Address
     {

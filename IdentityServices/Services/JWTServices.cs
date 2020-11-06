@@ -43,7 +43,7 @@ public class JWTServices<TEntity> where TEntity : IdentityUser<Guid>
         
         try
         {
-            user = await userManager.FindByNameAsync(identityDTO.UserName);
+            user = await userManager.FindByEmailAsync(identityDTO.Email);
             var roles = await userManager.GetRolesAsync(user);
 
             if (user != null)
@@ -72,6 +72,7 @@ public class JWTServices<TEntity> where TEntity : IdentityUser<Guid>
             await userManager.RemoveClaimsAsync(user, userClaims);
 
             await userManager.AddClaimAsync(user, new Claim("myExtraKey", "myExtraValue"));
+            await userManager.AddClaimAsync(user, new Claim("thisUserId", $"{user.Id}"));
             //combined string van roles kan niet => ClaimTypes.Role
             foreach (var role in roles)
             {
@@ -85,7 +86,7 @@ public class JWTServices<TEntity> where TEntity : IdentityUser<Guid>
             var claims = new List<Claim>
              {
                 //JWT claims zijn ingebouwd in de JWT spec: "sub"scriber, JWT Id
-                 new Claim(JwtRegisteredClaimNames.Sub, identityDTO.UserName),  //subscriber
+                 new Claim(JwtRegisteredClaimNames.Sub, identityDTO.Email),  //subscriber
                  new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                  //extra claims (waardoor toch datastore info beschikbaar wordt)
                //new Claim(JwtRegisteredClaimNames.Birthdate, identityDTO.Birthdate.ToString())
@@ -136,8 +137,11 @@ public class JWTServices<TEntity> where TEntity : IdentityUser<Guid>
         {
             return Guid.Empty;
         }
-        var userIdClaim = identity.FindFirst("userId");
-        var userId = new Guid(userIdClaim.Value);
+      //  var userIdClaim = identity.FindFirst("userId");
+       
+      //  var userId = new Guid(userIdClaim.Value);
+
+        var userId = new Guid(identity.FindFirst("thisUserId").Value);
         return userId;
     }
 

@@ -19,7 +19,7 @@ namespace IdentityServices.DTO_s
 
         
         [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
        
     }
