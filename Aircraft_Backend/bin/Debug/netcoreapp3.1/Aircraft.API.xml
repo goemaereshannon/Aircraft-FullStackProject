@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Aircraft.API</name>
+    </assembly>
+    <members>
+        <member name="P:Aircraft.API.Models.ForgotPasswordDTO.AdminId">
+            <summary>Your userid</summary>
+            <example>5a4929ed-777f-4fa2-89da-fce7243ad70f</example>
+        </member>
+        <member name="P:Aircraft.API.Models.ForgotPasswordDTO.ResetCode">
+            <summary>Your resetcode</summary>
+        </member>
+        <member name="P:Aircraft.API.Models.ForgotPasswordDTO.Password">
+            <summary>Your new password</summary>
+            <example>new password</example>
+        </member>
+        <member name="P:Aircraft.API.Models.ForgotPasswordDTO.PasswordComfirmation">
+            <summary>Your new password</summary>
+            <example>new password</example>
+        </member>
+        <member name="P:Aircraft.API.Models.LoginDTO.Email">
+            <summary>Your Email</summary>
+            <example>administrator@azgroeninge.be</example>
+        </member>
+        <member name="P:Aircraft.API.Models.LoginDTO.Password">
+            <summary>Your Password</summary>
+            <example>wachtwoord</example>
+        </member>
+        <member name="P:Aircraft.API.Models.RegisterDTO.Email">
+            <summary>Your email</summary>
+            <example> alexandra.christiaens@student.howest.be</example>
+        </member>
+        <member name="P:Aircraft.API.Models.RegisterDTO.Password">
+            <summary>Your Password</summary>
+            <example>-Azerty123</example>
+        </member>
+        <member name="P:Aircraft.API.Models.RegisterDTO.ConfirmPassword">
+            <summary>Your Password</summary>
+            <example>-Azerty123</example>
+        </member>
+        <member name="P:Aircraft.API.Models.ResetPasswordDTO.Email">
+            <summary>Your email</summary>
+            <example> J.Doe@hotmail.com</example>
+        </member>
+        <member name="P:Aircraft.API.Models.ResetPasswordDTO.OldPassword">
+            <summary>Your old password</summary>
+            <example>old password</example>
+        </member>
+        <member name="P:Aircraft.API.Models.ResetPasswordDTO.Password">
+            <summary>Your new password</summary>
+            <example>new password</example>
+        </member>
+        <member name="P:Aircraft.API.Models.ResetPasswordDTO.PasswordComfirmation">
+            <summary>Your new password</summary>
+            <example>new password</example>
+        </member>
+    </members>
+</doc>

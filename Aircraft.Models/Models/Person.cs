@@ -1,16 +1,31 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace Aircraft.Models.Models
 {
-    public class Person
+   public interface Person
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public virtual Admin User { get; set; }
-        public ReservationSeat ReservationSeat { get; set; }
+        Guid PersonId { get; set; }
+        string FirstName { get; set; }
+        string LastName { get; set; }
+
+        string SocialSecurityNumber { get; set; }
+
+    
+        Address Address { get; set; }
+
+        
+      
+         DateTime BirthDate { get; set; }
+
+        int Age
+        {
+            get
+            {
+                TimeSpan span = DateTime.Now.Subtract(this.BirthDate);
+                return (int)span.TotalDays / 365;
+            }
+        }
     }
 }

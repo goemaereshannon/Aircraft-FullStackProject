@@ -7,9 +7,9 @@ namespace Aircraft.Models.Models
 {
     public class ReservationPrice
     {
-        public Guid ReservationId { get; set; }
+        public Guid? ReservationId { get; set; }
         public Reservation Reservation { get; set; }
-        public Guid PriceId { get; set; }
+        public Guid? PriceId { get; set; }
         public Price Price { get; set; }
     }
 }

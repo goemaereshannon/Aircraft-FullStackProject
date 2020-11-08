@@ -5,26 +5,30 @@ using System;
 
 namespace Aircraft.Models.Models
 {
-    public  class AircraftDbContext : IdentityDbContext
+    public  class AircraftDbContext : IdentityDbContext<RegisteredUser, IdentityRole<Guid>, Guid>
     { 
 
         public AircraftDbContext(DbContextOptions<AircraftDbContext> options) : base(options)
         {
         }
 
+        public virtual DbSet<Address> Adresses { get; set; }
         public virtual DbSet<Airplane> Airplanes { get; set; }
-        public virtual DbSet<AirplaneClass> AirplaneClasses{ get; set; }
+       // public virtual DbSet<AirplaneClass> AirplaneClasses{ get; set; }
         public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Companion> Companions { get; set; }
         public virtual DbSet<Departure> Departures { get; set; }
         public virtual DbSet<Destination> Destinations { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
-        public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Price> Prices { get; set; }
+        public virtual DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
-        public virtual DbSet<ReservationPrice> ReservationPrices { get; set; }
+    //    public virtual DbSet<ReservationPrice> ReservationPrices { get; set; }
+    //    public virtual DbSet<ReservationSeat> ReservatioSeats { get; set; }
+
         public virtual DbSet<Seat> Seats { get; set; }
-        public virtual DbSet<Admin> Admins { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,10 +63,11 @@ namespace Aircraft.Models.Models
             builder.Entity<Class>().HasMany(l => l.Seats).WithOne(d => d.Class);
             builder.Entity<Class>().HasMany(l => l.Prices).WithOne(d => d.Class);
 
-            builder.Entity<Admin>().HasMany(l => l.Persons).WithOne(d => d.User);
-            builder.Entity<Admin>().HasMany(l => l.Reservations).WithOne(d => d.User);
+           // builder.Entity<RegisteredUser>().HasMany(l => l.Persons).WithOne(d => d.User);
+            builder.Entity<RegisteredUser>().HasMany(l => l.Reservations).WithOne(d => d.User);
 
-            builder.Entity<Person>().HasOne(p => p.ReservationSeat).WithOne(r => r.Person); 
+            builder.Entity<ReservationSeat>().HasOne(rs => rs.Companion);
+         
 
         }
 
