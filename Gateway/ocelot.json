@@ -1,0 +1,92 @@
+{
+  "Routes": [
+    //{
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 58017 //http poort (only) van de cartservice
+    //    }
+    //  ],
+    //  "DownstreamPathTemplate": "/api/carts",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/carts",
+    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+    //  "AuthenticationOptions": {
+    //    "AuthenticationProviderKey": "Bearer",
+    //    "AllowedScopes": []
+    //  }
+
+    //},
+    {
+
+
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{allServices}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/{allServices}",
+      //"ServiceName": "identity",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+
+    },
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44398 //https poort van de service 
+        }
+      ],
+      "DownstreamPathTemplate": "/swagger/{page}",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/swagger/{page}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    //{
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 44385 //https poort van de service //launchsettings.json van het project dat je wil launchen //hier recipes_db
+    //    }
+    //  ],
+    //  "DownstreamPathTemplate": "/api/{allServices}",
+    //  "DownstreamScheme": "https",
+    //  "UpstreamPathTemplate": "/{allServices}",
+    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+
+
+    //},
+    //{
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "recipes_db",
+    //      "Port": 80
+    //    }
+    //  ],
+    //  "DownstreamPathTemplate": "/swagger/{page}",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/swagger/{page}",
+    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    //},
+    //{
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "recipes_db", //naam van de service
+    //      "Port": 80 //externe http(only) DOCKER poort van de recipes_db service
+    //    }
+    //  ],
+    //  "DownstreamPathTemplate": "/api/{allServices}",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/{allServices}",
+    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+    //}
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "BaseUrl": null,
+    "https": 44344 //localhost:44382 //https poort van de gateway //launchsettings.json van de gateway
+  }
+}
