@@ -61,7 +61,8 @@ namespace IdentityServices.Controllers
         ///         "ConfirmPassword": "password"
         ///     }
         /// </remarks>
-        [HttpPost("register")]
+        [HttpPost]
+        [Route("/api/auth/register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -113,7 +114,7 @@ namespace IdentityServices.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("/api/auth/login")]
         [AllowAnonymous]
        // [ValidateAntiForgeryToken]
         //CSRF: enkel nodig indien (statefull) via een browser , form ingelogd wordt
@@ -166,7 +167,8 @@ namespace IdentityServices.Controllers
            // return BadRequest(returnMessage); //zo weinig mogelijk (hacker) info
         }
 
-        [HttpGet("validate")]
+        [HttpGet]
+        [Route("/api/auth/validate")]
         public async Task<IActionResult> Validate([FromQuery(Name = "email")] string email, [FromQuery(Name = "token")] string token)
         {
             var user = await userManager.FindByEmailAsync(email);

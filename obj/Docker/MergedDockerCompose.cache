@@ -1,0 +1,33 @@
+services:
+  db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Password123
+    image: mcr.microsoft.com/mssql/server
+    ports:
+    - published: 1833
+      target: 1433
+    volumes:
+    - C:\Users\alexi\AppData\Roaming\DockerVolumes\sqlserver:/var/opt/mssql/data:rw
+  identityservices:
+    build:
+      context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject
+      dockerfile: IdentityServices/Dockerfile
+    depends_on:
+      db:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: identityservicesaircraft
+    ports:
+    - published: 32808
+      target: 80
+    - target: 80
+    - published: 32796
+      target: 443
+    - target: 443
+    volumes:
+    - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\alexi\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'

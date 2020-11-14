@@ -43,13 +43,14 @@ namespace IdentityServices.Data
             var nmbrAdmins = 3;
             for (var i = 1; i<= nmbrAdmins; i++)
             {
-                if (userManager.FindByNameAsync("Admin@"+i).Result == null)
+                if (userManager.FindByNameAsync("emailAdmin" + i + "@howest.be").Result == null)
                 {
                     User admin = new User
                     {
                         Id = Guid.NewGuid(),
-                        UserName = "Admin@" + i,
+                        //UserName = "Admin@" + i,
                         Email = "emailAdmin" + i + "@howest.be",
+                        UserName = "emailAdmin" + i + "@howest.be",
                         //CardNumber= $"{i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i}",
                         Address = new Address
                         {
@@ -63,7 +64,7 @@ namespace IdentityServices.Data
                         BirthDate = Convert.ToDateTime("07/11/1995")
 
                     };
-                    await userManager.CreateAsync(admin, "Admin@" + i);
+                    await userManager.CreateAsync(admin, $"Admin@{i}") ;
                     var role = roleManager.Roles.Where(r => r.Name.StartsWith("A")).FirstOrDefault();
                    var userResult = await userManager.AddToRoleAsync(admin, role.Name);
 
