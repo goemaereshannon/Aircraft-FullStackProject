@@ -3682,6 +3682,29 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Aircraft.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "AutoMapper": "10.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.8",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.8",
+          "Microsoft.EntityFrameworkCore": "3.1.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.8",
+          "Serilog": "2.10.0",
+          "Serilog.Extensions.Logging": "3.0.1",
+          "Serilog.Settings.Configuration": "3.1.0",
+          "Serilog.Sinks.File": "4.1.0",
+          "Serilog.Sinks.RollingFile": "3.3.0",
+          "Swashbuckle.AspNetCore.Swagger": "5.6.3"
+        },
+        "compile": {
+          "bin/placeholder/Aircraft.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Aircraft.Models.dll": {}
+        }
       }
     }
   },
@@ -10787,13 +10810,18 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Aircraft.Models/1.0.0": {
+      "type": "project",
+      "path": "../Aircraft.Models/Aircraft.Models.csproj",
+      "msbuildProject": "../Aircraft.Models/Aircraft.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Aircraft.Models >= 1.0.0",
       "AutoMapper >= 10.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.0.1",
-      "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.1.8",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.8",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
@@ -10956,16 +10984,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1105",
-      "level": "Error",
-      "message": "Unable to find project information for 'D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj'. If you are using Visual Studio, this may be because the project is unloaded or not part of the current solution so run a restore from the command-line. Otherwise, the project file may be invalid or missing targets required for restore.",
-      "libraryId": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  }
 }

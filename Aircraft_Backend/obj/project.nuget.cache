@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "zoHZdJR+wKcGfUg1FUS7lE1Yul/l+1CtwUQl2yyU6EpGRG2u5J0lCgir4lKTLqcGXJTljs9qQng8njBBFfBjDA==",
-  "success": false,
+  "dgSpecHash": "w5mhxDQoxoKZqLxYui4dShAKoz++op+WPeeU9kPAMiSi/oRWutR3PPIeBcwOovKkK6ZPwJcg8hpZ2CFloroufA==",
+  "success": true,
   "projectFilePath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Shannon\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
@@ -244,15 +244,5 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1105",
-      "level": "Error",
-      "message": "Unable to find project information for 'D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj'. If you are using Visual Studio, this may be because the project is unloaded or not part of the current solution so run a restore from the command-line. Otherwise, the project file may be invalid or missing targets required for restore.",
-      "libraryId": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "logs": []
 }

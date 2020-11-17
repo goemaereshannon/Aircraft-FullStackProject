@@ -9,6 +9,10 @@ namespace FlightServices.Data
 {
     public class FlightServicesContext: DbContext 
     {
+        public FlightServicesContext()
+        {
+
+        }
         public FlightServicesContext(DbContextOptions<FlightServicesContext> options)
             : base(options)
         {
@@ -19,6 +23,7 @@ namespace FlightServices.Data
         public virtual DbSet<Destination> Destinations { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
