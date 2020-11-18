@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using FlightServices.Data;
+using FlightServices.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +27,12 @@ namespace FlightServices
                   //Configuration.GetConnectionString("DefaultConnection"))
              Configuration.GetConnectionString("Flight_DBc"))
             );
+
+            //repos
+            services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+
+            //mapper 
+            services.AddAutoMapper(typeof(FlightProfiles)); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

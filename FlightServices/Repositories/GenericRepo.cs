@@ -6,15 +6,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-//using IdentityServices.Repositories;
-using IdentityServices.Data;
+
+using FlightServices.Data;
 
 public class GenericRepo<TEntity> : IGenericRepo<TEntity> where TEntity : class
 {
-    public ApplicationDbContext _context { get; set; }
+    public FlightServicesContext _context { get; set; }
 
     //ctor dependancy van de applicatie context:
-    public GenericRepo(ApplicationDbContext context)
+    public GenericRepo(FlightServicesContext context)
     {
         this._context = context;
     }

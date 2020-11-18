@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlightServices.Models
+namespace FlightServices.DTOs
 {
     public class FlightDTO
     {
@@ -13,11 +13,10 @@ namespace FlightServices.Models
         public DateTime TimeOfDeparture { get; set; }
         public DateTime TimeOfArrival { get; set; }
 
-        public string DepartureCountry { get; set; }
-        public string DepartureCity { get; set; }
-        public string DestinationCountry { get; set; }
-        public string DestinationCity { get; set; }
-        public string AirplaneName { get; set; }
+
+        public DepartureDTO DepartureDTO { get; set; }
+        public DestinationDTO DestinationDTO { get; set; }
+        public AirplaneDTO AirplaneDTO { get; set; }
 
     }
 }
