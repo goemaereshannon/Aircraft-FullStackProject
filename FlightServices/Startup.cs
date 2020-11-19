@@ -1,6 +1,7 @@
 using AutoMapper;
 using FlightServices.Data;
 using FlightServices.Mapping;
+using FlightServices.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,12 +25,20 @@ namespace FlightServices
         {
             services.AddDbContext<FlightServicesContext>(options =>
             options.UseSqlServer(
-                  //Configuration.GetConnectionString("DefaultConnection"))
              Configuration.GetConnectionString("Flight_DBc"))
             );
 
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+            services.AddAuthorization(); 
+
             //repos
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+            services.AddScoped<IDestinationRepo, DestinationRepo>(); 
+            services.AddScoped<IDepartureRepo, DepartureRepo>(); 
+
 
             //mapper 
             services.AddAutoMapper(typeof(FlightProfiles)); 
@@ -54,7 +63,7 @@ namespace FlightServices
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

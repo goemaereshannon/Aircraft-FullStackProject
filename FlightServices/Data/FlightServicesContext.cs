@@ -26,6 +26,7 @@ namespace FlightServices.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.SeedAsync(); 
             base.OnModelCreating(builder);
 
             builder.Entity<Location>().HasMany(l => l.Departures).WithOne(d => d.Location).IsRequired();

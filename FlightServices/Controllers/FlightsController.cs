@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using FlightServices.Data;
 using FlightServices.Models;
 using AutoMapper;
+using FlightServices.DTOs;
+using FlightServices.Repositories;
 
 namespace FlightServices.Controllers
 {
@@ -20,18 +22,29 @@ namespace FlightServices.Controllers
         private readonly IGenericRepo<Departure> genericDepartureRepo;
         private readonly IGenericRepo<Destination> genericDestinationRepo;
         private readonly IGenericRepo<Airplane> genericAirplaneRepo; 
+        private readonly IGenericRepo<Location> genericLocationRepo; 
 
-        private readonly IMapper mapper; 
+        private readonly IMapper mapper;
 
-        public FlightsController(IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo ,IMapper mapper)
+        private readonly IDepartureRepo departureRepo;
+        private readonly IDestinationRepo destinationRepo;
+
+        public FlightsController(IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo)
         {
             this.genericFlightRepo = genericFlightRepo;
             this.genericDepartureRepo = genericDepartureRepo;
             this.genericDestinationRepo = genericDestinationRepo;
             this.genericAirplaneRepo = genericAirplaneRepo;
+            this.genericLocationRepo = genericLocationRepo;
+
+            this.departureRepo = departureRepo;
+            this.destinationRepo = destinationRepo;
 
             this.mapper = mapper;
+          
         }
+
+
 
         // GET: api/Flights
         [HttpGet]
@@ -45,22 +58,20 @@ namespace FlightServices.Controllers
                 //relaties
                 foreach(Flight f in flights)
                 {
-                    var departure = await genericDepartureRepo.GetByExpressionAsync(d => d.Id == f.DepartureId);
-                    f.Departure = (Departure)departure;
+                    f.Departure = await departureRepo.GetDepartureWithLocationByDepartureId(new Guid(f.DepartureId.ToString()));
 
-                    var destination = await genericDestinationRepo.GetByExpressionAsync(d => d.Id == f.DestinationId);
-                    f.Destination = (Destination)destination;
+                    f.Destination = await destinationRepo.GetDestinationWithLocationByDestinationId(new Guid(f.DestinationId.ToString()));
 
-                    var airplane = await genericAirplaneRepo.GetByExpressionAsync(a => a.Id == f.AirplaneId);
-                    f.Airplane = (Airplane)airplane; 
+                    Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(f.AirplaneId);
+                    f.Airplane = airplane; 
                 }
             }
             catch (Exception ex)
             {
-                return NotFound(new { message = "Flights not found"}); 
+                return NotFound(new { message = "Flights not found" + ex}); 
             }
 
-            var flightsDTO = mapper.Map<IEnumerable<FlightDTO>>(flights);
+            var flightsDTO = mapper.Map<IEnumerable<Flight>>(flights);
             return Ok(flightsDTO); 
             
         }

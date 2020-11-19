@@ -17,14 +17,15 @@ namespace FlightServices.Mapping
 
         private void InitFlightMapper()
         {
-            CreateMap<FlightDTO, Flight>().ForMember(dest => dest.Departure, opt => opt.MapFrom(model => new Departure()
-            {
-                Location = model.DepartureDTO.Location
+            CreateMap<FlightDTO, Flight>()
+                .ForMember(dest => dest.Departure, opt => opt.MapFrom(model => new Departure()
+                {
+                   Location = model.DepartureDTO.Location
 
-            }))
+                }))
                 .ForMember(dest => dest.Destination, opt => opt.MapFrom(model => new Destination()
                 {
-                    Location = model.DestinationDTO.Location,
+                    Location = model.DestinationDTO.Location
                 }))
                 .ForMember(dest => dest.Airplane, opt => opt.MapFrom(model => new Airplane()
                 {
@@ -32,11 +33,12 @@ namespace FlightServices.Mapping
                     Type = model.AirplaneDTO.Type,
                     TotalSeats = model.AirplaneDTO.TotalSeats,
                 }));
-            CreateMap<Flight, FlightDTO>().ForMember(dest => dest.DepartureDTO, opt => opt.MapFrom(model => new Departure()
-            {
-                Location = model.Departure.Location
+            CreateMap<Flight, FlightDTO>()
+                .ForMember(dest => dest.DepartureDTO, opt => opt.MapFrom(model => new Departure()
+                {
+                    Location = model.Departure.Location
 
-            }))
+                }))
                .ForMember(dest => dest.DestinationDTO, opt => opt.MapFrom(model => new Destination()
                {
                    Location = model.Destination.Location,
