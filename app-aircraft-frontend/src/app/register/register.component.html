@@ -16,17 +16,17 @@
 
   
 
-  <div class=" my-auto">
-      <div class="text-center">
-    Sign Up!
+  <div class=" my-auto ">
+      <div class=" text-center my-3 text-3xl font-medium">
+    Sign Up
   </div>
     <form novalidate
          
   
           [formGroup] ="registerForm">
 
-      <div class="">
-        <label class="col-md-8 col-form-label text-maintheme-grey uppercase"
+      <div class="form-group row mb-2">
+        <label class="col-md-4 col-form-label text-maintheme-grey uppercase"
                for="firstNameId">First Name</label>
         <div class="col-md-8 ">
           <input class="form-control"
@@ -162,8 +162,10 @@
           </div>
       </div>
     
- <div class="text-maintheme-3 underline"><a href="">I already have an account</a></div>
-      <div class="form-group row mb-2">
+ <div class="text-maintheme-3 underline flex justify-end">
+     <a  href="">I already have an account</a>
+    </div>
+      <div class="form-group row mb-2 m-3">
         <div class="offset-md-2 col-md-4 flex flex-row justify-center">
           <button class="btn bg-maintheme-3 text-maintheme-1 rounded-md "
                   type="submit"

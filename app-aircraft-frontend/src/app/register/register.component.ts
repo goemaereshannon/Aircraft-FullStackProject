@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators, ValidatorFn, FormArray } from '@angular/forms';
+import {debounceTime} from 'rxjs/operators'
 import { User } from './user';
 
 
@@ -54,8 +55,15 @@ password: ['', [Validators.required, Validators.minLength(8)]],
       // {validator: emailMatcher}
       ),
     })
+    const emailControl = this.registerForm.get('emailGroup.email');
+   // emailControl.valueChanges.subscribe(value => this.setMessage(emailControl));
+
+   //errormessage voor emailvalidation pas displayen nadat user 1 seconde niet getypt heeft
+   emailControl.valueChanges.pipe(debounceTime(1000)).subscribe(value => this.setMessage(emailControl))
   }
-populateTestData(): void{
+  
+
+   populateTestData(): void{
   //.setValue om alle inputs in te vullen, .patchValue om een deel van de inputs in te vullen
   this.registerForm.patchValue({
     firstName: "Jack",
