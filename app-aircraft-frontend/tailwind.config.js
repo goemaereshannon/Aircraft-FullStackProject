@@ -21,7 +21,15 @@ module.exports = {
 
       black: '#000',
       white: '#fff',
+      maintheme: {
+1: "#f1f6fd",
+2: "#35b6ff",
+3: "#4469c3",
+4:"#ffc4a1",
+grey: "#9da5ab",
+black:'#3d4145'
 
+      },
       gray: {
         100: '#f7fafc',
         200: '#edf2f7',
