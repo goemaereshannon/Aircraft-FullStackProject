@@ -48,6 +48,7 @@ namespace FlightServices.Controllers
 
         // GET: api/Flights
         [HttpGet]
+        [Route("/api/flights")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Flight>>> GetFlights()
         {
@@ -75,6 +76,66 @@ namespace FlightServices.Controllers
             return Ok(flightsDTO); 
             
         }
+        // GET: api/Flights
+        [HttpGet]
+        [Route("/api/flightsearch")]
+        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsByDepartureAndDestination([FromBody] FlightSearchDTO flightSearchDTO)
+        {
+            var flights = await GetFlights();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (!string.IsNullOrEmpty(flightSearchDTO.Departure))
+                    {
+                        try
+                        {
+                            IEnumerable<Flight> flightsResult = await genericFlightRepo.GetByExpressionAsync(
+                            f => f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                            f.Departure.Location.Country.Contains(flightSearchDTO.Departure));
+
+                            if (!string.IsNullOrEmpty(flightSearchDTO.Destination))
+                            {
+                                try
+                                {
+                                    IEnumerable<Flight> flightsResult2 = await genericFlightRepo.GetByExpressionAsync(
+                                    f => f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                    f.Destination.Location.Country.Contains(flightSearchDTO.Destination));
+                                    return Ok(flightsResult2);
+                                }
+                                catch (Exception ex)
+                                {
+                                    return NotFound(new { message = "Flights not found with dest" + ex });
+                                }
+
+                            }
+                            else
+                            {
+                                //flights met destination all departure zoekopdracht 
+                               return Ok(flightsResult);
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+
+                            return NotFound(new { message = "Flights not found with dep" + ex });
+                        }
+                    }
+                    else
+                    {
+                        return Ok(flights);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return NotFound(new { message = "Invalid model" + ex });
+            }
+            return null; 
+        }
+
 
         // GET: api/Flights/5
         //[HttpGet("{id}")]
