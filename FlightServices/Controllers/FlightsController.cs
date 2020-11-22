@@ -170,7 +170,7 @@ namespace FlightServices.Controllers
             return null;
         }
 
-        // GET: api/Flights
+        // GET: api/Flightstoday
         [HttpGet]
         [Route("/api/flightstoday")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
@@ -191,6 +191,79 @@ namespace FlightServices.Controllers
 
         }
 
+        // GET: api/flights/destinations/{search}
+        [HttpGet]
+        [Route("/api/flights/destinations/{search}")]
+        [ProducesResponseType(typeof(IEnumerable<DepartureDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<Destination>>> GetAllDestinations(string search)
+        {
+            IEnumerable<Destination> result;
+            try
+            {
+                if (!string.IsNullOrEmpty(search)) {
+                    IEnumerable<Destination> searchResult = await genericDestinationRepo.GetByExpressionAsync(
+                           //  &&
+                           d => d.Location.City.Contains(search) ||
+                           d.Location.Country.Contains(search) ||
+                           d.Location.Airport.Contains(search)
+                           );
+                    //relaties
+                    foreach (Destination d in searchResult)
+                    {
+                        d.Location = await genericLocationRepo.GetAsyncByGuid(d.LocationId);
+                    }
+                    return Ok(searchResult); 
+                }
+                else {
+                    result = await genericDestinationRepo.GetAllAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = "Destination locations not found" + ex });
+            }
+
+            var destinationDTO = mapper.Map<IEnumerable<Destination>>(result);
+            return Ok(destinationDTO);
+
+        }
+        // GET: api/flights/departures/{search}
+        [HttpGet]
+        [Route("/api/flights/departures/{search}")]
+        [ProducesResponseType(typeof(IEnumerable<DepartureDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<Destination>>> GetAllDepartures(string search)
+        {
+            IEnumerable<Departure> result;
+            try
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    IEnumerable<Departure> searchResult = await genericDepartureRepo.GetByExpressionAsync(
+                           d => d.Location.City.Contains(search) ||
+                           d.Location.Country.Contains(search) ||
+                           d.Location.Airport.Contains(search)
+                           );
+                    //relaties
+                    foreach (Departure d in searchResult)
+                    {
+                        d.Location = await genericLocationRepo.GetAsyncByGuid(d.LocationId);
+                    }
+                    return Ok(searchResult);
+                }
+                else
+                {
+                    result = await genericDepartureRepo.GetAllAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = "Departure locations not found" + ex });
+            }
+
+            var departureDTO = mapper.Map<IEnumerable<Departure>>(result);
+            return Ok(departureDTO);
+
+        }
 
         // GET: api/Flights/5
         //[HttpGet("{id}")]
