@@ -23,6 +23,7 @@
     <form novalidate
          
           class="c-form"
+          (ngSubmit)="register()"
           [formGroup] ="registerForm ">
 
       <div class="form-group row mb-4 border-b-0.5 hover:border-b-2 border-maintheme-grey ">
@@ -233,10 +234,10 @@
                   [disabled]="!registerForm.valid">
             Register
           </button>
-          <!-- <button class="btn btn-outline-secondary" type="button" (click)="populateTestData()">Test Data</button> -->
+          <button class="btn btn-outline-secondary" type="button" (click)="populateTestData()">Test Data</button> 
         </div>
       </div>
-     
+
     </form>
   </div>
 </div>

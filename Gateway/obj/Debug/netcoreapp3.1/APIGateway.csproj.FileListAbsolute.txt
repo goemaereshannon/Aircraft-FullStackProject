@@ -74,7 +74,6 @@ C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Develop
 C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\Gateway\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\ocelot.json
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\APIGateway.exe
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\APIGateway.deps.json
@@ -114,3 +113,4 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.pdb
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.genruntimeconfig.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\scopedcss\bundle\APIGateway.styles.css

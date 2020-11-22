@@ -2,10 +2,6 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\IdentityServices.Views.pdb
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\appsettings.Development.json
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\appsettings.json
-C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\Properties\launchSettings.json
-C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\Properties\serviceDependencies.json
-C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\Properties\serviceDependencies.local.json
-C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\IdentityServices.StaticWebAssets.xml
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\IdentityServices.exe
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\IdentityServices.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\Microsoft.AspNetCore.Identity.UI.dll

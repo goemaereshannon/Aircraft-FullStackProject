@@ -194,8 +194,9 @@ namespace IdentityServices.Controllers
         {
             try
             {
-              // var user = await repo.GetAsyncByGuid(userId);
-                var user = await userRepo.GetUserWithAddressByUserId(userId);
+               var user = await repo.GetAsyncByGuid(userId);
+                //var user = await userRepo.GetUserWithAddressByUserId(userId);
+              
                 if(user == null)
                 {
                     return NotFound();

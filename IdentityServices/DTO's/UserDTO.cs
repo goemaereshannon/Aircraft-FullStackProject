@@ -11,15 +11,15 @@ namespace IdentityServices.DTO_s
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        
+       // public string SocialSecurityNumber { get; set; } //has to be editable
 
-        public string SocialSecurityNumber { get; set; } //has to be editable
 
-
-        public AddressDTO AddressDTO { get; set; }
+       // public AddressDTO AddressDTO { get; set; }
 
         
-        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
-        public string BirthDate { get; set; }
+        //[DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
+        //public string BirthDate { get; set; }
 
        
     }

@@ -3,12 +3,13 @@ version: '3.4'
 services:
   identityservices:
     image: ${DOCKER_REGISTRY-}identityservicesaircraft
+    container_name: IdentityServicesAircraft
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
         - ASPNETCORE_URLS=http://+:80
     ports:
         - "32808:80"
-        - "32796:443"
+        
     build:
       context: .
       dockerfile: IdentityServices/Dockerfile

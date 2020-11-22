@@ -13,6 +13,7 @@ services:
     build:
       context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject
       dockerfile: IdentityServices/Dockerfile
+    container_name: IdentityServicesAircraft
     depends_on:
       db:
         condition: service_started
@@ -24,8 +25,6 @@ services:
     - published: 32808
       target: 80
     - target: 80
-    - published: 32796
-      target: 443
     - target: 443
     volumes:
     - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro

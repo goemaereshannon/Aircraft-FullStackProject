@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators, ValidatorFn, FormArray } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {debounceTime} from 'rxjs/operators'
+import { of } from 'rxjs';
 import { User } from './user';
+import {UserService} from './user.service'
 
 
 //custom validator om meerdere inputvelden ten opzichte van elkaar te validaten
@@ -33,7 +36,9 @@ function inputMatcher(formgroup: string):ValidatorFn{
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  user = new User();
+   errorMessage: string;
+ // user = new User();
+ user: User;
   validationMessage ={
     emailMessage:"",
     passwordMessage:''
@@ -50,7 +55,9 @@ export class RegisterComponent implements OnInit {
     }
    
   }
-  constructor(private fb: FormBuilder) { }
+  
+  
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -77,21 +84,59 @@ password: ['', [Validators.required, Validators.minLength(8)]],
 
    //errormessage voor emailvalidation pas displayen nadat user 1 seconde niet getypt heeft
    passwordControl.valueChanges.pipe(debounceTime(1000)).subscribe(value => this.setMessage("password", passwordControl))
+  //this.initializeUser();
   }
   
 
    populateTestData(): void{
   //.setValue om alle inputs in te vullen, .patchValue om een deel van de inputs in te vullen
   this.registerForm.patchValue({
-    firstName: "Jack",
-    lastName: "Harkness",
-    sendCatalog: false
+    firstName: "Alex",
+    lastName: "Christiaens",
+    emailGroup: {
+      email:"alexandra.christiaens@student.howest.be",
+    confirmEmail: "alexandra.christiaens@student.howest.be",
+    },
+    passwordGroup:{
+    
+    password:'Azerty*2020',
+    confirmPassword:'Azerty*2020'
+    }
+
   })
 }
-  save(): void {
+  register(): void {
     
     console.log(this.registerForm);
     console.log('Saved: ' + JSON.stringify(this.registerForm.value));
+  if(this.registerForm.valid){
+    console.log({"registerformdirty": this.registerForm.dirty})
+    if(this.registerForm.dirty){
+
+      //const u= {...this.user};
+    this.user = this.initializeUser();
+      console.log({user: this.user});
+    this.user.firstName = this.registerForm.get('firstName').value;
+      this.user.lastName =this.registerForm.get('lastName').value;
+      this.user.email=this.registerForm.get('emailGroup.email').value;
+      this.user.password=this.registerForm.get('passwordGroup.password').value;
+      console.log({user: this.user});
+      var result = this.userService.registerUser(this.user).subscribe({
+              next: () => this.onSaveComplete(),
+              error: err => {this.errorMessage = err; this.validationMessage['emailMessage'] = err;}
+            });;
+      console.log({result})
+      console.log({error: this.errorMessage})
+    }
+    else{
+      this.registerForm.reset();
+     // this.router.navigate('/login')
+console.log("dashboard laden")
+
+    }
+  }
+  
+  
   }
   setMessage(formgroup: string, c:AbstractControl): void{
   this.validationMessage.emailMessage ='';
@@ -106,4 +151,17 @@ password: ['', [Validators.required, Validators.minLength(8)]],
 
   }
 }
+private initializeUser(): User{
+      return{ firstName : '',
+    lastName: '',
+     email: '',
+     password: ''}
+
+  }
+onSaveComplete(): void {
+    // Reset the form to clear the flags
+    this.registerForm.reset();
+    console.log('geregistreerd')
+    //this.router.navigate(['/products']);
+  }
 }

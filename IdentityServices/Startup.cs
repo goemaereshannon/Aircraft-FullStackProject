@@ -79,6 +79,18 @@ namespace IdentityServices
                 //2. Include de xml file 
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowOrigins", builder =>
+                {
+                    builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin() // niet toegelaten indien credentials
+                   // .WithOrigins("https://localhost", "http://localhost")
+                   // .AllowCredentials()
+                    ;
+                });
+            });
 
         }
 
@@ -96,6 +108,7 @@ namespace IdentityServices
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors("MyAllowOrigins");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

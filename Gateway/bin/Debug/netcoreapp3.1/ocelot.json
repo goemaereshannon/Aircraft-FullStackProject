@@ -22,12 +22,14 @@
 
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
+          //"Host": "localhost",
+          "Host": "identityservices",
+         // "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
+          "Port":80 // --> externe dockerpoort van de identityservvice
         }
       ],
       "DownstreamPathTemplate": "/api/{allServices}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/{allServices}",
       //"ServiceName": "identity",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
@@ -36,12 +38,14 @@
     {
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44398 //https poort van de service 
+          //"Host": "localhost",
+          "Host": "identityservices",
+          //"Port": 44398, //https poort van de service 
+          "Port": 80 // --> externe dockerpoort van de identityservvice
         }
       ],
       "DownstreamPathTemplate": "/swagger/{page}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/swagger/{page}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
@@ -86,7 +90,8 @@
   ],
   "GlobalConfiguration": {
     "RequestIdKey": "OcRequestId",
-    "BaseUrl": null,
-    "https": 44344 //localhost:44382 //https poort van de gateway //launchsettings.json van de gateway
+    "BaseUrl": "http://localhost:32808",
+    //"BaseUrl": null,
+     "https": 44344 //localhost:44382 //https poort van de gateway //launchsettings.json van de gateway
   }
 }
