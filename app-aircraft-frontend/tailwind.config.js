@@ -9,6 +9,11 @@ module.exports = {
   important: false,
   separator: ':',
   theme: {
+    extend: {
+      fontFamily: {
+        'sans': ['Roboto', 'Helvetica', 'Arial', 'sans-serif']
+      }
+    },
     screens: {
       sm: '640px',
       md: '768px',
@@ -22,10 +27,10 @@ module.exports = {
       black: '#000',
       white: '#fff',
       maintheme: {
-1: "#f1f6fd",
-2: "#35b6ff",
-3: "#4469c3",
-4:"#ffc4a1",
+lightblue: "#f1f6fd",
+blue: "#35b6ff",
+darkblue: "#4469c3",
+salmon:"#ffc4a1",
 grey: "#9da5ab",
 black:'#3d4145'
 
@@ -211,6 +216,7 @@ black:'#3d4145'
     borderWidth: {
       default: '1px',
       '0': '0',
+      '0.5':'0.5px',
       '2': '2px',
       '4': '4px',
       '8': '8px',
