@@ -28,8 +28,9 @@ namespace FlightServices.Controllers
 
         private readonly IDepartureRepo departureRepo;
         private readonly IDestinationRepo destinationRepo;
+        private readonly IFlightRepo flightRepo; 
 
-        public FlightsController(IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo)
+        public FlightsController(IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IFlightRepo flightRepo)
         {
             this.genericFlightRepo = genericFlightRepo;
             this.genericDepartureRepo = genericDepartureRepo;
@@ -39,6 +40,7 @@ namespace FlightServices.Controllers
 
             this.departureRepo = departureRepo;
             this.destinationRepo = destinationRepo;
+            this.flightRepo = flightRepo; 
 
             this.mapper = mapper;
           
@@ -76,43 +78,75 @@ namespace FlightServices.Controllers
             return Ok(flightsDTO); 
             
         }
-        // GET: api/Flights
+      
+
+        // GET: api/flightsearch
         [HttpGet]
         [Route("/api/flightsearch")]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsByDepartureAndDestination([FromBody] FlightSearchDTO flightSearchDTO)
+        [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsByDateBasedOnDepartureAndDestination([FromBody] FlightSearchDTO flightSearchDTO)
         {
             var flights = await GetFlights();
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (!string.IsNullOrEmpty(flightSearchDTO.Departure))
+                    //Er werd iets in Departure ingevuld
+                    if (!string.IsNullOrEmpty(flightSearchDTO.Departure) )
                     {
                         try
                         {
-                            IEnumerable<Flight> flightsResult = await genericFlightRepo.GetByExpressionAsync(
+                            IEnumerable<Flight> depResult = await genericFlightRepo.GetByExpressionAsync(
+                             //  &&
                             f => f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
                             f.Departure.Location.Country.Contains(flightSearchDTO.Departure));
-
-                            if (!string.IsNullOrEmpty(flightSearchDTO.Destination))
+                            //departure en departure time zijn ingevuld 
+                            if (flightSearchDTO.DepartureTime != null)
                             {
-                                try
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f => f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime);
+                                List<Flight> depAndTResult = new List<Flight>(); 
+                                foreach(var item in result)
                                 {
-                                    IEnumerable<Flight> flightsResult2 = await genericFlightRepo.GetByExpressionAsync(
-                                    f => f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
-                                    f.Destination.Location.Country.Contains(flightSearchDTO.Destination));
-                                    return Ok(flightsResult2);
+                                    foreach(var flight in depResult)
+                                    {
+                                        if(item.Id == flight.Id)
+                                        {
+                                            depAndTResult.Add(item);
+                                        }
+                                    }
                                 }
-                                catch (Exception ex)
+                                IEnumerable<Flight> resultList = await flightRepo.GetFlightsByDateBasedOnDestination(flightSearchDTO, depAndTResult);
+                                List<Flight> depTandDestResult = new List<Flight>();
+                                foreach (var item in resultList)
                                 {
-                                    return NotFound(new { message = "Flights not found with dest" + ex });
+                                    foreach (var flight in depAndTResult)
+                                    {
+                                        if (item.Id == flight.Id)
+                                        {
+                                            depTandDestResult.Add(item);
+                                        }
+                                    }
                                 }
-
+                                return Ok(depTandDestResult); 
                             }
+
                             else
                             {
-                                //flights met destination all departure zoekopdracht 
-                               return Ok(flightsResult);
+                                 
+                                IEnumerable<Flight> resultList = await flightRepo.GetFlightsByDateBasedOnDestination(flightSearchDTO, depResult);
+                                List<Flight> result = new List<Flight>();
+                                foreach (var item in resultList)
+                                {
+                                    foreach (var flight in depResult)
+                                    {
+                                        if (item.Id == flight.Id)
+                                        {
+                                            result.Add(item);
+                                        }
+                                    }
+                                }
+                                return Ok(result); 
+
                             }
 
                         }
@@ -133,7 +167,7 @@ namespace FlightServices.Controllers
 
                 return NotFound(new { message = "Invalid model" + ex });
             }
-            return null; 
+            return null;
         }
 
 

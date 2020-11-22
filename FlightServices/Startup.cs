@@ -37,8 +37,8 @@ namespace FlightServices
             //repos
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped<IDestinationRepo, DestinationRepo>(); 
-            services.AddScoped<IDepartureRepo, DepartureRepo>(); 
-
+            services.AddScoped<IDepartureRepo, DepartureRepo>();
+            services.AddScoped<IFlightRepo, FlightRepo>();
 
             //mapper 
             services.AddAutoMapper(typeof(FlightProfiles)); 
