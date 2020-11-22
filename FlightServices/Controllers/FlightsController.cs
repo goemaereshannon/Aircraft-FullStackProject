@@ -170,6 +170,27 @@ namespace FlightServices.Controllers
             return null;
         }
 
+        // GET: api/Flights
+        [HttpGet]
+        [Route("/api/flightstoday")]
+        [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsToday()
+        {
+            IEnumerable<Flight> result; 
+            try
+            {
+                result = await genericFlightRepo.GetByExpressionAsync(f => f.TimeOfDeparture.Date == DateTime.Now.Date);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = "Flights not found" + ex });
+            }
+
+            var flightsDTO = mapper.Map<IEnumerable<Flight>>(result);
+            return Ok(flightsDTO);
+
+        }
+
 
         // GET: api/Flights/5
         //[HttpGet("{id}")]
