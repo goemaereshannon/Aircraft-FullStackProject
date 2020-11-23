@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZMWRjtHfra0ARGb3FNRBKJltImDMZ93+yifj86SrIWqcwTqasG3w+kDANmyYjDzBjshj5JZHblhme787s97kAg==",
+  "dgSpecHash": "mOsUW4AVq4UO7VlyWH0yJAvsaA77tlSvw2uicTKvLJQgM/APu60p8sVzH6Az2v4aBK2jCVQaQ6dho/Fy01ahdw==",
   "success": true,
   "projectFilePath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Gateway\\APIGateway.csproj",
   "expectedPackageFiles": [
@@ -20,6 +20,7 @@
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.identitymodel.protocols\\5.5.0\\microsoft.identitymodel.protocols.5.5.0.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\5.5.0\\microsoft.identitymodel.protocols.openidconnect.5.5.0.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.8.0\\microsoft.identitymodel.tokens.6.8.0.nupkg.sha512",
+    "C:\\Users\\alexi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\ocelot\\16.0.1\\ocelot.16.0.1.nupkg.sha512",

@@ -17,18 +17,24 @@
     //  }
 
     //},
+
+
+
+
     {
 
 
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
+          //"Host": "localhost",
+          "Host": "identityservices",
+          // "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
+          "Port": 80 // --> externe dockerpoort van de identityservvice
         }
       ],
-      "DownstreamPathTemplate": "/api/{allServices}",
-      "DownstreamScheme": "https",
-      "UpstreamPathTemplate": "/api/{allServices}",
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/login",
       //"ServiceName": "identity",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
 
@@ -36,15 +42,31 @@
     {
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44398 //https poort van de service 
+          //"Host": "localhost",
+          "Host": "identityservices",
+          //"Port": 44398, //https poort van de service 
+          "Port": 80 // --> externe dockerpoort van de identityservvice
+        }
+      ],
+      "DownstreamPathTemplate": "/swagger/v1/{page}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/identity/swagger/v1/{page}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamHostAndPorts": [
+        {
+          //"Host": "localhost",
+          "Host": "identityservices",
+          //"Port": 44398, //https poort van de service 
+          "Port": 80 // --> externe dockerpoort van de identityservvice
         }
       ],
       "DownstreamPathTemplate": "/swagger/{page}",
-      "DownstreamScheme": "https",
-      "UpstreamPathTemplate": "/swagger/{page}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/identity/swagger/index.html",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-    },
+    }
     //{
     //  "DownstreamHostAndPorts": [
     //    {
@@ -86,7 +108,8 @@
   ],
   "GlobalConfiguration": {
     "RequestIdKey": "OcRequestId",
-    "BaseUrl": null,
-    "https": 44344 //localhost:44382 //https poort van de gateway //launchsettings.json van de gateway
+    "BaseUrl": "http://localhost:32820",
+    //"BaseUrl": null,
+    // "http": 32820 //localhost:44382 //https poort van de gateway //launchsettings.json van de gateway
   }
 }

@@ -52,16 +52,16 @@ namespace IdentityServices.Data
                         Email = "emailAdmin" + i + "@howest.be",
                         UserName = "emailAdmin" + i + "@howest.be",
                         //CardNumber= $"{i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i} {i}{i}{i}{i}",
-                        Address = new Address
-                        {
-                            StreetName = "Graaf Karel De Goedelaan",
-                            HouseNumber = 5,
-                            PostCode = "8850",
-                            City = "Kortrijk",
-                            Country = "België"
+                        //Address = new Address
+                        //{
+                        //    StreetName = "Graaf Karel De Goedelaan",
+                        //    HouseNumber = 5,
+                        //    PostCode = "8850",
+                        //    City = "Kortrijk",
+                        //    Country = "België"
 
-                        },
-                        BirthDate = Convert.ToDateTime("07/11/1995")
+                        //},
+                        //BirthDate = Convert.ToDateTime("07/11/1995")
 
                     };
                     await userManager.CreateAsync(admin, $"Admin@{i}") ;

@@ -55,8 +55,19 @@ namespace Gateway
                 options.SaveToken = true;
 
             });
-        
-    }
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowOrigins", builder =>
+                {
+                    builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin() // niet toegelaten indien credentials
+                   // .WithOrigins("https://localhost", "http://localhost")
+                    //.AllowCredentials()
+                    ;
+                });
+            });
+        }
     
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +83,7 @@ namespace Gateway
                 currentUrl = context.Request.GetDisplayUrl();
                 return next.Invoke();
             });
+            app.UseCors("MyAllowOrigins");
 
             app.UseRouting();
             app.UseAuthorization();

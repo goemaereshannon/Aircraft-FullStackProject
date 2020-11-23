@@ -6,6 +6,6 @@ namespace IdentityServices.Repositories
 {
     public interface IUserRepo
     {
-        Task<User> GetUserWithAddressByUserId(Guid userId);
+        //Task<User> GetUserWithAddressByUserId(Guid userId);
     }
 }

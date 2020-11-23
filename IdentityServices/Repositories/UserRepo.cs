@@ -16,9 +16,9 @@ namespace IdentityServices.Repositories
         {
             context = _context;
         }
-        public async Task<User> GetUserWithAddressByUserId(Guid userId)
-        {
-            return await _context.Users.Include(u => u.Address).Where(u => u.Id == userId).FirstOrDefaultAsync();
-        }
+        //public async Task<User> GetUserWithAddressByUserId(Guid userId)
+        //{
+        //    return await _context.Users.Include(u => u.Address).Where(u => u.Id == userId).FirstOrDefaultAsync();
+        //}
     }
 }
