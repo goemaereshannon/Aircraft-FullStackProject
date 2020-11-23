@@ -41,7 +41,10 @@ namespace FlightServices
             services.AddScoped<IFlightRepo, FlightRepo>();
 
             //mapper 
-            services.AddAutoMapper(typeof(FlightProfiles)); 
+            services.AddAutoMapper(typeof(FlightProfiles));
+
+            //memory cache 
+            services.AddMemoryCache(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

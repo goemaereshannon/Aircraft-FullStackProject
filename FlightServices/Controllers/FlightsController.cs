@@ -11,6 +11,8 @@ using AutoMapper;
 using FlightServices.DTOs;
 using FlightServices.Repositories;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.Extensions.Caching.Memory;
+using FlightServices.Helpers;
 
 namespace FlightServices.Controllers
 {
@@ -18,6 +20,8 @@ namespace FlightServices.Controllers
     [ApiController]
     public class FlightsController : ControllerBase
     {
+        private readonly IMemoryCache memoryCache;
+
         //private readonly FlightServicesContext _context;
         private readonly IGenericRepo<Flight> genericFlightRepo;
         private readonly IGenericRepo<Departure> genericDepartureRepo;
@@ -31,8 +35,10 @@ namespace FlightServices.Controllers
         private readonly IDestinationRepo destinationRepo;
         private readonly IFlightRepo flightRepo; 
 
-        public FlightsController(IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IFlightRepo flightRepo)
+        public FlightsController(IMemoryCache memoryCache,IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IFlightRepo flightRepo)
         {
+            this.memoryCache = memoryCache;
+
             this.genericFlightRepo = genericFlightRepo;
             this.genericDepartureRepo = genericDepartureRepo;
             this.genericDestinationRepo = genericDestinationRepo;
@@ -177,17 +183,30 @@ namespace FlightServices.Controllers
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsToday()
         {
-            IEnumerable<Flight> result; 
+            IEnumerable<Flight> flightsCached;
+
             try
             {
-                result = await genericFlightRepo.GetByExpressionAsync(f => f.TimeOfDeparture.Date == DateTime.Now.Date);
+                if (!memoryCache.TryGetValue(CacheKeys.TodaysFlightsCacheKey, out flightsCached))
+                {
+                    flightsCached = await genericFlightRepo.GetByExpressionAsync(f => f.TimeOfDeparture.Date == DateTime.Now.Date);
+                    DateTime expiration = DateTime.Today.AddDays(1);
+                    var cacheEntryOtions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(expiration);
+                    memoryCache.Set(CacheKeys.TodaysFlightsCacheKey, flightsCached, cacheEntryOtions); 
+                }
+                else
+                {
+                    //cache bestaat 
+                    flightsCached = (ICollection<Flight>)memoryCache.Get(CacheKeys.TodaysFlightsCacheKey); 
+                }
             }
+              
             catch (Exception ex)
             {
                 return NotFound(new { message = "Flights not found" + ex });
             }
 
-            var flightsDTO = mapper.Map<IEnumerable<Flight>>(result);
+            var flightsDTO = mapper.Map<IEnumerable<Flight>>(flightsCached);
             return Ok(flightsDTO);
 
         }
