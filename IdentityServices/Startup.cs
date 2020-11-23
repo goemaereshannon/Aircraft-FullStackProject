@@ -109,7 +109,7 @@ namespace IdentityServices
                 app.UseHsts();
             }
             app.UseCors("MyAllowOrigins");
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

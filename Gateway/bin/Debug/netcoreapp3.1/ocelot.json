@@ -17,6 +17,10 @@
     //  }
 
     //},
+
+
+
+
     {
 
 
@@ -24,13 +28,13 @@
         {
           //"Host": "localhost",
           "Host": "identityservices",
-         // "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
-          "Port":80 // --> externe dockerpoort van de identityservvice
+          // "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
+          "Port": 80 // --> externe dockerpoort van de identityservvice
         }
       ],
-      "DownstreamPathTemplate": "/api/{allServices}",
+      "DownstreamPathTemplate": "/api/auth/login",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/api/{allServices}",
+      "UpstreamPathTemplate": "/login",
       //"ServiceName": "identity",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
 
@@ -44,11 +48,25 @@
           "Port": 80 // --> externe dockerpoort van de identityservvice
         }
       ],
-      "DownstreamPathTemplate": "/swagger/{page}",
+      "DownstreamPathTemplate": "/swagger/v1/{page}",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/swagger/{page}",
+      "UpstreamPathTemplate": "/identity/swagger/v1/{page}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
+    {
+      "DownstreamHostAndPorts": [
+        {
+          //"Host": "localhost",
+          "Host": "identityservices",
+          //"Port": 44398, //https poort van de service 
+          "Port": 80 // --> externe dockerpoort van de identityservvice
+        }
+      ],
+      "DownstreamPathTemplate": "/swagger/{page}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/identity/swagger/index.html",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    }
     //{
     //  "DownstreamHostAndPorts": [
     //    {
@@ -90,8 +108,8 @@
   ],
   "GlobalConfiguration": {
     "RequestIdKey": "OcRequestId",
-    "BaseUrl": "http://localhost:32808",
+    "BaseUrl": "http://localhost:32820",
     //"BaseUrl": null,
-     "https": 44344 //localhost:44382 //https poort van de gateway //launchsettings.json van de gateway
+    // "http": 32820 //localhost:44382 //https poort van de gateway //launchsettings.json van de gateway
   }
 }

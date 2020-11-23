@@ -23,3 +23,9 @@ services:
     ports: ["1833:1433"]
     volumes:
       ["${APPDATA}/DockerVolumes/sqlserver:/var/opt/mssql/data"]
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+
