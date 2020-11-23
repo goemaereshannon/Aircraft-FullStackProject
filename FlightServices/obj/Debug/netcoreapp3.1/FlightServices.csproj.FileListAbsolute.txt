@@ -99,4 +99,9 @@ D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3
 D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\obj\Debug\netcoreapp3.1\FlightServices.csproj.CoreCompileInputs.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\obj\Debug\netcoreapp3.1\FlightServices.MvcApplicationPartsAssemblyInfo.cs
 D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\obj\Debug\netcoreapp3.1\FlightServices.MvcApplicationPartsAssemblyInfo.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll

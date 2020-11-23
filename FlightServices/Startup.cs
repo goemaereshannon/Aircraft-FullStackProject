@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace FlightServices
 {
@@ -44,7 +45,13 @@ namespace FlightServices
             services.AddAutoMapper(typeof(FlightProfiles));
 
             //memory cache 
-            services.AddMemoryCache(); 
+            services.AddMemoryCache();
+
+            //swagger 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Flight_DBc", Version = "v1" });
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +80,14 @@ namespace FlightServices
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //swagger 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.RoutePrefix = "swagger";
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flight_DBc v1");
+            }); 
         }
     }
 }
