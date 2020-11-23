@@ -8,6 +8,6 @@ namespace FlightServices.DTOs
 {
     public class DepartureDTO
     {
-        public Location Location { get; set; }
+        public LocationDTO LocationDTO { get; set; }
     }
 }

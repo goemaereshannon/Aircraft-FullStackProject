@@ -10,6 +10,7 @@ using FlightServices.Models;
 using AutoMapper;
 using FlightServices.DTOs;
 using FlightServices.Repositories;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace FlightServices.Controllers
 {
@@ -263,6 +264,59 @@ namespace FlightServices.Controllers
             var departureDTO = mapper.Map<IEnumerable<Departure>>(result);
             return Ok(departureDTO);
 
+        }
+
+        [HttpPatch]
+        [Route("/api/flights/{flightId}")]
+        public async Task<IActionResult> PartiallyUpdateRecipe(string flightId, [FromBody] JsonPatchDocument<FlightDTO> patchDoc)
+        {
+            try
+            {
+                //1. validaties en app via mapping ophalen
+                if ((patchDoc == null) || (flightId == null) || (flightId == ""))
+                {
+                    return BadRequest();
+                }
+                Guid guid = Guid.Parse(flightId);
+                IEnumerable<Flight> flights = (await genericFlightRepo.GetByExpressionAsync(f =>
+                f.Id.Equals(guid)));
+                if (flights == null || flights.Count() == 0)
+                {
+                    return NotFound();
+                }
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+                //2. FlightDTO ophalen
+                Flight flight = flights.First();
+                Guid depId = flight.DepartureId;
+                Guid destId = flight.DestinationId;
+                Guid airplId = flight.AirplaneId; 
+                flight.Departure = await genericDepartureRepo.GetAsyncByGuid(flight.DepartureId);
+                flight.Destination = await genericDestinationRepo.GetAsyncByGuid(flight.DestinationId);
+                flight.Airplane = await genericAirplaneRepo.GetAsyncByGuid(flight.AirplaneId);
+                var flightDTOtoPatch = mapper.Map<Flight, FlightDTO>(flight); //map naar DTO
+                var tempId = guid; //alleen indien verdwenen door mapping
+                try
+                {
+                    //2. Patch uitvoeren op het JsonDoc
+                    patchDoc.ApplyTo(flightDTOtoPatch); //PATCH TOEPASSEN OP DTO
+                    flight = mapper.Map<Flight>(flightDTOtoPatch);
+                    flight.DepartureId = depId;
+                    flight.DestinationId = destId; 
+                    flight.AirplaneId = airplId; 
+                    await genericFlightRepo.Update(flight, tempId); //generic repo
+                }
+                catch (Exception exc)
+                {
+                    throw new Exception($"Patchupdate of {guid} failed. {exc.InnerException.Message}");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
+            return NoContent();
         }
 
         // GET: api/Flights/5

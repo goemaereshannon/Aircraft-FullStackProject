@@ -12,7 +12,7 @@ namespace FlightServices.DTOs
         public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime TimeOfDeparture { get; set; }
         public DateTime TimeOfArrival { get; set; }
-
+        public string FlightStatus { get; set; }
 
         public DepartureDTO DepartureDTO { get; set; }
         public DestinationDTO DestinationDTO { get; set; }

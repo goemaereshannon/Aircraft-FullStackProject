@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "nejjm32QntG1x5MUqdvA7fBp9/3vLtlEAJvIxxs5cS5qwsQaphI8GeKXVPzRiZRPkrQHsXrIwr8rrLQq1ZTYWA==",
+  "dgSpecHash": "doo2Y0kyfV3u3jW3ljVj4jI30/BcOegu4vQXnK2rfJzI5SEkg1vqtobt8imI8Jyi5Y5lm7ye6fT0HPGNiYmAKg==",
   "success": true,
   "projectFilePath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\FlightServices\\FlightServices.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Shannon\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Shannon\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.0\\automapper.extensions.microsoft.dependencyinjection.8.1.0.nupkg.sha512",
-    "C:\\Users\\Shannon\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.10\\microsoft.aspnetcore.jsonpatch.3.1.10.nupkg.sha512",
+    "C:\\Users\\Shannon\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.0\\microsoft.aspnetcore.jsonpatch.5.0.0.nupkg.sha512",
     "C:\\Users\\Shannon\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.10\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.10.nupkg.sha512",
     "C:\\Users\\Shannon\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Shannon\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

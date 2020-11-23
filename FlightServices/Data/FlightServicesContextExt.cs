@@ -39,7 +39,8 @@ namespace FlightServices.Data
                 TimeOfArrival = Convert.ToDateTime("15-12-2020 18:00"),
                 DepartureId = new Guid("79A86C66-F7E4-4BC4-9E01-525AD78754BD"),
                 DestinationId = new Guid("628B89E3-FFD4-4659-BA39-C67EEE11672B"),
-                AirplaneId = new Guid("9E17AF7B-DF05-4C69-94B8-586659C7152F")
+                AirplaneId = new Guid("9E17AF7B-DF05-4C69-94B8-586659C7152F"),
+                FlightStatus = "On time"
             },
             new Flight
             {
@@ -48,7 +49,8 @@ namespace FlightServices.Data
                 TimeOfArrival = Convert.ToDateTime("15-12-2020 15:30"),
                 DepartureId = new Guid("0AE2E025-10A8-4437-8A5B-9DDFFC77C180"),
                 DestinationId = new Guid("120DFA74-5A34-42DF-8C5D-345E3EC82458"),
-                AirplaneId = new Guid("9579B6CD-CAD5-4608-88A6-270CE03F5A35")
+                AirplaneId = new Guid("9579B6CD-CAD5-4608-88A6-270CE03F5A35"),
+                FlightStatus = "On time"
             }
         };
         private readonly static List<Departure> _departureData = new List<Departure>
