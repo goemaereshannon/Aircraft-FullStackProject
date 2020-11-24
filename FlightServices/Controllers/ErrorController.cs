@@ -35,14 +35,14 @@ namespace FlightServices.Controllers
                         exceptionMessage = new ExceptionMessage()
                         {
                             Error = "Request Error",
-                            Message = $"Jouw request bevat een fout met status code {statusCode}. {errorMessage}",
-                            ErrorRoute = (statusCodeData?.OriginalPath != null) ? "Jouw route: " + (statusCodeData?.OriginalPath != null) : null
+                            Message = $"Your request contains an error with status code {statusCode}. {errorMessage}",
+                            ErrorRoute = (statusCodeData?.OriginalPath != null) ? "Your route: " + (statusCodeData?.OriginalPath != null) : null
                         };
                         break;
                     case int n when (statusCode >= 500 && statusCode < 600):
                         exceptionMessage = new ExceptionMessage()
                         {
-                            Message = "Server side error, contacteer de administrator"
+                            Message = "Server side error, contact administrator"
                         };
                         break; 
                 }

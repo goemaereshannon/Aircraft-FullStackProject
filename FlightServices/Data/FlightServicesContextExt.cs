@@ -34,7 +34,7 @@ namespace FlightServices.Data
         {
             new Flight
             {
-                Id= Guid.NewGuid(),
+                Id= new Guid("d470123f-7795-4158-aa2b-9088e29de88d"),
                 TimeOfDeparture = Convert.ToDateTime("15-12-2020 16:00"),
                 TimeOfArrival = Convert.ToDateTime("15-12-2020 18:00"),
                 DepartureId = new Guid("79A86C66-F7E4-4BC4-9E01-525AD78754BD"),
@@ -44,7 +44,7 @@ namespace FlightServices.Data
             },
             new Flight
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("33478a6b-437f-4416-932d-638b1c0415ea"),
                 TimeOfDeparture = Convert.ToDateTime("15-12-2020 15:00"),
                 TimeOfArrival = Convert.ToDateTime("15-12-2020 15:30"),
                 DepartureId = new Guid("0AE2E025-10A8-4437-8A5B-9DDFFC77C180"),

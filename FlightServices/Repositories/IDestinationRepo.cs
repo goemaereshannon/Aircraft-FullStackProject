@@ -6,6 +6,7 @@ namespace FlightServices.Repositories
 {
     public interface IDestinationRepo
     {
-        Task<Destination> GetDestinationWithLocationByDestinationId(Guid destinationId); 
+        Task<Destination> GetDestinationWithLocationByDestinationId(Guid destinationId);
+        Task<Destination> GetDestinationByLocationAirport(string airportcode);
     }
 }

@@ -399,3 +399,10 @@ D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreap
 D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.dll
 D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.pdb
 D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.genruntimeconfig.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\bin\Debug\netcoreapp3.1\EntityFramework.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.csproj.CoreCompileInputs.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.MvcApplicationPartsAssemblyInfo.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.MvcApplicationPartsAssemblyInfo.cache

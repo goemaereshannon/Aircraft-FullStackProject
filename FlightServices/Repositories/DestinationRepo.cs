@@ -21,5 +21,9 @@ namespace FlightServices.Repositories
         {
             return await _context.Destinations.Include(d => d.Location).Where(u => u.Id == destinationId).FirstOrDefaultAsync();
         }
+        public async Task<Destination> GetDestinationByLocationAirport(string airportcode)
+        {
+            return await _context.Destinations.Include(d => d.Location).Where(u => u.Location.Airport.Contains(airportcode)).FirstOrDefaultAsync();
+        }
     }
 }

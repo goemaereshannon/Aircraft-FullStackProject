@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FlightServices</name>
+    </assembly>
+    <members>
+        <member name="M:FlightServices.Controllers.FlightsController.PostFlight(FlightServices.DTOs.FlightDTO)">
+            <summary>
+            Voeg een nieuwe flight toe. Een vertrek- of aankomstplaats of vliegtuig die niet bestaat wordt aangemaakt De response bevat info over de toegevoegde vlucht. 
+            </summary>
+            <param name="flightDTO"> </param>
+            <returns > Nieuwe vlucht </returns>
+        </member>
+    </members>
+</doc>

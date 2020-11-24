@@ -619,3 +619,14 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.pdb
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.genruntimeconfig.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.MvcApplicationPartsAssemblyInfo.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.RazorAssemblyInfo.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.RazorAssemblyInfo.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.TagHelpers.input.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.TagHelpers.output.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.RazorCoreGenerate.cache
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\3MCT\Fullstack\Aircraft-FullStackProject\Aircraft_Backend\obj\Debug\netcoreapp3.1\Aircraft.API.RazorTargetAssemblyInfo.cs

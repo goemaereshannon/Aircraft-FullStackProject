@@ -33,9 +33,10 @@ namespace FlightServices.Controllers
 
         private readonly IDepartureRepo departureRepo;
         private readonly IDestinationRepo destinationRepo;
-        private readonly IFlightRepo flightRepo; 
+        private readonly IFlightRepo flightRepo;
+        private readonly IAirplaneRepo airplaneRepo;
 
-        public FlightsController(IMemoryCache memoryCache,IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IFlightRepo flightRepo)
+        public FlightsController(IMemoryCache memoryCache,IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IFlightRepo flightRepo, IAirplaneRepo airplaneRepo)
         {
             this.memoryCache = memoryCache;
 
@@ -47,7 +48,8 @@ namespace FlightServices.Controllers
 
             this.departureRepo = departureRepo;
             this.destinationRepo = destinationRepo;
-            this.flightRepo = flightRepo; 
+            this.flightRepo = flightRepo;
+            this.airplaneRepo = airplaneRepo;
 
             this.mapper = mapper;
           
@@ -58,7 +60,7 @@ namespace FlightServices.Controllers
         // GET: api/Flights
         [HttpGet("/api/flights")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlights()
+        public async Task<ActionResult<IEnumerable<FlightDTO>>> GetFlights()
         {
             IEnumerable<Flight> flights; 
             try
@@ -88,11 +90,12 @@ namespace FlightServices.Controllers
         // GET: api/Flights/{id}
         [HttpGet("/api/flights/{id}")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightDetails(string id)
+        public async Task<ActionResult<FlightDTO>> GetFlightDetails(string id)
         {
-            Flight flight; 
+            Flight flight;
             try
             {
+                
                 flight = await genericFlightRepo.GetAsyncByGuid(new Guid(id));
                 //relaties
             
@@ -118,7 +121,7 @@ namespace FlightServices.Controllers
         // GET: api/flightsearch
         [HttpGet("/api/flightsearch")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsByDateBasedOnDepartureAndDestination([FromBody] FlightSearchDTO flightSearchDTO)
+        public async Task<ActionResult<IEnumerable<FlightDTO>>> GetFlightsByDateBasedOnDepartureAndDestination([FromBody] FlightSearchDTO flightSearchDTO)
         {
             var flights = await GetFlights();
             try
@@ -207,7 +210,7 @@ namespace FlightServices.Controllers
         // GET: api/Flightstoday
         [HttpGet("/api/flightstoday")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Flight>>> GetFlightsToday()
+        public async Task<ActionResult<IEnumerable<FlightDTO>>> GetFlightsToday()
         {
             IEnumerable<Flight> flightsCached;
 
@@ -240,7 +243,7 @@ namespace FlightServices.Controllers
         // GET: api/flights/destinations/{search}
         [HttpGet("/api/flights/destinations/{search}")]
         [ProducesResponseType(typeof(IEnumerable<DepartureDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Destination>>> GetAllDestinations(string search)
+        public async Task<ActionResult<IEnumerable<DestinationDTO>>> GetAllDestinations(string search)
         {
             IEnumerable<Destination> result;
             try
@@ -274,8 +277,8 @@ namespace FlightServices.Controllers
         }
         // GET: api/flights/departures/{search}
         [HttpGet("/api/flights/departures/{search}")]
-        [ProducesResponseType(typeof(IEnumerable<DepartureDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Destination>>> GetAllDepartures(string search)
+        [ProducesResponseType(typeof(IEnumerable<DestinationDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<DestinationDTO>>> GetAllDepartures(string search)
         {
             IEnumerable<Departure> result;
             try
@@ -308,7 +311,12 @@ namespace FlightServices.Controllers
             return Ok(departureDTO);
 
         }
-
+        /// <summary>
+        /// Gedeeltelijk updaten van vlucht: vluchtstatus 
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <param name="patchDoc">[{"value": "new value", "path":"FlightStatus", "op":"replace"}]</param>
+        /// <returns></returns>
         [HttpPatch("/api/flights/{flightId}")]
         public async Task<IActionResult> PartiallyUpdateRecipe(string flightId, [FromBody] JsonPatchDocument<FlightDTO> patchDoc)
         {
@@ -361,38 +369,166 @@ namespace FlightServices.Controllers
             return NoContent();
         }
 
-        // POST: api/Flights
-        [HttpPost("/api/flights")]
-        public async Task<ActionResult<Flight>> PostFlight([FromBody] FlightDTO flightDTO)
+        [HttpPost("/api/flights/airplane")]
+        public async Task<ActionResult<AirplaneDTO>> PostAirplane([FromBody] AirplaneDTO airplaneDTO)
         {
-            if (flightDTO == null)
+            if (ModelState.IsValid)
             {
-                return BadRequest(new { Message = "Geen vlucht input" });
+                    Airplane airplane = mapper.Map<Airplane>(airplaneDTO);
+                    await genericAirplaneRepo.Create(airplane);
+                    return Ok(airplaneDTO);
             }
-            var flight = mapper.Map<Flight>(flightDTO);
-            if (flight == null)
-            {
-                return BadRequest(new { Message = "Onvoldoende data bij vlucht" });
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            try
-            {
-                await genericFlightRepo.Create(flight);
-                return CreatedAtAction("GetFlightById", new { id = flight.Id }, mapper.Map<FlightDTO>(flight));
-            }
-            catch (Exception)
+            else
             {
                 return RedirectToAction("HandleErrorCode", "Error", new
                 {
                     statusCode = 400,
-                    errorMessage = $"Het aanmaken van vlucht {flightDTO.Id} is mislukt"
+                    errorMessage = $"Creating airplane {airplaneDTO.Name} failed"
                 });
             }
 
-            return CreatedAtAction("GetFlight", new { id = flight.Id }, flight);
+        }
+
+        [HttpPost("/api/flights/departure")]
+        public async Task<ActionResult<DepartureDTO>> PostDeparture([FromBody] DepartureDTO departureDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                    Location location = mapper.Map<Location>(departureDTO.LocationDTO);
+                    await genericLocationRepo.Create(location);
+                    Departure departure = mapper.Map<Departure>(departureDTO);
+                    await genericDepartureRepo.Create(departure);
+                    return Ok(departureDTO);
+                
+            }
+            else
+            {
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Creating departure {departureDTO.LocationDTO.City} failed"
+                });
+            }
+
+        }
+
+        [HttpPost("/api/flights/destination")]
+        public async Task<ActionResult<DestinationDTO>> PostDestination([FromBody] DestinationDTO destinationDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+                await genericLocationRepo.Create(location);
+                Destination destination = mapper.Map<Destination>(destinationDTO);
+                await genericDestinationRepo.Create(destination);
+                return Ok(destinationDTO);
+
+            }
+            else
+            {
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Creating destination {destinationDTO.LocationDTO.City} failed"
+                });
+            }
+
+        }
+
+        // POST: api/Flights
+        /// <summary>
+        /// Voeg een nieuwe flight toe. Een vertrek- of aankomstplaats of vliegtuig die niet bestaat wordt aangemaakt De response bevat info over de toegevoegde vlucht. 
+        /// </summary>
+        /// <param name="flightDTO"> </param>
+        /// <returns > Nieuwe vlucht </returns>
+        [HttpPost("/api/flights")]
+        public async Task<ActionResult<FlightDTO>> PostFlight([FromBody] FlightDTO flightDTO)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(flightDTO.FlightStatus)) { flightDTO.FlightStatus = "On Time"; }
+
+                //DTO in body is leeg 
+                if (flightDTO == null)
+                {
+                    return BadRequest(new { Message = "No flight input " });
+                }
+                var flight = mapper.Map<Flight>(flightDTO);
+
+                //na mapping flight = null 
+                if (flight == null)
+                {
+                    return BadRequest(new { Message = "Not enough data to create flight" });
+                }
+                //bestaat vliegtuig al? 
+                var airplaneByName = await airplaneRepo.GetAirplaneByName(flight.Airplane.Name); 
+                if (airplaneByName == null) 
+                {
+                    await PostAirplane(flightDTO.AirplaneDTO);
+                    var airplaneName = await airplaneRepo.GetAirplaneByName(flightDTO.AirplaneDTO.Name);
+                    flight.AirplaneId = airplaneName.Id;
+                    flight.Airplane.Id = airplaneName.Id; 
+                }
+                else
+                {
+                    flight.AirplaneId = airplaneByName.Id;
+                    flight.Airplane.Id = airplaneByName.Id; 
+                }
+                
+                var departureByName = await departureRepo.GetDepartureByLocationAirport(flight.Departure.Location.Airport);
+                if (departureByName == null)
+                {
+                    await PostDeparture(flightDTO.DepartureDTO);
+                    var departureName = await departureRepo.GetDepartureByLocationAirport(flightDTO.DepartureDTO.LocationDTO.Airport);
+                    flight.DepartureId = departureName.Id;
+                    flight.Departure.Id = departureName.Id; 
+                }
+                else
+                {
+                    flight.DepartureId = departureByName.Id;
+                    flight.Departure.Id = departureByName.Id; 
+                }
+                var destinationByName = await destinationRepo.GetDestinationByLocationAirport(flight.Destination.Location.Airport); 
+                if(destinationByName == null)
+                {
+                    await PostDestination(flightDTO.DestinationDTO);
+                    var destinationName = await destinationRepo.GetDestinationByLocationAirport(flightDTO.DestinationDTO.LocationDTO.Airport);
+                    flight.DestinationId = destinationName.Id;
+                    flight.Destination.Id = destinationName.Id; 
+                }
+                else
+                {
+                    flight.DestinationId = destinationByName.Id;
+                    flight.Destination.Id = destinationByName.Id; 
+                }
+
+                //model state unvalid 
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                try
+                {
+
+                    await genericFlightRepo.Create(flight);
+                    return CreatedAtAction("GetFlightById", new { id = flight.Id }, mapper.Map<FlightDTO>(flight));
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("HandleErrorCode", "Error", new
+                    {
+                        statusCode = 400,
+                        errorMessage = $"Creating flight {flightDTO.Id} failed"
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         // GET: api/Flights/5

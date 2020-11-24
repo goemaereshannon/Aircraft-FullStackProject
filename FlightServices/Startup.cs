@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace FlightServices
 {
@@ -37,9 +40,12 @@ namespace FlightServices
 
             //repos
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+
+            //customisation op generic repo
             services.AddScoped<IDestinationRepo, DestinationRepo>(); 
             services.AddScoped<IDepartureRepo, DepartureRepo>();
             services.AddScoped<IFlightRepo, FlightRepo>();
+            services.AddScoped<IAirplaneRepo, AirplaneRepo>();
 
             //mapper 
             services.AddAutoMapper(typeof(FlightProfiles));
@@ -51,6 +57,9 @@ namespace FlightServices
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Flight_DBc", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath); 
             }); 
         }
 

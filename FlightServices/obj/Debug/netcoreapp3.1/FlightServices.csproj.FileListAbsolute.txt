@@ -105,3 +105,5 @@ D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3
 D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\FlightServices.xml
+D:\3MCT\Fullstack\Aircraft-FullStackProject\FlightServices\obj\Debug\netcoreapp3.1\FlightServices.xml

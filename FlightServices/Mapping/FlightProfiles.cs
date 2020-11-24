@@ -53,6 +53,8 @@ namespace FlightServices.Mapping
                     City = model.Location.City,
                     Airport = model.Location.Airport
                 }));
+            CreateMap<Location, LocationDTO>();
+            CreateMap<LocationDTO, Location>(); 
         }
 
         private void InitFlightMapper()

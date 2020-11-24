@@ -14,7 +14,7 @@ namespace FlightServices.DTOs
         public DateTime TimeOfArrival { get; set; }
         public string FlightStatus { get; set; }
 
-        public DepartureDTO DepartureDTO { get; set; }
+        public DepartureDTO DepartureDTO { get; set; } 
         public DestinationDTO DestinationDTO { get; set; }
         public AirplaneDTO AirplaneDTO { get; set; }
 
