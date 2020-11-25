@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FlightServices.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,9 @@ namespace FlightServices
                 try
                 {
                     var context = services.GetRequiredService<FlightServicesContext>();
-                    context.Database.EnsureCreated(); 
+                   // context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                    context.Database.Migrate();//voert migraties uit
                 }
                 catch (Exception ex)
                 {

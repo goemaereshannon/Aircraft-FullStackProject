@@ -21,7 +21,7 @@ namespace Aircraft.Models.Models
         public virtual DbSet<Destination> Destinations { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
-        public virtual DbSet<Price> Prices { get; set; }
+        
         public virtual DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
     //    public virtual DbSet<ReservationPrice> ReservationPrices { get; set; }

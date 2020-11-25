@@ -73,7 +73,7 @@ namespace FlightServices.Controllers
 
                     f.Destination = await destinationRepo.GetDestinationWithLocationByDestinationId(new Guid(f.DestinationId.ToString()));
 
-                    Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(f.AirplaneId);
+                    Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(f.AirplaneId.Value);
                     f.Airplane = airplane; 
                 }
             }
@@ -111,7 +111,7 @@ namespace FlightServices.Controllers
 
                 flight.Destination = await destinationRepo.GetDestinationWithLocationByDestinationId(new Guid(flight.DestinationId.ToString()));
 
-                Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(flight.AirplaneId);
+                Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);
                 flight.Airplane = airplane;
                 
             }
@@ -345,12 +345,12 @@ namespace FlightServices.Controllers
                 if (!ModelState.IsValid) return BadRequest(ModelState);
                 //2. FlightDTO ophalen
                 Flight flight = flights.First();
-                Guid depId = flight.DepartureId;
-                Guid destId = flight.DestinationId;
-                Guid airplId = flight.AirplaneId; 
-                flight.Departure = await genericDepartureRepo.GetAsyncByGuid(flight.DepartureId);
-                flight.Destination = await genericDestinationRepo.GetAsyncByGuid(flight.DestinationId);
-                flight.Airplane = await genericAirplaneRepo.GetAsyncByGuid(flight.AirplaneId);
+                Guid depId = flight.DepartureId.Value;
+                Guid destId = flight.DestinationId.Value;
+                Guid airplId = flight.AirplaneId.Value; 
+                flight.Departure = await genericDepartureRepo.GetAsyncByGuid(flight.DepartureId.Value);
+                flight.Destination = await genericDestinationRepo.GetAsyncByGuid(flight.DestinationId.Value);
+                flight.Airplane = await genericAirplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);
                 var flightDTOtoPatch = mapper.Map<Flight, FlightDTO>(flight); //map naar DTO
                 var tempId = guid; //alleen indien verdwenen door mapping
                 try
@@ -462,7 +462,8 @@ namespace FlightServices.Controllers
                     return BadRequest(new { Message = "No flight input " });
                 }
                 var flight = mapper.Map<Flight>(flightDTO);
-                flight.Id = Guid.NewGuid(); 
+
+                //flight.Id = Guid.NewGuid();
 
                 //na mapping flight = null 
                 if (flight == null)
@@ -470,6 +471,8 @@ namespace FlightServices.Controllers
                     return BadRequest(new { Message = "Not enough data to create flight" });
                 }
                 //bestaat vliegtuig al? 
+
+
                 var airplaneByName = await airplaneRepo.GetAirplaneByName(flight.Airplane.Name);
                 if (airplaneByName == null)
                 {
@@ -491,14 +494,14 @@ namespace FlightServices.Controllers
                     var departureName = await departureRepo.GetDepartureByLocationAirport(flightDTO.DepartureDTO.LocationDTO.Airport);
                     flight.DepartureId = departureName.Id;
                     flight.Departure.Id = departureName.Id;
-                    flight.Departure.LocationId = flight.Departure.Location.Id; 
+                    flight.Departure.LocationId = flight.Departure.Location.Id;
 
                 }
                 else
                 {
                     flight.DepartureId = departureByName.Id;
                     flight.Departure.Id = departureByName.Id;
-                    flight.Departure.LocationId = flight.Departure.Location.Id; 
+                    flight.Departure.LocationId = flight.Departure.Location.Id;
                 }
                 var destinationByName = await destinationRepo.GetDestinationByLocationAirport(flight.Destination.Location.Airport);
                 if (destinationByName == null)
@@ -507,13 +510,13 @@ namespace FlightServices.Controllers
                     var destinationName = await destinationRepo.GetDestinationByLocationAirport(flightDTO.DestinationDTO.LocationDTO.Airport);
                     flight.DestinationId = destinationName.Id;
                     flight.Destination.Id = destinationName.Id;
-                    flight.Destination.LocationId = flight.Destination.Location.Id; 
+                    flight.Destination.LocationId = flight.Destination.Location.Id;
                 }
                 else
                 {
                     flight.DestinationId = destinationByName.Id;
                     flight.Destination.Id = destinationByName.Id;
-                    flight.Destination.LocationId = flight.Destination.Location.Id; 
+                    flight.Destination.LocationId = flight.Destination.Location.Id;
                 }
 
                 //model state unvalid 

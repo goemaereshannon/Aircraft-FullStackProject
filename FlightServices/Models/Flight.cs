@@ -10,11 +10,11 @@ namespace FlightServices.Models
         public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime TimeOfDeparture { get; set; }
         public DateTime TimeOfArrival { get; set; }
-        public string FlightStatus { get; set; }
+        public string FlightStatus { get; set; } 
 
-        public Guid DepartureId { get; set; }
-        public Guid DestinationId { get; set; }
-        public Guid AirplaneId { get; set; }
+        public Guid? DepartureId { get; set; }
+        public Guid? DestinationId { get; set; }
+        public Guid? AirplaneId { get; set; }
 
 
         public virtual Departure Departure { get; set; }

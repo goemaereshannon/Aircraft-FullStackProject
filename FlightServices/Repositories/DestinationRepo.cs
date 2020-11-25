@@ -19,11 +19,11 @@ namespace FlightServices.Repositories
 
         public async Task<Destination> GetDestinationWithLocationByDestinationId(Guid destinationId)
         {
-            return await _context.Destinations.Include(d => d.Location).Where(u => u.Id == destinationId).FirstOrDefaultAsync();
+            return await _context.Destinations.Include(d => d.Location).Where(u => u.Id == destinationId).AsNoTracking().FirstOrDefaultAsync();
         }
         public async Task<Destination> GetDestinationByLocationAirport(string airportcode)
         {
-            return await _context.Destinations.Include(d => d.Location).Where(u => u.Location.Airport.Contains(airportcode)).FirstOrDefaultAsync();
+            return await _context.Destinations.Include(d => d.Location).Where(u => u.Location.Airport.Contains(airportcode)).AsNoTracking().FirstOrDefaultAsync();
         }
     }
 }

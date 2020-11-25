@@ -26,17 +26,18 @@ namespace FlightServices.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.SeedAsync(); 
+           
             base.OnModelCreating(builder);
 
-            builder.Entity<Location>().HasMany(l => l.Departures).WithOne(d => d.Location).IsRequired();
-            builder.Entity<Location>().HasMany(l => l.Destinations).WithOne(d => d.Location).IsRequired();
+            builder.Entity<Location>().HasMany(l => l.Departures).WithOne(d => d.Location).HasForeignKey(dp => dp.LocationId).IsRequired();
+            builder.Entity<Location>().HasMany(l => l.Destinations).WithOne(d => d.Location).HasForeignKey(de => de.LocationId).IsRequired();
 
-            builder.Entity<Departure>().HasMany(d => d.Flights).WithOne(f => f.Departure);
+            builder.Entity<Departure>().HasMany(d => d.Flights).WithOne(f => f.Departure).HasForeignKey(f  => f.DepartureId);
 
-            builder.Entity<Destination>().HasMany(d => d.Flights).WithOne(f => f.Destination);
+            builder.Entity<Destination>().HasMany(d => d.Flights).WithOne(f => f.Destination).HasForeignKey(f => f.DestinationId);
 
-            builder.Entity<Airplane>().HasMany(l => l.Flights).WithOne(d => d.Airplane);
+            builder.Entity<Airplane>().HasMany(l => l.Flights).WithOne(d => d.Airplane).HasForeignKey(f => f.AirplaneId);
+          // builder.SeedAsync().Wait();
         }
     }
 }

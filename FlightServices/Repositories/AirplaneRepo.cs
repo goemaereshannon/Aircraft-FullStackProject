@@ -18,7 +18,7 @@ namespace FlightServices.Repositories
 
         public async Task<Airplane> GetAirplaneByName(string airplaneName)
         {
-           var airplane =  await _context.Airplanes.Where(a => a.Name.Contains(airplaneName)).FirstOrDefaultAsync();
+           var airplane =  await _context.Airplanes.Where(a => a.Name.Contains(airplaneName)).AsNoTracking().FirstOrDefaultAsync();
             return airplane; 
         }
     }
