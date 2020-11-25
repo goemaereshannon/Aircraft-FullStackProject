@@ -4,6 +4,14 @@
         <name>FlightServices</name>
     </assembly>
     <members>
+        <member name="M:FlightServices.Controllers.FlightsController.PartiallyUpdateRecipe(System.String,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{FlightServices.DTOs.FlightDTO})">
+            <summary>
+            Gedeeltelijk updaten van vlucht: vluchtstatus 
+            </summary>
+            <param name="flightId"></param>
+            <param name="patchDoc">[{"value": "new value", "path":"FlightStatus", "op":"replace"}]</param>
+            <returns></returns>
+        </member>
         <member name="M:FlightServices.Controllers.FlightsController.PostFlight(FlightServices.DTOs.FlightDTO)">
             <summary>
             Voeg een nieuwe flight toe. Een vertrek- of aankomstplaats of vliegtuig die niet bestaat wordt aangemaakt De response bevat info over de toegevoegde vlucht. 

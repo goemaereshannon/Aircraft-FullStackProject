@@ -97,28 +97,122 @@ namespace FlightServices.UnitTests.Controllers
             Assert.AreEqual(200, okResult.StatusCode);
         }
 
+        [TestMethod]
+        public async Task GetFlightById_ReturnsFlight_IfIdExists()
+        {
+            Guid guid = new Guid("d470123f-7795-4158-aa2b-9088e29de88d"); 
+            var fakeFlight = flightList.FirstOrDefault(c => c.Id == guid);
+            Flight flightTest = new Flight(); 
+
+            var huppeldepup = mockGenericFlightRepo.Setup(repo =>
+                repo.GetAsyncByGuid(It.IsAny<Guid>()) //meegeven welke parameter functie verwacht
+                    ).ReturnsAsync(flightTest); //meegven welk resultaat functie teruggeeft
+
+
+            var actionResult = await APIcontroller.GetFlightDetails(guid);
+            var okResult = actionResult.Result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.IsInstanceOfType(okResult, typeof(OkObjectResult));
+            Assert.IsInstanceOfType(okResult.Value, typeof(Flight));
+            Flight flight = okResult.Value as Flight;
+            Assert.AreEqual(200, okResult.StatusCode);
+
+        }
+
+        [TestMethod]
+        public async Task GetFlightById_ReturnsNotFound404_IfIdDoesNotExist()
+        {
+            Guid guid = new Guid("e580123f-7795-4158-aa2b-9088e29de88d");
+            var fakeFlight = flightList.FirstOrDefault(c => c.Id == guid);
+            Flight flightTest = new Flight();
+
+            var huppeldepup = mockGenericFlightRepo.Setup(repo =>
+                repo.GetAsyncByGuid(It.IsAny<Guid>()) 
+                    ).ReturnsAsync(flightTest);
+
+            var actionResult =  await APIcontroller.GetFlightDetails(guid); 
+            NotFoundObjectResult notFoundResult = actionResult.Result as NotFoundObjectResult;
+
+            Assert.IsTrue((notFoundResult.Value.GetType()).Name.Contains("AnonymousType")); 
+            Assert.AreEqual(notFoundResult.Value.ToString(), "{ message = Flight not found }"); 
+            Assert.AreEqual(404, notFoundResult.StatusCode); 
+
+        }
+        //Guid kan niet null zijn enkel Empty(0000-0000-...)
+
+        [TestMethod]
+        public async Task PostFlight_ReturnsFlight_IfModelValid()
+        {
+            LocationDTO departureLocation = new LocationDTO
+            {
+                City = "Brussels",
+                Country = "Belgium",
+                Airport = "BRU"
+            };
+            LocationDTO destinationLocation = new LocationDTO
+            {
+                City = "London",
+                Country = "United Kingdom",
+                Airport = "LHR"
+            };
+            DepartureDTO newDeparture = new DepartureDTO
+            {
+                LocationDTO = departureLocation
+            };
+            DestinationDTO newDestination = new DestinationDTO
+            {
+                LocationDTO = destinationLocation
+            };
+            AirplaneDTO newAirplane = new AirplaneDTO
+            {
+                Name = "BA2490",
+                Type = "Boeing 737 MAX",
+                TotalSeats = 200
+            };
+            FlightDTO newFlight = new FlightDTO
+            {
+                Id = Guid.NewGuid(),
+                FlightStatus = "On time",
+                DepartureDTO = newDeparture,
+                DestinationDTO = newDestination,
+                TimeOfDeparture = DateTime.Parse("12-12-2020 15:00"),
+                TimeOfArrival = DateTime.Parse("12-12-2020 15:42"),
+                AirplaneDTO = newAirplane
+
+            };
+
+            mockGenericFlightRepo.Setup(repo => repo.Create(It.IsAny<Flight>())).Returns(Task.FromResult(mapper.Map<FlightDTO, Flight>(newFlight)));
+
+            mockGenericFlightRepo.Verify();
+
+            var actionResult = await APIcontroller.PostFlight(newFlight);
+            var createdResult = (CreatedAtActionResult)actionResult.Result;
+
+            Assert.IsNotNull(createdResult); //null
+            Assert.IsInstanceOfType(createdResult, typeof(CreatedAtActionResult)); //type
+            Assert.IsInstanceOfType(createdResult.Value, typeof(FlightDTO));
+            Assert.AreEqual("GetFlight", createdResult.ActionName);
+            Assert.AreEqual(201, createdResult.StatusCode);//statuscode
+        }
+
         //[TestMethod]
-        //public async Task GetFlightById_ReturnsFlight_IfIdExists()
+        //public async Task PostFlight_ReturnsBadRequest400_WhenModelInvalid()
         //{
-        //    string guid = "d470123f-7795-4158-aa2b-9088e29de88d";
-        //    var fakeFlight = flightList.FirstOrDefault(c => c.Id == new Guid(guid));
-
-        //    mockGenericFlightRepo.Setup(repo =>
-        //        repo.GetByExpressionAsync(
-        //            It.IsAny<Expression<Func<Flight, bool>>>()))
-        //            .ReturnsAsync(flightList.AsQueryable()
-        //            .Where(c => c.Id == new Guid(guid)));
-
-
-        //    var actionResult = await APIcontroller.GetFlightDetails(guid);
-        //    var okResult = actionResult.Result as OkObjectResult;
-
-        //    Assert.IsNotNull(okResult);
-        //    Assert.IsInstanceOfType(okResult, typeof(OkObjectResult));
-        //    Assert.IsInstanceOfType(okResult.Value, typeof(Flight));
-        //    Flight flight = okResult.Value as Flight;
-        //    Assert.AreEqual(200, okResult.StatusCode); 
 
         //}
+
+        //[TestMethod]
+        //public async Task PostFlight_ReturnsBadRequest400_WhenFlightNull()
+        //{
+
+        //}
+
+        //[TestMethod]
+        //public async Task PostFlight_ReturnsFromErrorController400_WhenException()
+        //{
+
+        //}
+
     }
 }

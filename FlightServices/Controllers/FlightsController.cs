@@ -90,13 +90,21 @@ namespace FlightServices.Controllers
         // GET: api/Flights/{id}
         [HttpGet("/api/flights/{id}")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<FlightDTO>> GetFlightDetails(string id)
+        public async Task<ActionResult<FlightDTO>> GetFlightDetails(Guid id)
         {
             Flight flight;
             try
             {
+                if(id == null)
+                {
+                    return BadRequest(new { message = "Id is null" }); 
+                }
                 
-                flight = await genericFlightRepo.GetAsyncByGuid(new Guid(id));
+                flight = await genericFlightRepo.GetAsyncByGuid(id);
+                if(flight.FlightStatus == null)
+                {
+                    return NotFound(new { message = "Flight not found" }); 
+                }
                 //relaties
             
                 flight.Departure = await departureRepo.GetDepartureWithLocationByDepartureId(new Guid(flight.DepartureId.ToString()));
@@ -109,7 +117,7 @@ namespace FlightServices.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound(new { message = "Flights not found" + ex });
+                return NotFound(new { message = "Flight not found"});
             }
 
             var flightDTO = mapper.Map<Flight>(flight);
@@ -454,6 +462,7 @@ namespace FlightServices.Controllers
                     return BadRequest(new { Message = "No flight input " });
                 }
                 var flight = mapper.Map<Flight>(flightDTO);
+                flight.Id = Guid.NewGuid(); 
 
                 //na mapping flight = null 
                 if (flight == null)
@@ -461,45 +470,50 @@ namespace FlightServices.Controllers
                     return BadRequest(new { Message = "Not enough data to create flight" });
                 }
                 //bestaat vliegtuig al? 
-                var airplaneByName = await airplaneRepo.GetAirplaneByName(flight.Airplane.Name); 
-                if (airplaneByName == null) 
+                var airplaneByName = await airplaneRepo.GetAirplaneByName(flight.Airplane.Name);
+                if (airplaneByName == null)
                 {
                     await PostAirplane(flightDTO.AirplaneDTO);
                     var airplaneName = await airplaneRepo.GetAirplaneByName(flightDTO.AirplaneDTO.Name);
                     flight.AirplaneId = airplaneName.Id;
-                    flight.Airplane.Id = airplaneName.Id; 
+                    flight.Airplane.Id = airplaneName.Id;
                 }
                 else
                 {
                     flight.AirplaneId = airplaneByName.Id;
-                    flight.Airplane.Id = airplaneByName.Id; 
+                    flight.Airplane.Id = airplaneByName.Id;
                 }
-                
+
                 var departureByName = await departureRepo.GetDepartureByLocationAirport(flight.Departure.Location.Airport);
                 if (departureByName == null)
                 {
                     await PostDeparture(flightDTO.DepartureDTO);
                     var departureName = await departureRepo.GetDepartureByLocationAirport(flightDTO.DepartureDTO.LocationDTO.Airport);
                     flight.DepartureId = departureName.Id;
-                    flight.Departure.Id = departureName.Id; 
+                    flight.Departure.Id = departureName.Id;
+                    flight.Departure.LocationId = flight.Departure.Location.Id; 
+
                 }
                 else
                 {
                     flight.DepartureId = departureByName.Id;
-                    flight.Departure.Id = departureByName.Id; 
+                    flight.Departure.Id = departureByName.Id;
+                    flight.Departure.LocationId = flight.Departure.Location.Id; 
                 }
-                var destinationByName = await destinationRepo.GetDestinationByLocationAirport(flight.Destination.Location.Airport); 
-                if(destinationByName == null)
+                var destinationByName = await destinationRepo.GetDestinationByLocationAirport(flight.Destination.Location.Airport);
+                if (destinationByName == null)
                 {
                     await PostDestination(flightDTO.DestinationDTO);
                     var destinationName = await destinationRepo.GetDestinationByLocationAirport(flightDTO.DestinationDTO.LocationDTO.Airport);
                     flight.DestinationId = destinationName.Id;
-                    flight.Destination.Id = destinationName.Id; 
+                    flight.Destination.Id = destinationName.Id;
+                    flight.Destination.LocationId = flight.Destination.Location.Id; 
                 }
                 else
                 {
                     flight.DestinationId = destinationByName.Id;
-                    flight.Destination.Id = destinationByName.Id; 
+                    flight.Destination.Id = destinationByName.Id;
+                    flight.Destination.LocationId = flight.Destination.Location.Id; 
                 }
 
                 //model state unvalid 
@@ -511,14 +525,14 @@ namespace FlightServices.Controllers
                 {
 
                     await genericFlightRepo.Create(flight);
-                    return CreatedAtAction("GetFlightById", new { id = flight.Id }, mapper.Map<FlightDTO>(flight));
+                    return CreatedAtAction("GetFlightDetails", new { id = flight.Id }, mapper.Map<FlightDTO>(flight));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     return RedirectToAction("HandleErrorCode", "Error", new
                     {
                         statusCode = 400,
-                        errorMessage = $"Creating flight {flightDTO.Id} failed"
+                        errorMessage = $"Creating flight {flightDTO.Id} failed {ex}"
                     });
                 }
 
@@ -528,7 +542,7 @@ namespace FlightServices.Controllers
 
                 throw ex;
             }
-            
+
         }
 
         // GET: api/Flights/5
