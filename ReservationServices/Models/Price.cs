@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft.Models.Models
+namespace ReservationServices.Models
 {
     public class Price
     {
@@ -15,8 +15,8 @@ namespace Aircraft.Models.Models
         public Guid? ClassId { get; set; }
         public Guid FlightId { get; set; }
 
-        public Flight Flight { get; set; }
-        public Class Class { get; set; }
+        //public Flight Flight { get; set; }
+        //public Class Class { get; set; }
 
  
         public ICollection<ReservationPrice> ReservationPrices { get; set; }

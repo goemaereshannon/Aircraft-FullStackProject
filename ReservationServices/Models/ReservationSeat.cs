@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aircraft.Models.Models
+namespace ReservationServices.Models
 {
     public class ReservationSeat
     {
@@ -13,9 +13,9 @@ namespace Aircraft.Models.Models
         public Guid? SeatId { get; set; }
         public Seat Seat { get; set; }
 
-        
-        public Guid? CompanionId { get; set; }
-     
-        public Companion Companion { get; set; }
+        public Guid UserId { get; set; }
+        //public Guid? CompanionId { get; set; }
+
+        //public Companion Companion { get; set; }
     }
 }
