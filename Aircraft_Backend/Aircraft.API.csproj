@@ -5,9 +5,9 @@
     <Nullable>annotations</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\alexi\OneDrive\Documenten\MCT\FlightReservation\Aircraft-FullStackProject\Aircraft_Backend\Aircraft.API.xml</DocumentationFile>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
   <ItemGroup>
     <Content Remove="Views\Home\Index.cshtml" />
