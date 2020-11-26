@@ -1,4 +1,18 @@
 services:
+  apigateway:
+    build:
+      context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject
+      dockerfile: Gateway/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: apigateway
+    ports:
+    - published: 32820
+      target: 80
+    volumes:
+    - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\alexi\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
   db:
     environment:
       ACCEPT_EULA: "Y"
@@ -13,20 +27,17 @@ services:
     build:
       context: D:\3MCT\Fullstack\Aircraft-FullStackProject
       dockerfile: IdentityServices/Dockerfile
+    container_name: IdentityServicesAircraft
     depends_on:
       db:
         condition: service_started
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: https://+:443;http://+:80
+      ASPNETCORE_URLS: http://+:80
     image: identityservicesaircraft
     ports:
     - published: 32808
       target: 80
-    - target: 80
-    - published: 32796
-      target: 443
-    - target: 443
     volumes:
     - C:\Users\Shannon\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
     - C:\Users\Shannon\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro

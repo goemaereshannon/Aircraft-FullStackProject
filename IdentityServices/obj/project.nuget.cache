@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "oe7F8itkoHfMyOvwpJN6kZKPi2jukb7jxOR5WrBsA92ywG1UiPYII0ysqHDa51vcBu5Ihgl8VsVdQ1/38MbBHw==",
+=======
+  "dgSpecHash": "MvruyePTly+XatYj79h/1bfH79nISXdjyyVwaMQXPWZpIatKvHl8xSiUfVLAm/yoOLzHh3Taifbgdhil67XsbQ==",
+>>>>>>> develop
   "success": true,
   "projectFilePath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\IdentityServices\\IdentityServices.csproj",
   "expectedPackageFiles": [

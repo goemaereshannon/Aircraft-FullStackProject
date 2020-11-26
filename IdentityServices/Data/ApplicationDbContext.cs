@@ -30,7 +30,7 @@ namespace IdentityServices.Data
                 .WithOne(entity => entity.User)
                 .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
-                entity.HasOne(e => e.Address);
+               // entity.HasOne(e => e.Address);
 
             });
             modelBuilder.Entity<Role>(entity =>

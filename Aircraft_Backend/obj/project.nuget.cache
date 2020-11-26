@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "w5mhxDQoxoKZqLxYui4dShAKoz++op+WPeeU9kPAMiSi/oRWutR3PPIeBcwOovKkK6ZPwJcg8hpZ2CFloroufA==",
+=======
+  "dgSpecHash": "JuhjR4z6d3ilboEZjPB4svB2p9OKgmtTeTo8jGuW3SsFmk/6lWovkVPbelJ4yQXZUYdzdbSoUr5Xw/RJj02+6g==",
+>>>>>>> develop
   "success": true,
   "projectFilePath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
   "expectedPackageFiles": [

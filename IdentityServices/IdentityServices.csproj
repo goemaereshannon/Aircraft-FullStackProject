@@ -7,9 +7,15 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
+<<<<<<< HEAD
   <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\IdentityServices.xml</DocumentationFile>
   </PropertyGroup>-->
+=======
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\IdentityServices.xml</DocumentationFile>
+  </PropertyGroup>
+>>>>>>> develop
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
