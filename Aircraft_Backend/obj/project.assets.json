@@ -3704,10 +3704,7 @@
         },
         "runtime": {
           "bin/placeholder/Aircraft.Models.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        }
       }
     }
   },
@@ -10844,23 +10841,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alexi\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Shannon\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
+      "projectUniqueName": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
       "projectName": "Aircraft.API",
-      "projectPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
-      "packagesPath": "C:\\Users\\alexi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft_Backend\\obj\\",
+      "projectPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\Aircraft.API.csproj",
+      "packagesPath": "C:\\Users\\Shannon\\.nuget\\packages\\",
+      "outputPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft_Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\alexi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Shannon\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -10873,10 +10872,9 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj": {
-              "projectPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj"
+            "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj": {
+              "projectPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Aircraft.Models\\Aircraft.Models.csproj"
             }
           }
         }
@@ -10889,7 +10887,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
@@ -10984,7 +10981,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

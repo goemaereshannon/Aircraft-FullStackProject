@@ -59,16 +59,16 @@ namespace FlightServices.Mapping
 
         private void InitFlightMapper()
         {
-            CreateMap<FlightDTO, Flight>()
-                .ForMember(dest => dest.Departure, opt => opt.MapFrom(model => new Departure()
+            CreateMap<FlightCreateEditDTO, Flight>().ForMember(dest => dest.Departure, opt => opt.MapFrom(model => new Departure()
+            {
+                Location = new Location()
                 {
-                    Location = new Location() { 
-                        Airport = model.DepartureDTO.LocationDTO.Airport, 
-                        Country = model.DepartureDTO.LocationDTO.Country,
-                        City = model.DepartureDTO.LocationDTO.City
-                    }
+                    Airport = model.DepartureDTO.LocationDTO.Airport,
+                    Country = model.DepartureDTO.LocationDTO.Country,
+                    City = model.DepartureDTO.LocationDTO.City
+                }
 
-                }))
+            }))
                 .ForMember(dest => dest.Destination, opt => opt.MapFrom(model => new Destination()
                 {
                     Location = new Location()
@@ -110,8 +110,35 @@ namespace FlightServices.Mapping
                    Name = model.Airplane.Name,
                    Type = model.Airplane.Type,
                    TotalSeats = model.Airplane.TotalSeats,
+               })).ReverseMap();
+            CreateMap<Flight, FlightCreateEditDTO>();
+            CreateMap<Flight, FlightDTO>()
+                .ForMember(dest => dest.DepartureDTO, opt => opt.MapFrom(model => new DepartureDTO()
+                {
+                    LocationDTO = new LocationDTO()
+                    {
+                        Airport = model.Departure.Location.Airport,
+                        Country = model.Departure.Location.Country,
+                        City = model.Departure.Location.City
+
+                    }
+                }))
+               .ForMember(dest => dest.DestinationDTO, opt => opt.MapFrom(model => new DestinationDTO()
+               {
+                   LocationDTO = new LocationDTO()
+                   {
+                       Airport = model.Destination.Location.Airport,
+                       Country = model.Destination.Location.Country,
+                       City = model.Destination.Location.City
+                   }
                }))
-               .ForMember(dest => dest.Id, opt => opt.MapFrom(model => model.Id))
+               .ForMember(dest => dest.AirplaneDTO, opt => opt.MapFrom(model => new AirplaneDTO()
+               {
+                   Name = model.Airplane.Name,
+                   Type = model.Airplane.Type,
+                   TotalSeats = model.Airplane.TotalSeats,
+               }))
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(model => model.Id)).ReverseMap(); 
                ;
         }
     }

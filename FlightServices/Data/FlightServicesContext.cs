@@ -37,7 +37,7 @@ namespace FlightServices.Data
             builder.Entity<Destination>().HasMany(d => d.Flights).WithOne(f => f.Destination).HasForeignKey(f => f.DestinationId);
 
             builder.Entity<Airplane>().HasMany(l => l.Flights).WithOne(d => d.Airplane).HasForeignKey(f => f.AirplaneId);
-          // builder.SeedAsync().Wait();
+           builder.SeedAsync().Wait();
         }
     }
 }

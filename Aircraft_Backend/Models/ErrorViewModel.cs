@@ -1,6 +1,6 @@
 using System;
 
-namespace IdentityServices.Models
+namespace Aircraft.API.Models
 {
     public class ErrorViewModel
     {

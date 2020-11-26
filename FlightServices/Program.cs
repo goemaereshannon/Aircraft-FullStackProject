@@ -23,7 +23,7 @@ namespace FlightServices
                 try
                 {
                     var context = services.GetRequiredService<FlightServicesContext>();
-                   // context.Database.EnsureDeleted();
+                   context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                     context.Database.Migrate();//voert migraties uit
                 }
