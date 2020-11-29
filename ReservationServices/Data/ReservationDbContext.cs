@@ -14,6 +14,10 @@ namespace ReservationServices.Data
         {
 
         }
+        public ReservationDbContext()
+        {
+
+        }
         public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Reservation> Reservations{ get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
