@@ -40,6 +40,7 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\obj\Debug\docker-compose.dcprojAssemblyReference.cache
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\obj\Debug\docker-compose.dcproj.CopyComplete
+<<<<<<< HEAD
 D:\3MCT\Fullstack\Aircraft-FullStackProject\bin\Debug\appsettings.Development.json
 D:\3MCT\Fullstack\Aircraft-FullStackProject\bin\Debug\appsettings.json
 D:\3MCT\Fullstack\Aircraft-FullStackProject\bin\Debug\Properties\serviceDependencies.json
@@ -86,6 +87,7 @@ D:\3MCT\Fullstack\Aircraft-FullStackProject\bin\Debug\IdentityServices.pdb
 D:\3MCT\Fullstack\Aircraft-FullStackProject\obj\Debug\docker-compose.dcprojAssemblyReference.cache
 D:\3MCT\Fullstack\Aircraft-FullStackProject\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 D:\3MCT\Fullstack\Aircraft-FullStackProject\obj\Debug\docker-compose.dcproj.CopyComplete
+=======
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\ocelot.json
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\APIGateway.exe
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\APIGateway.dll
@@ -100,4 +102,4 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\Newtonsoft.Json.Bson.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\APIGateway.pdb
-C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\bin\Debug\IdentityServices.xml
+>>>>>>> develop

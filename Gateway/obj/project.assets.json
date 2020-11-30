@@ -949,23 +949,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alexi\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Shannon\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Gateway\\APIGateway.csproj",
+      "projectUniqueName": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Gateway\\APIGateway.csproj",
       "projectName": "APIGateway",
-      "projectPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Gateway\\APIGateway.csproj",
-      "packagesPath": "C:\\Users\\alexi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\Gateway\\obj\\",
+      "projectPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Gateway\\APIGateway.csproj",
+      "packagesPath": "C:\\Users\\Shannon\\.nuget\\packages\\",
+      "outputPath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\Gateway\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\alexi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Shannon\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -1031,7 +1033,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+=======
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+>>>>>>> develop
       }
     }
   }
