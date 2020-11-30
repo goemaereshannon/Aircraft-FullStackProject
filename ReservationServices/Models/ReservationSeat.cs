@@ -14,7 +14,7 @@ namespace ReservationServices.Models
         public Seat Seat { get; set; }
 
         public Guid UserId { get; set; }
-        //public Guid? CompanionId { get; set; }
+        public Guid? CompanionId { get; set; }
 
         //public Companion Companion { get; set; }
     }

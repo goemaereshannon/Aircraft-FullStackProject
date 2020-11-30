@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,8 +9,9 @@ namespace ReservationServices.DTOs
     public class ReservationDTO
     {
         public double TotalPrice { get; set; }
-
+        [Required]
         public Guid FlightId { get; set; }
+        [Required]
         public Guid UserId { get; set; }
         //public virtual Flight Flight { get; set; }
         //public virtual RegisteredUser User { get; set; }

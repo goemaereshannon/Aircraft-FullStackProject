@@ -625,10 +625,12 @@ namespace FlightServices.Controllers
         [HttpPost("/api/flights/destination")]
         public async Task<ActionResult<DestinationDTO>> PostDestination([FromBody] DestinationDTO destinationDTO)
         {
+            Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+            Location createdLocation = await genericLocationRepo.Create(location);
+
             if (ModelState.IsValid)
             {
-                Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
-                await genericLocationRepo.Create(location);
+                
                 Destination destination = mapper.Map<Destination>(destinationDTO);
                 await genericDestinationRepo.Create(destination);
                 return Ok(destinationDTO);
