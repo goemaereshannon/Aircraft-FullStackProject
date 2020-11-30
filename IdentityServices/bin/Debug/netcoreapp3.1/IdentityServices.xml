@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IdentityServices</name>
+    </assembly>
+    <members>
+        <member name="M:IdentityServices.Controllers.AuthController.Register(IdentityServices.Controllers.RegisterDTO)">
+            <summary>
+            Register a new administrator
+            </summary>
+            <remarks>
+            Sample Request:
+            
+                Post /register
+                {
+                    "email": "John.Doe@hotmail.com",
+                    "password": "password",
+                    "ConfirmPassword": "password"
+                }
+            </remarks>
+        </member>
+        <member name="M:IdentityServices.Controllers.AuthController.EditUser(System.Guid,IdentityServices.DTO_s.UserDTO)">
+            <summary>
+            Update user profile based on userId
+            </summary>
+            <param name="userId"></param>
+            <param name="userDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdentityServices.Controllers.AuthController.DeleteUser(System.Guid)">
+            <summary>
+            Delete user profile based on userId
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
