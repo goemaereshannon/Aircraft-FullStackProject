@@ -1117,7 +1117,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v10.2.0
+ * @license Angular v10.2.3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1269,6 +1269,9 @@ function _isAndroid() {
 const COMPOSITION_BUFFER_MODE = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('CompositionEventMode');
 /**
  * @description
+ *
+ * {@searchKeywords ngDefaultControl}
+ *
  * The default `ControlValueAccessor` for writing a value and listening to changes on input
  * elements. The accessor is used by the `FormControlDirective`, `FormControlName`, and
  * `NgModel` directives.
@@ -1286,6 +1289,15 @@ const COMPOSITION_BUFFER_MODE = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["
  *
  * ```
  * <input type="text" [formControl]="firstNameControl">
+ * ```
+ *
+ * This value accessor is used by default for `<input type="text">` and `<textarea>` elements, but
+ * you could also use it for custom components that have similar behavior and do not require special
+ * processing. In order to attach the default value accessor to a custom element, add the
+ * `ngDefaultControl` attribute as shown below.
+ *
+ * ```
+ * <custom-input-component ngDefaultControl [(ngModel)]="value"></custom-input-component>
  * ```
  *
  * @ngModule ReactiveFormsModule
@@ -2171,6 +2183,25 @@ class Validators {
      *
      * ```html
      * <input pattern="[a-zA-Z ]*">
+     * ```
+     *
+     * ### Pattern matching with the global or sticky flag
+     *
+     * `RegExp` objects created with the `g` or `y` flags that are passed into `Validators.pattern`
+     * can produce different results on the same input when validations are run consecutively. This is
+     * due to how the behavior of `RegExp.prototype.test` is
+     * specified in [ECMA-262](https://tc39.es/ecma262/#sec-regexpbuiltinexec)
+     * (`RegExp` preserves the index of the last match when the global or sticky flag is used).
+     * Due to this behavior, it is recommended that when using
+     * `Validators.pattern` you **do not** pass in a `RegExp` object with either the global or sticky
+     * flag enabled.
+     *
+     * ```typescript
+     * // Not recommended (since the `g` flag is used)
+     * const controlOne = new FormControl('1', Validators.pattern(/foo/g));
+     *
+     * // Good
+     * const controlTwo = new FormControl('1', Validators.pattern(/foo/));
      * ```
      *
      * @param pattern A regular expression to be used as is to test the values, or a string.
@@ -5960,12 +5991,12 @@ const ɵ0$1 = () => Promise.resolve(null);
  * ```
  * I.e. `ngModel` can export itself on the element and then be used in the template.
  * Normally, this would result in expressions before the `input` that use the exported directive
- * to have and old value as they have been
+ * to have an old value as they have been
  * dirty checked before. As this is a very common case for `ngModel`, we added this second change
  * detection run.
  *
  * Notes:
- * - this is just one extra run no matter how many `ngModel` have been changed.
+ * - this is just one extra run no matter how many `ngModel`s have been changed.
  * - this is a general problem when using `exportAs` for directives!
  */
 const resolvedPromise$1 = (ɵ0$1)();
@@ -5983,16 +6014,17 @@ const resolvedPromise$1 = (ɵ0$1)();
  * `ngModel` selector to activate it.
  *
  * It accepts a domain model as an optional `Input`. If you have a one-way binding
- * to `ngModel` with `[]` syntax, changing the value of the domain model in the component
+ * to `ngModel` with `[]` syntax, changing the domain model's value in the component
  * class sets the value in the view. If you have a two-way binding with `[()]` syntax
- * (also known as 'banana-box syntax'), the value in the UI always syncs back to
+ * (also known as 'banana-in-a-box syntax'), the value in the UI always syncs back to
  * the domain model in your class.
  *
- * To inspect the properties of the associated `FormControl` (like validity state),
+ * To inspect the properties of the associated `FormControl` (like the validity state),
  * export the directive into a local template variable using `ngModel` as the key (ex:
- * `#myVar="ngModel"`). You then access the control using the directive's `control` property, but
- * most properties used (like `valid` and `dirty`) fall through to the control anyway for direct
- * access. See a full list of properties directly available in `AbstractControlDirective`.
+ * `#myVar="ngModel"`). You can then access the control using the directive's `control` property.
+ * However, the most commonly used properties (like `valid` and `dirty`) also exist on the control
+ * for direct access. See a full list of properties directly available in
+ * `AbstractControlDirective`.
  *
  * @see `RadioControlValueAccessor`
  * @see `SelectControlValueAccessor`
@@ -6036,15 +6068,16 @@ const resolvedPromise$1 = (ɵ0$1)();
  * <!-- form value: {login: ''} -->
  * ```
  *
- * ### Setting the ngModel name attribute through options
+ * ### Setting the ngModel `name` attribute through options
  *
- * The following example shows you an alternate way to set the name attribute. The name attribute is
- * used within a custom form component, and the name `@Input` property serves a different purpose.
+ * The following example shows you an alternate way to set the name attribute. Here,
+ * an attribute identified as name is used within a custom form control component. To still be able
+ * to specify the NgModel's name, you must specify it using the `ngModelOptions` input instead.
  *
  * ```html
  * <form>
- *   <my-person-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
- *   </my-person-control>
+ *   <my-custom-form-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
+ *   </my-custom-form-control>
  * </form>
  * <!-- form value: {user: ''} -->
  * ```
@@ -7874,7 +7907,7 @@ FormBuilder.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('10.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('10.2.3');
 
 /**
  * @license
@@ -10637,7 +10670,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v10.2.0
+ * @license Angular v10.2.3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15196,7 +15229,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v10.2.0
+ * @license Angular v10.2.3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -17300,6 +17333,182 @@ function assertNodeInjector(lView, injectorIndex) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Used for stringify render output in Ivy.
+ * Important! This function is very performance-sensitive and we should
+ * be extra careful not to introduce megamorphic reads in it.
+ */
+function renderStringify(value) {
+    if (typeof value === 'string')
+        return value;
+    if (value == null)
+        return '';
+    return '' + value;
+}
+/**
+ * Used to stringify a value so that it can be displayed in an error message.
+ * Important! This function contains a megamorphic read and should only be
+ * used for error messages.
+ */
+function stringifyForError(value) {
+    if (typeof value === 'function')
+        return value.name || value.toString();
+    if (typeof value === 'object' && value != null && typeof value.type === 'function') {
+        return value.type.name || value.type.toString();
+    }
+    return renderStringify(value);
+}
+const ɵ0$2 = () => (typeof requestAnimationFrame !== 'undefined' &&
+    requestAnimationFrame || // browser only
+    setTimeout // everything else
+)
+    .bind(_global);
+const defaultScheduler = (ɵ0$2)();
+/**
+ *
+ * @codeGenApi
+ */
+function ɵɵresolveWindow(element) {
+    return { name: 'window', target: element.ownerDocument.defaultView };
+}
+/**
+ *
+ * @codeGenApi
+ */
+function ɵɵresolveDocument(element) {
+    return { name: 'document', target: element.ownerDocument };
+}
+/**
+ *
+ * @codeGenApi
+ */
+function ɵɵresolveBody(element) {
+    return { name: 'body', target: element.ownerDocument.body };
+}
+/**
+ * The special delimiter we use to separate property names, prefixes, and suffixes
+ * in property binding metadata. See storeBindingMetadata().
+ *
+ * We intentionally use the Unicode "REPLACEMENT CHARACTER" (U+FFFD) as a delimiter
+ * because it is a very uncommon character that is unlikely to be part of a user's
+ * property names or interpolation strings. If it is in fact used in a property
+ * binding, DebugElement.properties will not return the correct value for that
+ * binding. However, there should be no runtime effect for real applications.
+ *
+ * This character is typically rendered as a question mark inside of a diamond.
+ * See https://en.wikipedia.org/wiki/Specials_(Unicode_block)
+ *
+ */
+const INTERPOLATION_DELIMITER = `�`;
+/**
+ * Unwrap a value which might be behind a closure (for forward declaration reasons).
+ */
+function maybeUnwrapFn(value) {
+    if (value instanceof Function) {
+        return value();
+    }
+    else {
+        return value;
+    }
+}
+
+/** Called when directives inject each other (creating a circular dependency) */
+function throwCyclicDependencyError(token, path) {
+    const depPath = path ? `. Dependency path: ${path.join(' > ')} > ${token}` : '';
+    throw new Error(`Circular dependency in DI detected for ${token}${depPath}`);
+}
+/** Called when there are multiple component selectors that match a given node */
+function throwMultipleComponentError(tNode) {
+    throw new Error(`Multiple components match node with tagname ${tNode.tagName}`);
+}
+function throwMixedMultiProviderError() {
+    throw new Error(`Cannot mix multi providers and regular providers`);
+}
+function throwInvalidProviderError(ngModuleType, providers, provider) {
+    let ngModuleDetail = '';
+    if (ngModuleType && providers) {
+        const providerDetail = providers.map(v => v == provider ? '?' + provider + '?' : '...');
+        ngModuleDetail =
+            ` - only instances of Provider and Type are allowed, got: [${providerDetail.join(', ')}]`;
+    }
+    throw new Error(`Invalid provider for the NgModule '${stringify(ngModuleType)}'` + ngModuleDetail);
+}
+/** Throws an ExpressionChangedAfterChecked error if checkNoChanges mode is on. */
+function throwErrorIfNoChangesMode(creationMode, oldValue, currValue, propName) {
+    const field = propName ? ` for '${propName}'` : '';
+    let msg = `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value${field}: '${oldValue}'. Current value: '${currValue}'.`;
+    if (creationMode) {
+        msg +=
+            ` It seems like the view has been created after its parent and its children have been dirty checked.` +
+                ` Has it been created in a change detection hook?`;
+    }
+    // TODO: include debug context, see `viewDebugError` function in
+    // `packages/core/src/view/errors.ts` for reference.
+    throw new Error(msg);
+}
+function constructDetailsForInterpolation(lView, rootIndex, expressionIndex, meta, changedValue) {
+    const [propName, prefix, ...chunks] = meta.split(INTERPOLATION_DELIMITER);
+    let oldValue = prefix, newValue = prefix;
+    for (let i = 0; i < chunks.length; i++) {
+        const slotIdx = rootIndex + i;
+        oldValue += `${lView[slotIdx]}${chunks[i]}`;
+        newValue += `${slotIdx === expressionIndex ? changedValue : lView[slotIdx]}${chunks[i]}`;
+    }
+    return { propName, oldValue, newValue };
+}
+/**
+ * Constructs an object that contains details for the ExpressionChangedAfterItHasBeenCheckedError:
+ * - property name (for property bindings or interpolations)
+ * - old and new values, enriched using information from metadata
+ *
+ * More information on the metadata storage format can be found in `storePropertyBindingMetadata`
+ * function description.
+ */
+function getExpressionChangedErrorDetails(lView, bindingIndex, oldValue, newValue) {
+    const tData = lView[TVIEW].data;
+    const metadata = tData[bindingIndex];
+    if (typeof metadata === 'string') {
+        // metadata for property interpolation
+        if (metadata.indexOf(INTERPOLATION_DELIMITER) > -1) {
+            return constructDetailsForInterpolation(lView, bindingIndex, bindingIndex, metadata, newValue);
+        }
+        // metadata for property binding
+        return { propName: metadata, oldValue, newValue };
+    }
+    // metadata is not available for this expression, check if this expression is a part of the
+    // property interpolation by going from the current binding index left and look for a string that
+    // contains INTERPOLATION_DELIMITER, the layout in tView.data for this case will look like this:
+    // [..., 'id�Prefix � and � suffix', null, null, null, ...]
+    if (metadata === null) {
+        let idx = bindingIndex - 1;
+        while (typeof tData[idx] !== 'string' && tData[idx + 1] === null) {
+            idx--;
+        }
+        const meta = tData[idx];
+        if (typeof meta === 'string') {
+            const matches = meta.match(new RegExp(INTERPOLATION_DELIMITER, 'g'));
+            // first interpolation delimiter separates property name from interpolation parts (in case of
+            // property interpolations), so we subtract one from total number of found delimiters
+            if (matches && (matches.length - 1) > bindingIndex - idx) {
+                return constructDetailsForInterpolation(lView, idx, bindingIndex, meta, newValue);
+            }
+        }
+    }
+    return { propName: undefined, oldValue, newValue };
+}
+/** Throws an error when a token is not found in DI. */
+function throwProviderNotFoundError(token, injectorName) {
+    const injectorDetails = injectorName ? ` in ${injectorName}` : '';
+    throw new Error(`No provider for ${stringifyForError(token)} found${injectorDetails}`);
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Represents a basic change from a previous to a new value for a single
  * property on a directive instance. Passed as a value in a
  * {@link SimpleChanges} object to the `ngOnChanges` hook.
@@ -17506,11 +17715,11 @@ var RendererStyleFlags3;
 function isProceduralRenderer(renderer) {
     return !!(renderer.listen);
 }
-const ɵ0$2 = (hostElement, rendererType) => {
+const ɵ0$3 = (hostElement, rendererType) => {
     return getDocument();
 };
 const domRendererFactory3 = {
-    createRenderer: ɵ0$2
+    createRenderer: ɵ0$3
 };
 // Note: This hack is necessary so we don't erroneously get a circular dependency
 // failure based on types.
@@ -18786,92 +18995,6 @@ function getParentInjectorView(location, startView) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * Used for stringify render output in Ivy.
- * Important! This function is very performance-sensitive and we should
- * be extra careful not to introduce megamorphic reads in it.
- */
-function renderStringify(value) {
-    if (typeof value === 'string')
-        return value;
-    if (value == null)
-        return '';
-    return '' + value;
-}
-/**
- * Used to stringify a value so that it can be displayed in an error message.
- * Important! This function contains a megamorphic read and should only be
- * used for error messages.
- */
-function stringifyForError(value) {
-    if (typeof value === 'function')
-        return value.name || value.toString();
-    if (typeof value === 'object' && value != null && typeof value.type === 'function') {
-        return value.type.name || value.type.toString();
-    }
-    return renderStringify(value);
-}
-const ɵ0$3 = () => (typeof requestAnimationFrame !== 'undefined' &&
-    requestAnimationFrame || // browser only
-    setTimeout // everything else
-)
-    .bind(_global);
-const defaultScheduler = (ɵ0$3)();
-/**
- *
- * @codeGenApi
- */
-function ɵɵresolveWindow(element) {
-    return { name: 'window', target: element.ownerDocument.defaultView };
-}
-/**
- *
- * @codeGenApi
- */
-function ɵɵresolveDocument(element) {
-    return { name: 'document', target: element.ownerDocument };
-}
-/**
- *
- * @codeGenApi
- */
-function ɵɵresolveBody(element) {
-    return { name: 'body', target: element.ownerDocument.body };
-}
-/**
- * The special delimiter we use to separate property names, prefixes, and suffixes
- * in property binding metadata. See storeBindingMetadata().
- *
- * We intentionally use the Unicode "REPLACEMENT CHARACTER" (U+FFFD) as a delimiter
- * because it is a very uncommon character that is unlikely to be part of a user's
- * property names or interpolation strings. If it is in fact used in a property
- * binding, DebugElement.properties will not return the correct value for that
- * binding. However, there should be no runtime effect for real applications.
- *
- * This character is typically rendered as a question mark inside of a diamond.
- * See https://en.wikipedia.org/wiki/Specials_(Unicode_block)
- *
- */
-const INTERPOLATION_DELIMITER = `�`;
-/**
- * Unwrap a value which might be behind a closure (for forward declaration reasons).
- */
-function maybeUnwrapFn(value) {
-    if (value instanceof Function) {
-        return value();
-    }
-    else {
-        return value;
-    }
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Defines if the call to `inject` should include `viewProviders` in its resolution.
  *
  * This is set to true when we try to instantiate a component. This value is reset in
@@ -19188,7 +19311,7 @@ function getOrCreateInjectable(tNode, lView, token, flags = InjectFlags.Default,
             try {
                 const value = bloomHash();
                 if (value == null && !(flags & InjectFlags.Optional)) {
-                    throw new Error(`No provider for ${stringifyForError(token)}!`);
+                    throwProviderNotFoundError(token);
                 }
                 else {
                     return value;
@@ -19287,7 +19410,7 @@ function getOrCreateInjectable(tNode, lView, token, flags = InjectFlags.Default,
         return notFoundValue;
     }
     else {
-        throw new Error(`NodeInjector: NOT_FOUND [${stringifyForError(token)}]`);
+        throwProviderNotFoundError(token, 'NodeInjector');
     }
 }
 const NOT_FOUND = {};
@@ -19371,7 +19494,7 @@ function getNodeInjectable(lView, tView, index, tNode) {
     if (isFactory(value)) {
         const factory = value;
         if (factory.resolving) {
-            throw new Error(`Circular dep for ${stringifyForError(tData[index])}`);
+            throwCyclicDependencyError(stringifyForError(tData[index]));
         }
         const previousIncludeViewProviders = setIncludeViewProviders(factory.canSeeViewProviders);
         factory.resolving = true;
@@ -20786,90 +20909,6 @@ function discoverLocalRefs(lView, nodeIndex) {
         return result;
     }
     return null;
-}
-
-/** Called when directives inject each other (creating a circular dependency) */
-function throwCyclicDependencyError(token) {
-    throw new Error(`Cannot instantiate cyclic dependency! ${token}`);
-}
-/** Called when there are multiple component selectors that match a given node */
-function throwMultipleComponentError(tNode) {
-    throw new Error(`Multiple components match node with tagname ${tNode.tagName}`);
-}
-function throwMixedMultiProviderError() {
-    throw new Error(`Cannot mix multi providers and regular providers`);
-}
-function throwInvalidProviderError(ngModuleType, providers, provider) {
-    let ngModuleDetail = '';
-    if (ngModuleType && providers) {
-        const providerDetail = providers.map(v => v == provider ? '?' + provider + '?' : '...');
-        ngModuleDetail =
-            ` - only instances of Provider and Type are allowed, got: [${providerDetail.join(', ')}]`;
-    }
-    throw new Error(`Invalid provider for the NgModule '${stringify(ngModuleType)}'` + ngModuleDetail);
-}
-/** Throws an ExpressionChangedAfterChecked error if checkNoChanges mode is on. */
-function throwErrorIfNoChangesMode(creationMode, oldValue, currValue, propName) {
-    const field = propName ? ` for '${propName}'` : '';
-    let msg = `ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value${field}: '${oldValue}'. Current value: '${currValue}'.`;
-    if (creationMode) {
-        msg +=
-            ` It seems like the view has been created after its parent and its children have been dirty checked.` +
-                ` Has it been created in a change detection hook?`;
-    }
-    // TODO: include debug context, see `viewDebugError` function in
-    // `packages/core/src/view/errors.ts` for reference.
-    throw new Error(msg);
-}
-function constructDetailsForInterpolation(lView, rootIndex, expressionIndex, meta, changedValue) {
-    const [propName, prefix, ...chunks] = meta.split(INTERPOLATION_DELIMITER);
-    let oldValue = prefix, newValue = prefix;
-    for (let i = 0; i < chunks.length; i++) {
-        const slotIdx = rootIndex + i;
-        oldValue += `${lView[slotIdx]}${chunks[i]}`;
-        newValue += `${slotIdx === expressionIndex ? changedValue : lView[slotIdx]}${chunks[i]}`;
-    }
-    return { propName, oldValue, newValue };
-}
-/**
- * Constructs an object that contains details for the ExpressionChangedAfterItHasBeenCheckedError:
- * - property name (for property bindings or interpolations)
- * - old and new values, enriched using information from metadata
- *
- * More information on the metadata storage format can be found in `storePropertyBindingMetadata`
- * function description.
- */
-function getExpressionChangedErrorDetails(lView, bindingIndex, oldValue, newValue) {
-    const tData = lView[TVIEW].data;
-    const metadata = tData[bindingIndex];
-    if (typeof metadata === 'string') {
-        // metadata for property interpolation
-        if (metadata.indexOf(INTERPOLATION_DELIMITER) > -1) {
-            return constructDetailsForInterpolation(lView, bindingIndex, bindingIndex, metadata, newValue);
-        }
-        // metadata for property binding
-        return { propName: metadata, oldValue, newValue };
-    }
-    // metadata is not available for this expression, check if this expression is a part of the
-    // property interpolation by going from the current binding index left and look for a string that
-    // contains INTERPOLATION_DELIMITER, the layout in tView.data for this case will look like this:
-    // [..., 'id�Prefix � and � suffix', null, null, null, ...]
-    if (metadata === null) {
-        let idx = bindingIndex - 1;
-        while (typeof tData[idx] !== 'string' && tData[idx + 1] === null) {
-            idx--;
-        }
-        const meta = tData[idx];
-        if (typeof meta === 'string') {
-            const matches = meta.match(new RegExp(INTERPOLATION_DELIMITER, 'g'));
-            // first interpolation delimiter separates property name from interpolation parts (in case of
-            // property interpolations), so we subtract one from total number of found delimiters
-            if (matches && (matches.length - 1) > bindingIndex - idx) {
-                return constructDetailsForInterpolation(lView, idx, bindingIndex, meta, newValue);
-            }
-        }
-    }
-    return { propName: undefined, oldValue, newValue };
 }
 
 /**
@@ -22958,7 +22997,7 @@ function generatePropertyAliases(inputAliasMap, directiveDefIdx, propStore) {
     return propStore;
 }
 /**
- * Initializes data structures required to work with directive outputs and outputs.
+ * Initializes data structures required to work with directive inputs and outputs.
  * Initialization is done for all directives matched on a given TNode.
  */
 function initializeInputAndOutputAliases(tView, tNode) {
@@ -23807,8 +23846,10 @@ function markViewDirty(lView) {
  */
 function scheduleTick(rootContext, flags) {
     const nothingScheduled = rootContext.flags === 0 /* Empty */;
-    rootContext.flags |= flags;
     if (nothingScheduled && rootContext.clean == _CLEAN_PROMISE) {
+        // https://github.com/angular/angular/issues/39296
+        // should only attach the flags when really scheduling a tick
+        rootContext.flags |= flags;
         let res;
         rootContext.clean = new Promise((r) => res = r);
         rootContext.scheduler(() => {
@@ -26383,7 +26424,8 @@ class R3Injector {
         // Check for circular dependencies.
         if (ngDevMode && parents.indexOf(defType) !== -1) {
             const defName = stringify(defType);
-            throw new Error(`Circular dependency in DI detected for type ${defName}. Dependency path: ${parents.map(defType => stringify(defType)).join(' > ')} > ${defName}.`);
+            const path = parents.map(stringify);
+            throwCyclicDependencyError(defName, path);
         }
         // Check for multiple imports of the same module
         const isDuplicate = dedupStack.indexOf(defType) !== -1;
@@ -28570,7 +28612,7 @@ function publishGlobalUtil(name, fn) {
  * found in the LICENSE file at https://angular.io/license
  */
 const ɵ0$b = (token, notFoundValue) => {
-    throw new Error('NullInjector: Not found: ' + stringifyForError(token));
+    throwProviderNotFoundError(token, 'NullInjector');
 };
 // TODO: A hack to not pull in the NullInjector from @angular/core.
 const NULL_INJECTOR$1 = {
@@ -36256,7 +36298,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.2.0');
+const VERSION = new Version('10.2.3');
 
 /**
  * @license
@@ -39374,18 +39416,25 @@ function assertSameOrNotExisting(id, type, incoming) {
     }
 }
 function registerNgModuleType(ngModuleType) {
-    if (ngModuleType.ɵmod.id !== null) {
-        const id = ngModuleType.ɵmod.id;
-        const existing = modules.get(id);
-        assertSameOrNotExisting(id, existing, ngModuleType);
-        modules.set(id, ngModuleType);
-    }
-    let imports = ngModuleType.ɵmod.imports;
-    if (imports instanceof Function) {
-        imports = imports();
-    }
-    if (imports) {
-        imports.forEach(i => registerNgModuleType(i));
+    const visited = new Set();
+    recurse(ngModuleType);
+    function recurse(ngModuleType) {
+        // The imports array of an NgModule must refer to other NgModules,
+        // so an error is thrown if no module definition is available.
+        const def = getNgModuleDef(ngModuleType, /* throwNotFound */ true);
+        const id = def.id;
+        if (id !== null) {
+            const existing = modules.get(id);
+            assertSameOrNotExisting(id, existing, ngModuleType);
+            modules.set(id, ngModuleType);
+        }
+        const imports = maybeUnwrapFn(def.imports);
+        for (const i of imports) {
+            if (!visited.has(i)) {
+                visited.add(i);
+                recurse(i);
+            }
+        }
     }
 }
 function clearModulesForTest() {
@@ -40768,7 +40817,7 @@ function ɵɵtemplateRefExtractor(tNode, currentView) {
 function ɵɵinjectPipeChangeDetectorRef(flags = InjectFlags.Default) {
     const value = injectChangeDetectorRef(true);
     if (value == null && !(flags & InjectFlags.Optional)) {
-        throw new Error(`No provider for ChangeDetectorRef!`);
+        throwProviderNotFoundError('ChangeDetectorRef');
     }
     else {
         return value;
@@ -46984,7 +47033,7 @@ class NgModuleFactory_ extends NgModuleFactory {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-if (ngDevMode) {
+if (typeof ngDevMode !== 'undefined' && ngDevMode) {
     // This helper is to give a reasonable error message to people upgrading to v9 that have not yet
     // installed `@angular/localize` in their app.
     // tslint:disable-next-line: no-toplevel-property-access
@@ -47509,7 +47558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ɵgetDOM", function() { return _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"]; });
 
 /**
- * @license Angular v10.2.0
+ * @license Angular v10.2.3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -49640,7 +49689,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('10.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('10.2.3');
 
 /**
  * @license
@@ -50928,7 +50977,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵsetRootDomAdapter", function() { return setRootDomAdapter; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /**
- * @license Angular v10.2.0
+ * @license Angular v10.2.3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -56213,7 +56262,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('10.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('10.2.3');
 
 /**
  * @license
@@ -57603,7 +57652,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /**
- * @license Angular v10.2.0
+ * @license Angular v10.2.3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -59903,7 +59952,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v10.2.0
+ * @license Angular v10.2.3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -61619,6 +61668,13 @@ function createUrlTree(route, urlTree, commands, queryParams, fragment) {
 function isMatrixParams(command) {
     return typeof command === 'object' && command != null && !command.outlets && !command.segmentPath;
 }
+/**
+ * Determines if a given command has an `outlets` map. When we encounter a command
+ * with an outlets k/v map, we need to apply each outlet individually to the existing segment.
+ */
+function isCommandWithOutlets(command) {
+    return typeof command === 'object' && command != null && command.outlets;
+}
 function tree(oldSegmentGroup, newSegmentGroup, urlTree, queryParams, fragment) {
     let qp = {};
     if (queryParams) {
@@ -61651,7 +61707,7 @@ class Navigation {
         if (isAbsolute && commands.length > 0 && isMatrixParams(commands[0])) {
             throw new Error('Root segment cannot have matrix parameters');
         }
-        const cmdWithOutlet = commands.find(c => typeof c === 'object' && c != null && c.outlets);
+        const cmdWithOutlet = commands.find(isCommandWithOutlets);
         if (cmdWithOutlet && cmdWithOutlet !== last(commands)) {
             throw new Error('{outlets:{}} has to be the last command');
         }
@@ -61741,14 +61797,8 @@ function createPositionApplyingDoubleDots(group, index, numberOfDoubleDots) {
     }
     return new Position(g, false, ci - dd);
 }
-function getPath(command) {
-    if (typeof command === 'object' && command != null && command.outlets) {
-        return command.outlets[PRIMARY_OUTLET];
-    }
-    return `${command}`;
-}
 function getOutlets(commands) {
-    if (typeof commands[0] === 'object' && commands[0] !== null && commands[0].outlets) {
+    if (isCommandWithOutlets(commands[0])) {
         return commands[0].outlets;
     }
     return { [PRIMARY_OUTLET]: commands };
@@ -61809,7 +61859,14 @@ function prefixedWith(segmentGroup, startIndex, commands) {
         if (currentCommandIndex >= commands.length)
             return noMatch;
         const path = segmentGroup.segments[currentPathIndex];
-        const curr = getPath(commands[currentCommandIndex]);
+        const command = commands[currentCommandIndex];
+        // Do not try to consume command as part of the prefixing if it has outlets because it can
+        // contain outlets other than the one being processed. Consuming the outlets command would
+        // result in other outlets being ignored.
+        if (isCommandWithOutlets(command)) {
+            break;
+        }
+        const curr = `${command}`;
         const next = currentCommandIndex < commands.length - 1 ? commands[currentCommandIndex + 1] : null;
         if (currentPathIndex > 0 && curr === undefined)
             break;
@@ -61831,9 +61888,9 @@ function createNewSegmentGroup(segmentGroup, startIndex, commands) {
     const paths = segmentGroup.segments.slice(0, startIndex);
     let i = 0;
     while (i < commands.length) {
-        if (typeof commands[i] === 'object' && commands[i] !== null &&
-            commands[i].outlets !== undefined) {
-            const children = createNewSegmentChildren(commands[i].outlets);
+        const command = commands[i];
+        if (isCommandWithOutlets(command)) {
+            const children = createNewSegmentChildren(command.outlets);
             return new UrlSegmentGroup(paths, children);
         }
         // if we start with an object literal, we need to reuse the path part from the segment
@@ -61843,7 +61900,7 @@ function createNewSegmentGroup(segmentGroup, startIndex, commands) {
             i++;
             continue;
         }
-        const curr = getPath(commands[i]);
+        const curr = isCommandWithOutlets(command) ? command.outlets[PRIMARY_OUTLET] : `${command}`;
         const next = (i < commands.length - 1) ? commands[i + 1] : null;
         if (curr && next && isMatrixParams(next)) {
             paths.push(new UrlSegment(curr, stringify(next)));
@@ -65704,7 +65761,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('10.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('10.2.3');
 
 /**
  * @license

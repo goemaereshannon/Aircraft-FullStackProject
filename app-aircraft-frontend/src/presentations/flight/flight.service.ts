@@ -8,9 +8,8 @@ import {catchError, tap} from 'rxjs/operators';
  })
  export class FlightService{
      constructor(private http: HttpClient){}
-
-     getTodaysFlights(): Observable<any>{
-         return this.http.get("http://localhost:5001/api/todaysflights")
+         getTodaysFlights(): Observable<any[]>{
+         return this.http.get<any[]>("http://localhost:5001/api/todaysflights")
          .pipe(
              tap(data => console.log(JSON.stringify(data))), 
              catchError(this.handleError)
