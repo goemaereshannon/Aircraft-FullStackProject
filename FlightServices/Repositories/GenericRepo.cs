@@ -49,8 +49,7 @@ public class GenericRepo<TEntity> : IGenericRepo<TEntity> where TEntity : class
     public async Task<TEntity> GetAsyncByGuid(Guid Id)
     {
         //enkel bruikbaar bij een guid Key
-        var kaas = await _context.Set<TEntity>().FindAsync(Id);
-        return kaas; 
+        return await _context.Set<TEntity>().FindAsync(Id);
     }
 
     public async Task<TEntity> Create(TEntity entity)
