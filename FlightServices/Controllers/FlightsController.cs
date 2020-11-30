@@ -13,6 +13,7 @@ using FlightServices.Repositories;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Caching.Memory;
 using FlightServices.Helpers;
+using System.Diagnostics;
 
 namespace FlightServices.Controllers
 {
@@ -33,10 +34,9 @@ namespace FlightServices.Controllers
 
         private readonly IDepartureRepo departureRepo;
         private readonly IDestinationRepo destinationRepo;
-        private readonly IFlightRepo flightRepo;
         private readonly IAirplaneRepo airplaneRepo;
 
-        public FlightsController(IMemoryCache memoryCache,IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IFlightRepo flightRepo, IAirplaneRepo airplaneRepo)
+        public FlightsController(IMemoryCache memoryCache,IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IAirplaneRepo airplaneRepo)
         {
             this.memoryCache = memoryCache;
 
@@ -48,7 +48,6 @@ namespace FlightServices.Controllers
 
             this.departureRepo = departureRepo;
             this.destinationRepo = destinationRepo;
-            this.flightRepo = flightRepo;
             this.airplaneRepo = airplaneRepo;
 
             this.mapper = mapper;
@@ -82,15 +81,30 @@ namespace FlightServices.Controllers
                 return NotFound(new { message = "Flights not found" + ex}); 
             }
 
-            var flightsDTO = mapper.Map<IEnumerable<Flight>>(flights);
+            var flightsDTO = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(flights);
             return Ok(flightsDTO); 
             
         }
 
+        private async Task<IEnumerable<Flight>> GetFlightsInfo(IEnumerable<Flight> flights)
+        {
+            //relaties
+            foreach (Flight f in flights)
+            {
+                f.Departure = await departureRepo.GetDepartureWithLocationByDepartureId(new Guid(f.DepartureId.ToString()));
+
+                f.Destination = await destinationRepo.GetDestinationWithLocationByDestinationId(new Guid(f.DestinationId.ToString()));
+
+                Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(f.AirplaneId.Value);
+                f.Airplane = airplane;
+            }
+            return flights; 
+        }
+
         // GET: api/Flights/{id}
         [HttpGet("/api/flights/{id}")]
-        [ProducesResponseType(typeof(Flight), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Flight>> GetFlightDetails(Guid id)
+        [ProducesResponseType(typeof(FlightDTO), StatusCodes.Status200OK)]
+        public async Task<ActionResult<FlightDTO>> GetFlightDetails(Guid id)
         {
             try
             {
@@ -114,7 +128,7 @@ namespace FlightServices.Controllers
                 flight.Airplane = airplane;
 
 
-                var flightDTO = mapper.Map<Flight>(flight);
+                var flightDTO = mapper.Map<Flight, FlightDTO>(flight);
                 return Ok(flightDTO);
 
 
@@ -130,90 +144,223 @@ namespace FlightServices.Controllers
         // GET: api/flightsearch
         [HttpGet("/api/flightsearch")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<FlightDTO>>> GetFlightsByDateBasedOnDepartureAndDestination([FromBody] FlightSearchDTO flightSearchDTO)
+        public async Task<ActionResult<IEnumerable<FlightDTO>>> GetFlightsByDateBasedOnDepartureAndDestination([FromQuery] string departureSearch, string destinationSearch, string departureTimeSearch, string arrivalTimeSearch) 
         {
-            var flights = await GetFlights();
+            
+
+            //FlightSearchDTO opvullen waar ingevuld
+            FlightSearchDTO flightSearchDTO = new FlightSearchDTO();
+            if (!string.IsNullOrEmpty(departureSearch))
+            {
+                flightSearchDTO.Departure = departureSearch; 
+            }
+            if(!string.IsNullOrEmpty(destinationSearch))
+            {
+                flightSearchDTO.Destination = destinationSearch; 
+            }
+
+            if (!string.IsNullOrEmpty(departureTimeSearch))
+            {
+                try
+                {
+                    flightSearchDTO.DepartureTime = DateTime.Parse(departureTimeSearch);
+                }
+                catch (Exception ex)
+                {
+                    flightSearchDTO.DepartureTime = null; 
+                    Debug.WriteLine(ex);
+                }
+                
+            }
+            if (!string.IsNullOrEmpty(arrivalTimeSearch))
+            {
+                try
+                {
+
+                    flightSearchDTO.DepartureTime = DateTime.Parse(arrivalTimeSearch);
+                }
+                catch (Exception ex)
+                {
+                    flightSearchDTO.DestinationTime = null; 
+                    Debug.WriteLine(ex);
+                }
+            }; 
+            
+
             try
             {
-                if (ModelState.IsValid)
+                if (!string.IsNullOrEmpty(flightSearchDTO.Departure)) //DEP
                 {
-                    //Er werd iets in Departure ingevuld
-                    if (!string.IsNullOrEmpty(flightSearchDTO.Departure) )
+                    if (!string.IsNullOrEmpty(flightSearchDTO.Destination)) // DEP + DEST
                     {
-                        try
+                        if(flightSearchDTO.DepartureTime != null) // DEP + DEST + DEP T
                         {
-                            IEnumerable<Flight> depResult = await genericFlightRepo.GetByExpressionAsync(
-                             //  &&
-                            f => f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
-                            f.Departure.Location.Country.Contains(flightSearchDTO.Departure));
-                            //departure en departure time zijn ingevuld 
-                            if (flightSearchDTO.DepartureTime != null)
+                            if(flightSearchDTO.DestinationTime != null) //alle 4 search values ingevuld
                             {
-                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f => f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime);
-                                List<Flight> depAndTResult = new List<Flight>(); 
-                                foreach(var item in result)
-                                {
-                                    foreach(var flight in depResult)
-                                    {
-                                        if(item.Id == flight.Id)
-                                        {
-                                            depAndTResult.Add(item);
-                                        }
-                                    }
-                                }
-                                IEnumerable<Flight> resultList = await flightRepo.GetFlightsByDateBasedOnDestination(flightSearchDTO, depAndTResult);
-                                List<Flight> depTandDestResult = new List<Flight>();
-                                foreach (var item in resultList)
-                                {
-                                    foreach (var flight in depAndTResult)
-                                    {
-                                        if (item.Id == flight.Id)
-                                        {
-                                            depTandDestResult.Add(item);
-                                        }
-                                    }
-                                }
-                                return Ok(depTandDestResult); 
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f => 
+                                f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime &&
+                                f.TimeOfArrival.Date == flightSearchDTO.DestinationTime &&
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure) &&
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result))); 
                             }
-
-                            else
+                            else // DEP DEST DEP T
                             {
-                                 
-                                IEnumerable<Flight> resultList = await flightRepo.GetFlightsByDateBasedOnDestination(flightSearchDTO, depResult);
-                                List<Flight> result = new List<Flight>();
-                                foreach (var item in resultList)
-                                {
-                                    foreach (var flight in depResult)
-                                    {
-                                        if (item.Id == flight.Id)
-                                        {
-                                            result.Add(item);
-                                        }
-                                    }
-                                }
-                                return Ok(result); 
-
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime &&
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure) &&
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
                             }
 
                         }
-                        catch (Exception ex)
+                        else // DEP + DEST 
                         {
-
-                            return NotFound(new { message = "Flights not found with dep" + ex });
+                            if (flightSearchDTO.DestinationTime != null) // DEP + DEST + DEST T 
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfArrival.Date == flightSearchDTO.DestinationTime &&
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure) &&
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+                            else // DEP + DEST
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure) &&
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
                         }
                     }
-                    else
+                    else // DEP
                     {
-                        return Ok(flights);
+                        if (flightSearchDTO.DepartureTime != null) // DEP + DEP T 
+                        {
+                            if (flightSearchDTO.DestinationTime != null) //DEP + DEP T + DES T 
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime &&
+                                f.TimeOfArrival.Date == flightSearchDTO.DestinationTime &&
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+                            else // DEP DEP T
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime &&
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure) 
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+
+                        }
+                        else // DEP
+                        {
+                            if (flightSearchDTO.DestinationTime != null) // DEP + DEST T 
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfArrival.Date == flightSearchDTO.DestinationTime &&
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure) 
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+                            else  // DEP
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
+                                f.Departure.Location.Country.Contains(flightSearchDTO.Departure) 
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+                        }
                     }
                 }
+                else if(!string.IsNullOrEmpty(flightSearchDTO.Destination))// DEST
+                {
+                        if (flightSearchDTO.DepartureTime != null) // DEST + DEP T 
+                        {
+                            if (flightSearchDTO.DestinationTime != null) //DEST + DEP T + DEST T 
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime &&
+                                f.TimeOfArrival.Date == flightSearchDTO.DestinationTime &&
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+                            else // DEST + DEP T
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime &&
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+
+                        }
+                        else // DEST 
+                        {
+                            if (flightSearchDTO.DestinationTime != null) //DEST +  DEST T 
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.TimeOfArrival.Date == flightSearchDTO.DestinationTime &&
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+                            else // DEST
+                            {
+                                IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                                f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
+                                f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
+                                );
+                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            }
+                        }
+                    
+                   
+                }
+                else if (flightSearchDTO.DepartureTime != null) // enkel dep t 
+                {
+                    IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                               f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime 
+                               );
+                    return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                }
+                else if(flightSearchDTO.DestinationTime != null) // enkel destT 
+                {
+                    IEnumerable<Flight> result = await genericFlightRepo.GetByExpressionAsync(f =>
+                               f.TimeOfArrival.Date == flightSearchDTO.DestinationTime
+                               );
+                    return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                }
+                return await GetFlights(); 
             }
             catch (Exception ex)
             {
 
                 return NotFound(new { message = "Invalid model" + ex });
             }
-            return null;
         }
 
         // GET: api/Flightstoday
@@ -247,7 +394,7 @@ namespace FlightServices.Controllers
             {
                 return NotFound(new { message = "Flights not found" + ex });
             }
-
+            flightsCached = await GetFlightsInfo(flightsCached); 
             var flightsDTO = mapper.Map<IEnumerable<Flight>>(flightsCached);
             return Ok(flightsDTO);
 
@@ -370,13 +517,17 @@ namespace FlightServices.Controllers
                 }
                 catch (Exception exc)
                 {
-                    throw new Exception($"Patchupdate of {guid} failed. {exc.InnerException.Message}");
+                    return RedirectToAction("HandleErrorCode", "Error", new
+                    {
+                        statusCode = 400,
+                        errorMessage = ($"Patchupdate of {guid} failed. {exc.InnerException.Message}")
+                    });
                 }
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                return BadRequest(); 
             }
            
             return NoContent();
@@ -557,7 +708,8 @@ namespace FlightServices.Controllers
                 }
                 try
                 {
-
+                    newFlight.TimeOfArrival = flightDTO.TimeOfArrival;
+                    newFlight.TimeOfDeparture = flightDTO.TimeOfDeparture; 
                     await genericFlightRepo.Create(newFlight);
                     return CreatedAtAction("GetFlightDetails", new { id = newFlight.Id }, mapper.Map<FlightCreateEditDTO>(newFlight));
                 }

@@ -51,7 +51,6 @@ namespace FlightServices
             //customisation op generic repo
             services.AddScoped<IDestinationRepo, DestinationRepo>(); 
             services.AddScoped<IDepartureRepo, DepartureRepo>();
-            services.AddScoped<IFlightRepo, FlightRepo>();
             services.AddScoped<IAirplaneRepo, AirplaneRepo>();
 
             //mapper 
