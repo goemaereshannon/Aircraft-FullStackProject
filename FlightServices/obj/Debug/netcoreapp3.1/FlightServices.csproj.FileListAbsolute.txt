@@ -215,3 +215,4 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\FlightServices\obj\Debug\netcoreapp3.1\FlightServices.pdb
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\FlightServices\obj\Debug\netcoreapp3.1\FlightServices.genruntimeconfig.cache
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\FlightServices.xml
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\FlightServices\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll

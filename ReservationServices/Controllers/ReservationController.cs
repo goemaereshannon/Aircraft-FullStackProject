@@ -64,7 +64,7 @@ namespace ReservationServices.Controllers
 
             try
             {
-                IEnumerable<Reservation> reservations = await reservationRepo.GetByExpressionAsync(r => r.UserId == userId);
+                IEnumerable<Reservation> reservations = await reservationRepo.GetByExpressionAsync(r => r.UserId == id);
                 if (reservations == null || reservations.Count() == 0) return NotFound();
                 IEnumerable<ReservationDTO> reservationDTOs = mapper.Map<IEnumerable<ReservationDTO>>(reservations);
                 return Ok(reservationDTOs);
