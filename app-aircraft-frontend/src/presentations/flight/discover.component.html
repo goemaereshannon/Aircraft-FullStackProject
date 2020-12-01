@@ -1,3 +1,71 @@
 <div>
-    
+    <header>
+        <svg></svg>
+        <div>
+            <img src="" alt="">
+            <p></p>
+        </div>
+    </header>
+    <body>
+        <h1>
+            Book your flight
+        </h1>
+        <div>
+            <div>
+                <svg>
+
+                </svg>
+            </div>
+            <form> <!--novalidate (ngSubmit)="searchFlights()" [formGroup] = "searchForm"-->
+                <div>
+                <label>
+                    From
+                </label>
+                <input type="text">
+                <label for="">
+                    To
+                </label>
+                <input type="text">
+                </div>
+                <div>
+                    <label>
+                        Departure date
+                    </label>
+                    <input type="date">
+                </div>
+                <div>
+                    <label>
+                        Return date 
+                    </label>
+                    <input type="date">
+                </div>
+                      <button class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md "
+                              type="submit"
+                              style="width:80px"
+                            > <!--  [title]="registerForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                                [disabled]="!registerForm.valid"-->
+                        Find my flight
+                      </button>
+
+            </form>
+            <svg>
+
+            </svg>
+        </div>
+        <h1>Today's flights</h1>
+        <div>
+            <div>
+                <div>
+                    <p>BRU</p>
+                    <p>11u00</p>
+                </div>
+                <div>
+                    <p>JFK</p>
+                    <p>13u25</p>
+                </div>
+            </div>
+            <svg></svg>
+            <p>8u25</p>
+        </div>
+    </body>
 </div>

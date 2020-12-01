@@ -1,22 +1,28 @@
 import {Injectable} from '@angular/core'; 
-import {HttpClient} from '@angular/common/http'; 
+import {HttpClient, HttpErrorResponse} from '@angular/common/http'; 
 import { Observable, throwError } from 'rxjs';
-import {catchError, tap} from 'rxjs/operators'; 
+import {catchError, map} from 'rxjs/operators'; 
 
  @Injectable({
      providedIn: 'root'
  })
  export class FlightService{
      constructor(private http: HttpClient){}
-         getTodaysFlights(): Observable<any[]>{
-         return this.http.get<any[]>("http://localhost:5001/api/todaysflights")
+     private extractData(res:Response){
+         let body = res; 
+         console.log("RESPONSE")
+         console.log(body); 
+         return body || {}; 
+     }
+    public getTodaysFlights(): Observable<any>{
+         return this.http.get("http://localhost:5001/api/todaysflights")
          .pipe(
-             tap(data => console.log(JSON.stringify(data))), 
+             map(this.extractData), 
              catchError(this.handleError)
-         )
+         ); 
      }
 
-     private handleError(err): Observable<never>{
+     private handleError(err: HttpErrorResponse){
          console.log('Handling error');
          let errorMessage : string;
          if(err.error instanceof ErrorEvent){
