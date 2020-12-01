@@ -395,7 +395,7 @@ namespace FlightServices.Controllers
                 return NotFound(new { message = "Flights not found" + ex });
             }
             flightsCached = await GetFlightsInfo(flightsCached); 
-            var flightsDTO = mapper.Map<IEnumerable<Flight>>(flightsCached);
+            var flightsDTO = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(flightsCached);
             return Ok(flightsDTO);
 
         }

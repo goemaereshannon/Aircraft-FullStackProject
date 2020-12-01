@@ -1,0 +1,11 @@
+.grid-template{
+    grid-template-columns: 1fr 2.5fr 1fr;
+}
+.sm-text{
+    font-size: 0.75rem;  
+    &__upper{
+        text-transform: uppercase;
+        color: #9da5ab
+    }
+}
+

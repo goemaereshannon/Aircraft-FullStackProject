@@ -30,7 +30,7 @@ namespace FlightServices
             services.AddCors(options => {
                 options.AddPolicy("MyAllowOrigins", builder =>
                 {
-                    builder.AllowAnyMethod().AllowAnyHeader()
+                    builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
                         .WithOrigins("https://localhost:5001").AllowCredentials();
                 });
             });

@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core'; 
 import {FlightService} from './flight.service'
 
+console.log("DISCOVERRR")
 
 @Component({
     selector: 'app-discover', 
     templateUrl: './discover.component.html', 
-    styleUrls: ['./discover.component.scss']
+    styleUrls: ['./discover.component.scss', '../../app/app.component.scss']
 })
 export class DiscoverComponent implements OnInit{
     constructor(private flightService: FlightService){}; 

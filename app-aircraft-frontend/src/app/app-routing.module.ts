@@ -6,11 +6,10 @@ import { RegisterComponent } from '../presentations/identity/register.component'
 
 const routes: Routes = [
   { path: '', component: AppComponent }, 
-  { path: 'identity', children: [
-      {
+  { path: 'identity', children: [{
       path: 'register', 
       component: RegisterComponent
-      }, 
+    }
     ]}, 
   { path: 'discover', component: DiscoverComponent },
   //path with children path:'', component: Comp, children: [{},{}]

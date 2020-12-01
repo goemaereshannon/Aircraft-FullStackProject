@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core'; 
 import {HttpClient, HttpErrorResponse} from '@angular/common/http'; 
 import { Observable, throwError } from 'rxjs';
-import {catchError, map} from 'rxjs/operators'; 
+import {catchError, tap} from 'rxjs/operators'; 
+import { Flight } from './flight';
 
  @Injectable({
      providedIn: 'root'
@@ -15,9 +16,10 @@ import {catchError, map} from 'rxjs/operators';
          return body || {}; 
      }
     public getTodaysFlights(): Observable<any>{
-         return this.http.get("http://localhost:5001/api/todaysflights")
+        console.log("Get todays flights"); 
+         return this.http.get<Flight[]>("http://localhost:44347/api/flightstoday")
          .pipe(
-             map(this.extractData), 
+             tap(data=> console.log('getflights: ' + JSON.stringify(data))),
              catchError(this.handleError)
          ); 
      }
