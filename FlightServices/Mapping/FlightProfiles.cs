@@ -23,12 +23,14 @@ namespace FlightServices.Mapping
             CreateMap<CreateReservationDTO, Reservation>().ReverseMap();
             CreateMap<ReservedSeatDTO, ReservedSeat>().ReverseMap();
             CreateMap<PersonDTO, Person>().ReverseMap();
+            CreateMap<PriceClassDTO, PriceClass>().ReverseMap();
         }
 
         private void InitAirplaneMapper()
         {
             CreateMap<AirplaneDTO, Airplane>();
-            CreateMap<Airplane, AirplaneDTO>(); 
+            CreateMap<Airplane, AirplaneDTO>();
+            CreateMap<SeatDTO, Seat>().ReverseMap();
         }
 
         private void InitDepartureAndDestinationMapper()

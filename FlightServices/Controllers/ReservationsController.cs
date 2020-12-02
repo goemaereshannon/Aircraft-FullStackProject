@@ -19,12 +19,14 @@ namespace FlightServices.Controllers
        
         private readonly IGenericRepo<Reservation> genericRepo;
         private readonly IMapper mapper;
+        private readonly IGenericRepo<PriceClass> genericPriceRepo;
 
-        public ReservationsController(IGenericRepo<Reservation> genericRepo, IMapper mapper)
+        public ReservationsController(IGenericRepo<Reservation> genericRepo, IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo)
         {
          
             this.genericRepo = genericRepo;
             this.mapper = mapper;
+            this.genericPriceRepo = genericPriceRepo;
         }
 
         // GET: api/Reservations
@@ -79,7 +81,33 @@ namespace FlightServices.Controllers
 
         //    return NoContent();
         //}
+        [HttpPost("/api/reservations/prices")]
+        public async Task<ActionResult<PriceClassDTO>> PostPrice([FromBody] PriceClassDTO priceDTO)
+        {
 
+            //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+            // Location createdLocation = await genericLocationRepo.Create(location);
+            if (priceDTO == null) return BadRequest(new { Message = "No price input" });
+
+            try
+            {
+                PriceClass price = mapper.Map<PriceClass>(priceDTO);
+                var result = await genericPriceRepo.Create(price);
+                if (result == null) return BadRequest(new { Message = $"Price {priceDTO.Value} could not be saved" });
+                return Created("api/reservations/prices", priceDTO);
+
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Creating price {priceDTO} failed : {ex}"
+                });
+            }
+
+        }
         // POST: api/Reservations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
