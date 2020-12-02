@@ -184,7 +184,7 @@ namespace FlightServices.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost("/api/reservations")]
-        public async Task<ActionResult<Reservation>> PostReservation(CreateReservationDTO reservationDTO)
+        public async Task<ActionResult<CreateReservationDTO>> PostReservation(CreateReservationDTO reservationDTO)
         {
             if (reservationDTO == null ) return BadRequest(new { Message = "No reservation input" });
 

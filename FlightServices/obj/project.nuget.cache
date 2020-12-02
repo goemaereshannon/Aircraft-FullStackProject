@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "1uZvrcfq9u7EQzVHuj3hdcjRRBIArAJ0ICKTERwb3/drL+yjs9pfpZiZOkuk5tko71V+Zi4zkRYN5CwB/f8q8w==",
   "success": true,
-  "projectFilePath": "D:\\3MCT\\Fullstack\\Aircraft-FullStackProject\\FlightServices\\FlightServices.csproj",
+  "projectFilePath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\FlightServices\\FlightServices.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alexi\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.0\\automapper.extensions.microsoft.dependencyinjection.8.1.0.nupkg.sha512",
