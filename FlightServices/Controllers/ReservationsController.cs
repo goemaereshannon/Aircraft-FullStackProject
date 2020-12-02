@@ -20,13 +20,17 @@ namespace FlightServices.Controllers
         private readonly IGenericRepo<Reservation> genericRepo;
         private readonly IMapper mapper;
         private readonly IGenericRepo<PriceClass> genericPriceRepo;
+        private readonly IGenericRepo<Person> genericPersonRepo;
+        private readonly IGenericRepo<ReservedSeat> genericReservedSeatRepo;
 
-        public ReservationsController(IGenericRepo<Reservation> genericRepo, IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo)
+        public ReservationsController(IGenericRepo<Reservation> genericRepo, IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo)
         {
          
             this.genericRepo = genericRepo;
             this.mapper = mapper;
             this.genericPriceRepo = genericPriceRepo;
+            this.genericPersonRepo = genericPersonRepo;
+            this.genericReservedSeatRepo = genericReservedSeatRepo;
         }
 
         // GET: api/Reservations
@@ -81,7 +85,7 @@ namespace FlightServices.Controllers
 
         //    return NoContent();
         //}
-        [HttpPost("/api/reservations/prices")]
+        [HttpPost("/api/reservations/price")]
         public async Task<ActionResult<PriceClassDTO>> PostPrice([FromBody] PriceClassDTO priceDTO)
         {
 
@@ -94,7 +98,7 @@ namespace FlightServices.Controllers
                 PriceClass price = mapper.Map<PriceClass>(priceDTO);
                 var result = await genericPriceRepo.Create(price);
                 if (result == null) return BadRequest(new { Message = $"Price {priceDTO.Value} could not be saved" });
-                return Created("api/reservations/prices", priceDTO);
+                return Created("api/reservations/price", priceDTO);
 
             }
             catch (Exception ex)
@@ -108,10 +112,78 @@ namespace FlightServices.Controllers
             }
 
         }
+        [HttpPost("/api/reservations/person")]
+        public async Task<ActionResult<PersonDTO>> PostPerson([FromBody] PersonDTO personDTO)
+        {
+
+            //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+            // Location createdLocation = await genericLocationRepo.Create(location);
+            if (personDTO == null) return BadRequest(new { Message = "No price input" });
+
+            try
+            {
+                Person person = mapper.Map<Person>(personDTO);
+                var result = await genericPersonRepo.Create(person);
+                if (result == null) return BadRequest(new { Message = $"Person {personDTO.FirstName} {personDTO.LastName} could not be saved" });
+                return Created("api/reservations/person", personDTO);
+
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Creating Person {personDTO.FirstName} {personDTO.LastName} failed : {ex}"
+                });
+            }
+
+        }
+        [HttpPost("/api/reservations/reservedseat")]
+        public async Task<ActionResult<ReservedSeatDTO>> PostReservedSeat([FromBody] ReservedSeatDTO reservedSeatDTO, Guid reservationId)
+        {
+
+            //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+            // Location createdLocation = await genericLocationRepo.Create(location);
+            if (reservedSeatDTO == null) return BadRequest(new { Message = "No seat input" });
+
+            try
+            {
+                
+                ReservedSeat reservedSeat = mapper.Map<ReservedSeat>(reservedSeatDTO);
+                Reservation reservation = new Reservation(); 
+
+                if(await genericRepo.Exists(reservation, reservationId)){
+                    reservedSeat.ReservationId = reservationId;
+                    var result = await genericReservedSeatRepo.Create(reservedSeat);
+                    if (result == null) return BadRequest(new { Message = $"Reserved seat for {reservedSeatDTO.Person.FirstName} could not be saved" });
+                    return Created("api/reservations/reservedseat", reservedSeatDTO);
+                }
+                else
+                {
+                    return RedirectToAction("HandleErrorCode", "Error", new
+                    {
+                        statusCode = 404,
+                        errorMessage = $"Could not find reservation "
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Creating Reserved seat for {reservedSeatDTO.Person.FirstName} failed : {ex}"
+                });
+            }
+
+        }
         // POST: api/Reservations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost("api/reservations")]
+        [HttpPost("/api/reservations")]
         public async Task<ActionResult<Reservation>> PostReservation(CreateReservationDTO reservationDTO)
         {
             if (reservationDTO == null ) return BadRequest(new { Message = "No reservation input" });

@@ -11,7 +11,7 @@ namespace FlightServices.DTOs
         public Guid PriceId { get; set; }
         
 
-        public Guid ReservationId { get; set; }
+       // public Guid ReservationId { get; set; }
         public PersonDTO Person { get; set; }
     }
 }
