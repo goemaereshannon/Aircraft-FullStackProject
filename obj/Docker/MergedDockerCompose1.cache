@@ -1,0 +1,44 @@
+services:
+  apigateway:
+    build:
+      context: D:\3MCT\Fullstack\Aircraft-FullStackProject
+      dockerfile: Gateway/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: apigateway
+    ports:
+    - published: 32820
+      target: 80
+    volumes:
+    - C:\Users\Shannon\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Shannon\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Password123
+    image: mcr.microsoft.com/mssql/server
+    ports:
+    - published: 1833
+      target: 1433
+    volumes:
+    - C:\Users\Shannon\AppData\Roaming\DockerVolumes\sqlserver:/var/opt/mssql/data:rw
+  identityservices:
+    build:
+      context: D:\3MCT\Fullstack\Aircraft-FullStackProject
+      dockerfile: IdentityServices/Dockerfile
+    container_name: IdentityServicesAircraft
+    depends_on:
+      db:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: identityservicesaircraft
+    ports:
+    - published: 32808
+      target: 80
+    volumes:
+    - C:\Users\Shannon\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Shannon\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'

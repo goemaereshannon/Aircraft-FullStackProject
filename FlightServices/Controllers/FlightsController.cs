@@ -395,15 +395,15 @@ namespace FlightServices.Controllers
                 return NotFound(new { message = "Flights not found" + ex });
             }
             flightsCached = await GetFlightsInfo(flightsCached); 
-            var flightsDTO = mapper.Map<IEnumerable<Flight>>(flightsCached);
+            var flightsDTO = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(flightsCached);
             return Ok(flightsDTO);
 
         }
 
         // GET: api/flights/destinations/{search}
-        [HttpGet("/api/flights/destinations/{search}")]
+        [HttpGet("/api/flights/destinations")]
         [ProducesResponseType(typeof(IEnumerable<DepartureDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<DestinationDTO>>> GetAllDestinations(string search)
+        public async Task<ActionResult<IEnumerable<DestinationDTO>>> GetAllDestinations([FromQuery] string search)
         {
             IEnumerable<Destination> result;
             try
@@ -424,6 +424,10 @@ namespace FlightServices.Controllers
                 }
                 else {
                     result = await genericDestinationRepo.GetAllAsync();
+                    foreach(var i in result)
+                    {
+                        i.Location = await genericLocationRepo.GetAsyncByGuid(i.LocationId); 
+                    }
                 }
             }
             catch (Exception ex)
@@ -431,14 +435,14 @@ namespace FlightServices.Controllers
                 return NotFound(new { message = "Destination locations not found" + ex });
             }
 
-            var destinationDTO = mapper.Map<IEnumerable<Destination>>(result);
+            var destinationDTO = mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationDTO>>(result);
             return Ok(destinationDTO);
 
         }
         // GET: api/flights/departures/{search}
-        [HttpGet("/api/flights/departures/{search}")]
+        [HttpGet("/api/flights/departures")]
         [ProducesResponseType(typeof(IEnumerable<DestinationDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<DestinationDTO>>> GetAllDepartures(string search)
+        public async Task<ActionResult<IEnumerable<DestinationDTO>>> GetAllDepartures([FromQuery] string search)
         {
             IEnumerable<Departure> result;
             try
@@ -460,6 +464,10 @@ namespace FlightServices.Controllers
                 else
                 {
                     result = await genericDepartureRepo.GetAllAsync();
+                    foreach (var i in result)
+                    {
+                        i.Location = await genericLocationRepo.GetAsyncByGuid(i.LocationId);
+                    }
                 }
             }
             catch (Exception ex)
@@ -467,7 +475,7 @@ namespace FlightServices.Controllers
                 return NotFound(new { message = "Departure locations not found" + ex });
             }
 
-            var departureDTO = mapper.Map<IEnumerable<Departure>>(result);
+            var departureDTO = mapper.Map<IEnumerable<Departure>, IEnumerable<DepartureDTO>>(result);
             return Ok(departureDTO);
 
         }
