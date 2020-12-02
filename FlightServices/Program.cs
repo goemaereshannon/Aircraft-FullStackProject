@@ -25,7 +25,7 @@ namespace FlightServices
                     var context = services.GetRequiredService<FlightServicesContext>();
                    //context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
-                    context.Database.Migrate();//voert migraties uit
+                    //context.Database.Migrate();//voert migraties uit
                 }
                 catch (Exception ex)
                 {

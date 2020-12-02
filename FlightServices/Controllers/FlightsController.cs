@@ -35,8 +35,9 @@ namespace FlightServices.Controllers
         private readonly IDepartureRepo departureRepo;
         private readonly IDestinationRepo destinationRepo;
         private readonly IAirplaneRepo airplaneRepo;
+        private readonly IGenericRepo<Seat> seatRepo;
 
-        public FlightsController(IMemoryCache memoryCache,IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IAirplaneRepo airplaneRepo)
+        public FlightsController(IMemoryCache memoryCache,IGenericRepo<Flight> genericFlightRepo, IGenericRepo<Departure> genericDepartureRepo, IGenericRepo<Destination> genericDestinationRepo, IGenericRepo<Airplane> genericAirplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IAirplaneRepo airplaneRepo, IGenericRepo<Seat> seatRepo)
         {
             this.memoryCache = memoryCache;
 
@@ -49,7 +50,7 @@ namespace FlightServices.Controllers
             this.departureRepo = departureRepo;
             this.destinationRepo = destinationRepo;
             this.airplaneRepo = airplaneRepo;
-
+            this.seatRepo = seatRepo;
             this.mapper = mapper;
           
         }
@@ -125,6 +126,8 @@ namespace FlightServices.Controllers
                 flight.Destination = await destinationRepo.GetDestinationWithLocationByDestinationId(new Guid(flight.DestinationId.ToString()));
 
                 Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);
+                
+                
                 flight.Airplane = airplane;
 
 
@@ -633,10 +636,12 @@ namespace FlightServices.Controllers
         [HttpPost("/api/flights/destination")]
         public async Task<ActionResult<DestinationDTO>> PostDestination([FromBody] DestinationDTO destinationDTO)
         {
+            Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+            Location createdLocation = await genericLocationRepo.Create(location);
+
             if (ModelState.IsValid)
             {
-                Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
-                await genericLocationRepo.Create(location);
+                
                 Destination destination = mapper.Map<Destination>(destinationDTO);
                 await genericDestinationRepo.Create(destination);
                 return Ok(destinationDTO);
@@ -652,7 +657,50 @@ namespace FlightServices.Controllers
             }
 
         }
+        [HttpPost("/api/flights/airplane/seat")]
+        public async Task<ActionResult<SeatDTO>> PostSeat([FromBody] SeatDTO seatDTO)
+        {
+            
+            //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+            // Location createdLocation = await genericLocationRepo.Create(location);
+            if(seatDTO == null) return BadRequest(new { Message = "No seat input" });
 
+            try
+            {
+                Seat seat = mapper.Map<Seat>(seatDTO);
+                //Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(seat.AirplaneId);
+                //if (airplane)
+                Airplane airplane = new Airplane();
+                if(await genericAirplaneRepo.Exists(airplane, seat.AirplaneId))
+                {
+                    var result = await seatRepo.Create(seat);
+                    if (result == null) return BadRequest(new { Message = $"Seat {seatDTO.Name} could not be saved" });
+                    return Created("api/flights/airplane/seat", seatDTO);
+                }
+                else
+                {
+                    return RedirectToAction("HandleErrorCode", "Error", new
+                    {
+                        statusCode = 404,
+                        errorMessage = $"Could not find airplane with id: {seat.AirplaneId}"
+                    });
+                }
+                
+                
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Creating seat {seatDTO.Name} failed : {ex}"
+                });
+            }
+            
+        }
+
+       
         // POST: api/Flights
         /// <summary>
         /// Voeg een nieuwe flight toe. Een vertrek- of aankomstplaats of vliegtuig die niet bestaat wordt aangemaakt De response bevat info over de toegevoegde vlucht. 
@@ -719,6 +767,7 @@ namespace FlightServices.Controllers
                     newFlight.TimeOfArrival = flightDTO.TimeOfArrival;
                     newFlight.TimeOfDeparture = flightDTO.TimeOfDeparture; 
                     await genericFlightRepo.Create(newFlight);
+             
                     return CreatedAtAction("GetFlightDetails", new { id = newFlight.Id }, mapper.Map<FlightCreateEditDTO>(newFlight));
                 }
                 catch (Exception ex)

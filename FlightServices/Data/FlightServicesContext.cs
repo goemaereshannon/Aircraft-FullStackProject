@@ -24,6 +24,17 @@ namespace FlightServices.Data
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
 
+
+        public virtual DbSet<PriceClass> Prices { get; set; }
+        public virtual DbSet<Seat> Seats { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<ReservedSeat> ReservedSeats { get; set; }
+        public virtual DbSet<Person> Persons { get; set; }
+
+        //public virtual DbSet<ReservationPrice> ReservationPrices { get; set; }
+        //public virtual DbSet<ReservationSeat> ReservationSeats { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
            
@@ -37,7 +48,31 @@ namespace FlightServices.Data
             builder.Entity<Destination>().HasMany(d => d.Flights).WithOne(f => f.Destination).HasForeignKey(f => f.DestinationId);
 
             builder.Entity<Airplane>().HasMany(l => l.Flights).WithOne(d => d.Airplane).HasForeignKey(f => f.AirplaneId);
+            builder.Entity<Airplane>().HasMany(a => a.Seats).WithOne(s => s.Airplane).HasForeignKey(s => s.AirplaneId);
+
+            builder.Entity<Flight>().HasMany(fl => fl.Reservations).WithOne(res => res.Flight).HasForeignKey(res => res.FlightId);
+
+            builder.Entity<Reservation>().HasKey(res => new { res.FlightId, res.UserId });
+            builder.Entity<Reservation>().HasMany(res => res.ReservedSeats);
+
+
+            builder.Entity<ReservedSeat>().HasOne(rs => rs.Seat).WithMany(seat => seat.ReservedSeats).HasForeignKey(rs => rs.SeatId);
+            builder.Entity<ReservedSeat>().HasOne(rs => rs.Person).WithMany(person => person.ReservedSeats).HasForeignKey(rs => rs.PersonId);
+            builder.Entity<ReservedSeat>().HasOne(rs => rs.Price).WithMany(price => price.ReservedSeats).HasForeignKey(rs => rs.PriceId);
+
+
+         
+
+
+
+
+
+
            builder.SeedAsync().Wait();
+
+
+
+        
         }
     }
 }

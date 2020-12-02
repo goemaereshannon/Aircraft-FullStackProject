@@ -19,3 +19,5 @@ Aircraft_Backend/appsettings.json
 
 
 .vs/
+
+FlightServices/bin/
