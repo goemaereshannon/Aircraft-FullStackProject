@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace FlightServices.Repositories
 {
-    public interface IAirplaneRepo
+    public interface IAirplaneRepo: IGenericRepo<Airplane>
     {
         Task<Airplane> GetAirplaneByName(string airplaneName);
     }

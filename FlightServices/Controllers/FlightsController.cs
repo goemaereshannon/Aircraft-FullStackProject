@@ -125,6 +125,8 @@ namespace FlightServices.Controllers
                 flight.Destination = await destinationRepo.GetDestinationWithLocationByDestinationId(new Guid(flight.DestinationId.ToString()));
 
                 Airplane airplane = await genericAirplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);
+                
+                
                 flight.Airplane = airplane;
 
 
@@ -713,6 +715,7 @@ namespace FlightServices.Controllers
                     newFlight.TimeOfArrival = flightDTO.TimeOfArrival;
                     newFlight.TimeOfDeparture = flightDTO.TimeOfDeparture; 
                     await genericFlightRepo.Create(newFlight);
+             
                     return CreatedAtAction("GetFlightDetails", new { id = newFlight.Id }, mapper.Map<FlightCreateEditDTO>(newFlight));
                 }
                 catch (Exception ex)

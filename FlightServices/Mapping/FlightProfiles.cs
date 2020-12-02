@@ -15,6 +15,14 @@ namespace FlightServices.Mapping
             InitDepartureAndDestinationMapper();
             InitAirplaneMapper(); 
             InitFlightMapper();
+            InitReservationMapper();
+        }
+
+        private void InitReservationMapper()
+        {
+            CreateMap<CreateReservationDTO, Reservation>().ReverseMap();
+            CreateMap<ReservedSeatDTO, ReservedSeat>().ReverseMap();
+            CreateMap<PersonDTO, Person>().ReverseMap();
         }
 
         private void InitAirplaneMapper()

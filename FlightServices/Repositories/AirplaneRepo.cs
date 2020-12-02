@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace FlightServices.Repositories
 {
-    public class AirplaneRepo : GenericRepo<AirplaneRepo>, IAirplaneRepo 
+    public class AirplaneRepo : GenericRepo<Airplane>, IAirplaneRepo
     {
         private readonly FlightServicesContext context;
         public AirplaneRepo(FlightServicesContext _context) : base(_context)
         {
-            context = _context;
+            this.context = _context;
         }
 
         public async Task<Airplane> GetAirplaneByName(string airplaneName)
         {
-            return await _context.Airplanes.Where(a => a.Name.Contains(airplaneName)).FirstOrDefaultAsync();
+            return await context.Airplanes.Where(a => a.Name.Contains(airplaneName)).FirstOrDefaultAsync();
         }
     }
 }
