@@ -162,7 +162,7 @@
       <p class="sm-text">Shannon</p>
     </div>
   </div>
-  <main class="h-screen md:flex md:justify-around mx-4">
+  <main class="h-screen md:flex md:justify-around mx-8 md:mx-16">
     <div>
       <h1>Book your flight</h1>
       <div class="flex flex-row">
@@ -235,17 +235,23 @@
           </svg>
         </div>
         <div class="w-full">
-          <form class="c-form">
+          <form class="c-form" [formGroup]="searchForm">
             <div class="ml-4">
               <div>
                 <div class="flex flex-col">
                   <label for="from" class="sm-text__upper"> From </label>
-                  <input
-                    id="from"
-                    type="text"
-                    placeholder="eg. Brussels"
-                    class="c-form__input"
-                  />
+                  <select name="departure" id="" formControlName="departure">
+                    <option value="" class="color-maintheme-grey">All</option>
+                    <option
+                      *ngFor="let departure of departures"
+                      [value]="departure.locationDTO.city"
+                    >
+                      {{ departure.locationDTO.city }} -
+                      <span class="font-bold">{{
+                        departure.locationDTO.country
+                      }}</span>
+                    </option>
+                  </select>
                 </div>
                 <!-- <div class="flex justify-content-end"> -- re-export svg 
                   <svg
@@ -299,33 +305,46 @@
                 </div> -->
                 <div class="flex flex-col">
                   <label for="to" class="sm-text__upper"> To </label>
-                  <input
-                    id="to"
-                    type="text"
-                    placeholder="eg. New York"
-                    class="c-form__input"
-                  />
+                  <select name="departure" id="" formControlName="destination">
+                    <option value="" class="color-maintheme-grey">All</option>
+                    <option
+                      *ngFor="let destination of destinations"
+                      [value]="destination.locationDTO.city"
+                    >
+                      {{ destination.locationDTO.city }} -
+                      <span class="font-bold">{{
+                        destination.locationDTO.country
+                      }}</span>
+                    </option>
+                  </select>
                 </div>
               </div>
             </div>
-            <div class="md:flex py-8">
+            <div class="md:flex py-8 md:py-16">
               <div class="flex flex-col">
                 <label class="sm-text__upper"> Departure </label>
-                <input type="date" class="c-form__input" />
+                <input
+                  type="date"
+                  class="c-form__input"
+                  formControlName="dateOfDeparture"
+                />
               </div>
               <div class="flex flex-col md:pl-4">
                 <label class="sm-text__upper"> Return </label>
-                <input type="date" class="c-form__input" />
+                <input
+                  type="date"
+                  class="c-form__input"
+                  formControlName="dateOfArrival"
+                />
               </div>
             </div>
             <div class="flex justify-center mb-16">
               <button
                 class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md"
-                type="submit"
+                type="button"
+                (click)="onSubmit(searchForm.value)"
                 style="width: 208px"
               >
-                <!--  [title]="registerForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                                [disabled]="!registerForm.valid"-->
                 Find my flight
               </button>
             </div>

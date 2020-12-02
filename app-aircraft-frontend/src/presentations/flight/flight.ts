@@ -1,5 +1,21 @@
 import { Time } from '@angular/common';
 
+export interface Destination{
+    locationDTO:{
+        city: string, 
+        country: string, 
+        airport: string
+    }
+}
+
+export interface Departure{
+    locationDTO:{
+        city: string, 
+        country: string, 
+        airport: string
+    }
+}
+
 export interface Flight{
     id: string, 
     timeOfDeparture: Time, 
