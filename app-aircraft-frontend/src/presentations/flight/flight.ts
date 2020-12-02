@@ -1,33 +1,25 @@
 import { Time } from '@angular/common';
 
 export interface Flight{
-    // public Guid Id { get; set; } = Guid.NewGuid();
-    // public DateTime TimeOfDeparture { get; set; }
-    // public DateTime TimeOfArrival { get; set; }
-    // public string FlightStatus { get; set; } = "On time"; 
-
-    // public DepartureDTO DepartureDTO { get; set; } 
-    // public DestinationDTO DestinationDTO { get; set; }
-    // public AirplaneDTO AirplaneDTO { get; set; }
     id: string, 
-    timeOfDeparture: Date, 
+    timeOfDeparture: Time, 
     timeOfArrival: Time, 
     flightStatus: string, 
-    departure: {
-        location: {
+    departureDTO: {
+        locationDTO: {
             city: string, 
             country: string, 
             airport: string
         }
     }, 
-    destination: {
-        location: {
+    destinationDTO: {
+        locationDTO: {
             city: string, 
             country: string, 
             airport: string
         }
     }, 
-    airplane:{
+    airplaneDTO:{
         name: string, 
         type: string, 
         totalSeats: number

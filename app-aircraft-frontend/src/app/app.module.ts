@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RegisterComponent } from '../presentations/identity/register.component';
-import {DiscoverComponent} from '../presentations/flight/discover.component'; 
+import {DiscoverComponent} from '../presentations/flight/discover/discover.component'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';

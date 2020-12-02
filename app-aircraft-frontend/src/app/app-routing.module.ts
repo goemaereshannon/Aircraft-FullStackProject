@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {DiscoverComponent} from '../presentations/flight/discover.component'
+import {DiscoverComponent} from '../presentations/flight/discover/discover.component'
 import {AppComponent} from '../app/app.component'; 
 import { RegisterComponent } from '../presentations/identity/register.component';
 
