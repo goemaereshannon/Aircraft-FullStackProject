@@ -28,6 +28,9 @@ namespace FlightServices.Repositories
             //returnt wel een collectie! Gebruik desnoods First().
           return await this._context.Set<Reservation>().Where(expression).AsNoTracking()
                 .Include(res => res.Flight)
+                .ThenInclude(fl => fl.Destination)
+                .Include(res => res.Flight)
+                .ThenInclude(fl => fl.Departure)
                 .Include(res => res.ReservedSeats)
                 .ThenInclude(resseat => resseat.Price)
                 .Include(resseat => resseat.ReservedSeats)

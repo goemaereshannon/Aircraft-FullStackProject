@@ -14,7 +14,7 @@ namespace FlightServices.Models
 
         //public double TotalPrice { get; set; }
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid FlightId { get; set; }
         public Guid UserId { get; set; }
 
@@ -29,19 +29,29 @@ namespace FlightServices.Models
         public ICollection<ReservedSeat> ReservedSeats { get; set; }
 
         //calculated properties for total # of seats and total price of reservation
-        public int TotalSeats { 
-            get 
-            { 
-                
-                return this.ReservedSeats != null ? this.ReservedSeats.Count():0; 
-            } 
-        }
-        public double TotalPrice { 
-            get 
-            { 
-                return this.ReservedSeats != null ? ReservedSeats.Sum(rs => rs.Price.Value): 0; 
-            } 
-        }
+        public double TotalSeats { get; set; }
+        public double TotalPrice { get; set; }
+        //public int TotalSeats { 
+        //    get 
+        //    { 
+
+        //        return this.ReservedSeats != null ? this.ReservedSeats.Count():0; 
+        //    } 
+        //   // protected
+        //        set
+        //    {
+
+        //    }
+        //}
+        //public double TotalPrice { 
+        //    get 
+        //    { 
+
+        //        return this.ReservedSeats.Any(rs => rs.Price !=null)  ? ReservedSeats.Sum(rs => rs.Price.Value): 0; 
+        //    } 
+        //    //protected 
+        //    set { }
+        //}
 
         //public string DepartureCity { get; set; }
         //public string DestinationCity { get; set; }

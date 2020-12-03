@@ -731,6 +731,8 @@ namespace FlightServices.Controllers
                 }
                 else //ja 
                 {
+                    airplaneByName.ReservedSeats = 0;
+                    await PutAirplane(airplaneByName.Id, mapper.Map<AirplaneDTO>(airplaneByName));
                     newFlight.AirplaneId = airplaneByName.Id;
                 }
 

@@ -14,6 +14,7 @@ namespace FlightServices.Models
         public string Name { get; set; } 
         public string Type { get; set; }
         public int TotalSeats { get; set; }
+        public int ReservedSeats { get; set; } = 0;
 
         public ICollection<Flight> Flights { get; set; }
 

@@ -4,14 +4,16 @@ using FlightServices.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlightServices.Migrations
 {
     [DbContext(typeof(FlightServicesContext))]
-    partial class FlightServicesContextModelSnapshot : ModelSnapshot
+    [Migration("20201203215605_reservedseatsairplane")]
+    partial class reservedseatsairplane
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

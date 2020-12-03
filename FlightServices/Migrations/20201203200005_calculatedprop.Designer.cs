@@ -4,14 +4,16 @@ using FlightServices.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlightServices.Migrations
 {
     [DbContext(typeof(FlightServicesContext))]
-    partial class FlightServicesContextModelSnapshot : ModelSnapshot
+    [Migration("20201203200005_calculatedprop")]
+    partial class calculatedprop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace FlightServices.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReservedSeats")
-                        .HasColumnType("int");
-
                     b.Property<int>("TotalSeats")
                         .HasColumnType("int");
 
@@ -47,7 +46,6 @@ namespace FlightServices.Migrations
                         {
                             Id = new Guid("9579b6cd-cad5-4608-88a6-270ce03f5a35"),
                             Name = "KL1730",
-                            ReservedSeats = 0,
                             TotalSeats = 200,
                             Type = "Embraer 190"
                         },
@@ -55,7 +53,6 @@ namespace FlightServices.Migrations
                         {
                             Id = new Guid("9e17af7b-df05-4c69-94b8-586659c7152f"),
                             Name = "BA2490",
-                            ReservedSeats = 0,
                             TotalSeats = 200,
                             Type = "Boeing 737 MAX"
                         });
@@ -284,8 +281,8 @@ namespace FlightServices.Migrations
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
-                    b.Property<double>("TotalSeats")
-                        .HasColumnType("float");
+                    b.Property<int>("TotalSeats")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -314,9 +311,6 @@ namespace FlightServices.Migrations
 
                     b.Property<Guid>("SeatId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("TicketPrice")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

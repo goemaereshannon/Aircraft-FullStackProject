@@ -26,8 +26,9 @@ namespace FlightServices.Controllers
         private readonly IGenericRepo<ReservedSeat> genericReservedSeatRepo;
         private readonly IGenericRepo<Flight> flightRepo;
         private readonly IGenericRepo<Seat> genericSeatRepo;
+        private readonly IAirplaneRepo airplaneRepo;
 
-        public ReservationsController(IReservationRepo reservationRepo,  IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IGenericRepo<Flight> flightRepo, IGenericRepo<Seat> genericSeatRepo)
+        public ReservationsController(IReservationRepo reservationRepo,  IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IGenericRepo<Flight> flightRepo, IGenericRepo<Seat> genericSeatRepo, IAirplaneRepo airplaneRepo)
         {
          
       
@@ -38,6 +39,7 @@ namespace FlightServices.Controllers
             this.genericReservedSeatRepo = genericReservedSeatRepo;
             this.flightRepo = flightRepo;
             this.genericSeatRepo = genericSeatRepo;
+            this.airplaneRepo = airplaneRepo;
         }
 
         // GET: api/Reservations
@@ -48,19 +50,26 @@ namespace FlightServices.Controllers
         //}
 
         // GET: api/Reservations/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Reservation>> GetReservation(Guid id)
-        //{
-        //    var reservation = await _context.Reservations.FindAsync(id);
+        [HttpGet("api/reservation/{id}")]
+        public async Task<ActionResult<ReservationDetailsDTO>> GetReservationDetails(Guid id)
+        {
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    return BadRequest(new { message = "Id is empty" });
+                }
+                Reservation reservation = await reservationRepo.GetAsyncByGuid(id);
+                ReservationDetailsDTO reservationDetailsDTO = mapper.Map<ReservationDetailsDTO>(reservation);
+                return Ok(reservationDetailsDTO);
+            }
+            catch (Exception)
+            {
 
-        //    if (reservation == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return reservation;
-        //}
-        [HttpGet("/api/reservations/{userId}")]
+                throw;
+            }
+        }
+        [HttpGet("/api/user/reservations/{userId}")]
 
         public async Task <ActionResult<IEnumerable<Reservation>>> GetReservationsByUserId(Guid userId)
         {
@@ -166,60 +175,69 @@ namespace FlightServices.Controllers
             }
 
         }
-        [HttpPost("/api/reservations/reservedseat")]
-        public async Task<ActionResult<ReservedSeatDTO>> PostReservedSeat([FromBody] ReservedSeatDTO reservedSeatDTO, Guid reservationId)
-        {
+        //[HttpPost("/api/reservations/reservedseat")]
+        //public async Task<ActionResult<ReservedSeatDTO>> PostReservedSeat([FromBody] ReservedSeatDTO reservedSeatDTO, Guid reservationId)
+        //{
 
-            //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
-            // Location createdLocation = await genericLocationRepo.Create(location);
-            if (reservedSeatDTO == null ) return BadRequest(new { Message = "No seat input" });
-            if (reservationId == Guid.Empty)  return BadRequest(new { message = "Id is empty" });
-            
-            try
-            {
+        //    //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
+        //    // Location createdLocation = await genericLocationRepo.Create(location);
+        //    if (reservedSeatDTO == null ) return BadRequest(new { Message = "No seat input" });
+        //    if (reservationId == Guid.Empty) return RedirectToAction("HandleErrorCode", "Error", new
+        //           {
+        //                statusCode = 404,
+        //                errorMessage = $"Could not find reservation "
+        //            });
+
+        //    try
+        //    {
                 
                 
-                PriceClass price = new PriceClass();
-                Seat seat = new Seat();
-                if(!await genericPriceRepo.Exists(price, reservedSeatDTO.PriceId)) return RedirectToAction("HandleErrorCode", "Error", new
-                {
-                    statusCode = 404,
-                    errorMessage = $"Could not find price."
-                });
-                if (!await genericSeatRepo.Exists(seat, reservedSeatDTO.SeatId)) return RedirectToAction("HandleErrorCode", "Error", new
-                {
-                    statusCode = 404,
-                    errorMessage = $"Could not find seat."
-                });
-                ReservedSeat reservedSeat = mapper.Map<ReservedSeat>(reservedSeatDTO);
-                Reservation reservation = new Reservation();
-                if (await reservationRepo.Exists(reservation, reservationId)){
-                    reservedSeat.ReservationId = reservationId;
-                    var result = await genericReservedSeatRepo.Create(reservedSeat);
-                    if (result == null) return BadRequest(new { Message = $"Reserved seat for {reservedSeatDTO.Person.FirstName} could not be saved" });
-                    return Created("api/reservations/reservedseat", reservedSeatDTO);
-                }
-                else
-                {
-                    return RedirectToAction("HandleErrorCode", "Error", new
-                    {
-                        statusCode = 404,
-                        errorMessage = $"Could not find reservation "
-                    });
-                }
+        //        PriceClass price = new PriceClass();
+        //        Seat seat = new Seat();
+        //        if(!await genericPriceRepo.Exists(price, reservedSeatDTO.PriceId)) return RedirectToAction("HandleErrorCode", "Error", new
+        //        {
+        //            statusCode = 404,
+        //            errorMessage = $"Could not find price."
+        //        });
+        //        if (!await genericSeatRepo.Exists(seat, reservedSeatDTO.SeatId)) return RedirectToAction("HandleErrorCode", "Error", new
+        //        {
+        //            statusCode = 404,
+        //            errorMessage = $"Could not find seat."
+        //        });
+        //        price = await genericPriceRepo.GetAsyncByGuid(reservedSeatDTO.PriceId);
+        //        ReservedSeat reservedSeat = mapper.Map<ReservedSeat>(reservedSeatDTO);
+        //        Reservation reservation = new Reservation();
+        //       // if (await reservationRepo.Exists(reservation, reservationId)){
+        //            reservation = await reservationRepo.GetAsyncByGuid(reservationId);
+        //            reservation.TotalSeats += 1;
+        //            reservation.TotalPrice += price.Value;
+        //            await reservationRepo.Update(reservation, reservationId);
+        //            reservedSeat.ReservationId = reservationId;
+        //            var result = await genericReservedSeatRepo.Create(reservedSeat);
+        //            if (result == null) return BadRequest(new { Message = $"Reserved seat for {reservedSeatDTO.Person.FirstName} could not be saved" });
+        //            return Created("api/reservations/reservedseat", reservedSeatDTO);
+        //       // }
+        //        //else
+        //        //{
+        //        //    return RedirectToAction("HandleErrorCode", "Error", new
+        //        //    {
+        //        //        statusCode = 404,
+        //        //        errorMessage = $"Could not find reservation "
+        //        //    });
+        //        //}
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                return RedirectToAction("HandleErrorCode", "Error", new
-                {
-                    statusCode = 400,
-                    errorMessage = $"Creating Reserved seat for {reservedSeatDTO.Person.FirstName} failed : {ex}"
-                });
-            }
+        //        return RedirectToAction("HandleErrorCode", "Error", new
+        //        {
+        //            statusCode = 400,
+        //            errorMessage = $"Creating Reserved seat for {reservedSeatDTO.Person.FirstName} failed : {ex}"
+        //        });
+        //    }
 
-        }
+        //}
         // POST: api/Reservations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -227,22 +245,47 @@ namespace FlightServices.Controllers
         public async Task<ActionResult<CreateReservationDTO>> PostReservation(CreateReservationDTO reservationDTO)
         {
             if (reservationDTO == null ) return BadRequest(new { Message = "No reservation input" });
+            //TODO: check if reservation with flightId and userId exists. if it does do put, else continu post.
 
             try
             {
-                Flight flight = new Flight();
-                if (await flightRepo.Exists(flight, reservationDTO.FlightId))
+                Flight flight = await flightRepo.GetAsyncByGuid(reservationDTO.FlightId);
+               
+                if (flight != null)
                 {
+                   
                     Reservation reservation = mapper.Map<Reservation>(reservationDTO);
-                    var createdReservation = await reservationRepo.Create(reservation);
-                    if (createdReservation == null) return BadRequest(new { Message = $"Reservation could not be saved" });
-                    foreach (ReservedSeatDTO reservedSeatDTO in reservationDTO.ReservedSeats)
+                foreach (ReservedSeat reservedSeat in reservation.ReservedSeats)
                     {
-                        var result = await PostReservedSeat(reservedSeatDTO, createdReservation.Id);
-                        if (result == null) return BadRequest(new { Message = $"Reserved seat for {reservedSeatDTO.Person.FirstName} could not be saved" });
+                        PriceClass price = await genericPriceRepo.GetAsyncByGuid(reservedSeat.PriceId);
+                        if(price != null)
+                        {
+                            reservedSeat.TicketPrice = price.Value != 0 && flight.Distance != 0 ? price.Value * (flight.Distance / 1000) : 0;
+                           
+                            reservation.TotalPrice += reservedSeat.TicketPrice;
+                            reservation.TotalSeats += 1;
+                            flight.Airplane = await airplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);
+                            flight.Airplane.ReservedSeats += 1;
+                            if(flight.Airplane.ReservedSeats == flight.Airplane.TotalSeats)
+                            {
+                                //TODO: realtime message to admin
+                                Console.WriteLine("Airplane is fully booked.");
+                            }
+                        }
+                        else
+                        {
+                            return RedirectToAction("HandleErrorCode", "Error", new
+                            {
+                                statusCode = 404,
+                                errorMessage = $"Could not find price. "
+                            });
+                        }
                     }
-
-                    return Created("api/reservations", reservationDTO);
+                
+                    var createdReservation = await reservationRepo.Create(reservation);
+                    //TODO: check totalseats
+                    if (createdReservation == null) return BadRequest(new { Message = $"Reservation could not be saved" });
+                    return Created("/api/reservations", reservationDTO);
                 }
                 else
                 {

@@ -399,3 +399,4 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.pdb
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.genruntimeconfig.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.csprojAssemblyReference.cache
