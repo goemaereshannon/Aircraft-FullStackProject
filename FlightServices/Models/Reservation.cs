@@ -29,8 +29,19 @@ namespace FlightServices.Models
         public ICollection<ReservedSeat> ReservedSeats { get; set; }
 
         //calculated properties for total # of seats and total price of reservation
-        public int TotalSeats { get { return this.ReservedSeats.Count(); } }
-        public double TotalPrice { get { return ReservedSeats.Sum(rs => rs.Price.Value); } }
+        public int TotalSeats { 
+            get 
+            { 
+                
+                return this.ReservedSeats != null ? this.ReservedSeats.Count():0; 
+            } 
+        }
+        public double TotalPrice { 
+            get 
+            { 
+                return this.ReservedSeats != null ? ReservedSeats.Sum(rs => rs.Price.Value): 0; 
+            } 
+        }
 
         //public string DepartureCity { get; set; }
         //public string DestinationCity { get; set; }

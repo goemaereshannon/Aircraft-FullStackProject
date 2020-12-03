@@ -9,6 +9,7 @@ using FlightServices.Data;
 using FlightServices.Models;
 using FlightServices.DTOs;
 using AutoMapper;
+using FlightServices.Repositories;
 
 namespace FlightServices.Controllers
 {
@@ -17,7 +18,8 @@ namespace FlightServices.Controllers
     public class ReservationsController : ControllerBase
     {
        
-        private readonly IGenericRepo<Reservation> genericRepo;
+       
+        private readonly IReservationRepo reservationRepo;
         private readonly IMapper mapper;
         private readonly IGenericRepo<PriceClass> genericPriceRepo;
         private readonly IGenericRepo<Person> genericPersonRepo;
@@ -25,10 +27,11 @@ namespace FlightServices.Controllers
         private readonly IGenericRepo<Flight> flightRepo;
         private readonly IGenericRepo<Seat> genericSeatRepo;
 
-        public ReservationsController(IGenericRepo<Reservation> genericRepo, IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IGenericRepo<Flight> flightRepo, IGenericRepo<Seat> genericSeatRepo)
+        public ReservationsController(IReservationRepo reservationRepo,  IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IGenericRepo<Flight> flightRepo, IGenericRepo<Seat> genericSeatRepo)
         {
          
-            this.genericRepo = genericRepo;
+      
+            this.reservationRepo = reservationRepo;
             this.mapper = mapper;
             this.genericPriceRepo = genericPriceRepo;
             this.genericPersonRepo = genericPersonRepo;
@@ -44,7 +47,7 @@ namespace FlightServices.Controllers
         //    return await _context.Reservations.ToListAsync();
         //}
 
-        //// GET: api/Reservations/5
+        // GET: api/Reservations/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Reservation>> GetReservation(Guid id)
         //{
@@ -57,6 +60,26 @@ namespace FlightServices.Controllers
 
         //    return reservation;
         //}
+        [HttpGet("/api/reservations/{userId}")]
+
+        public async Task <ActionResult<IEnumerable<Reservation>>> GetReservationsByUserId(Guid userId)
+        {
+            try
+            {
+                if (userId == Guid.Empty)
+                {
+                    return BadRequest(new { message = "Id is empty" });
+                }
+                IEnumerable<Reservation> reservations = await reservationRepo.GetByExpressionAsync(res => res.UserId == userId);
+                return Ok(reservations);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
 
         // PUT: api/Reservations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -149,8 +172,9 @@ namespace FlightServices.Controllers
 
             //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
             // Location createdLocation = await genericLocationRepo.Create(location);
-            if (reservedSeatDTO == null || reservationId == null) return BadRequest(new { Message = "No seat input" });
-
+            if (reservedSeatDTO == null ) return BadRequest(new { Message = "No seat input" });
+            if (reservationId == Guid.Empty)  return BadRequest(new { message = "Id is empty" });
+            
             try
             {
                 
@@ -169,7 +193,7 @@ namespace FlightServices.Controllers
                 });
                 ReservedSeat reservedSeat = mapper.Map<ReservedSeat>(reservedSeatDTO);
                 Reservation reservation = new Reservation();
-                if (await genericRepo.Exists(reservation, reservationId)){
+                if (await reservationRepo.Exists(reservation, reservationId)){
                     reservedSeat.ReservationId = reservationId;
                     var result = await genericReservedSeatRepo.Create(reservedSeat);
                     if (result == null) return BadRequest(new { Message = $"Reserved seat for {reservedSeatDTO.Person.FirstName} could not be saved" });
@@ -210,7 +234,7 @@ namespace FlightServices.Controllers
                 if (await flightRepo.Exists(flight, reservationDTO.FlightId))
                 {
                     Reservation reservation = mapper.Map<Reservation>(reservationDTO);
-                    var createdReservation = await genericRepo.Create(reservation);
+                    var createdReservation = await reservationRepo.Create(reservation);
                     if (createdReservation == null) return BadRequest(new { Message = $"Reservation could not be saved" });
                     foreach (ReservedSeatDTO reservedSeatDTO in reservationDTO.ReservedSeats)
                     {

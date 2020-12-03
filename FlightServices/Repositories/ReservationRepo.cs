@@ -1,0 +1,39 @@
+﻿using FlightServices.Data;
+using FlightServices.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+namespace FlightServices.Repositories
+{
+    public class ReservationRepo: GenericRepo<Reservation>, IReservationRepo
+    {
+
+        private readonly FlightServicesContext context;
+        public ReservationRepo(FlightServicesContext _context) : base(_context)
+        {
+            this.context = _context;
+        }
+
+        public override async Task<IEnumerable<Reservation>> GetAllAsync()
+        {
+            return await context.Reservations.Include(res => res.ReservedSeats).ToListAsync();
+        }
+        public override async Task<IEnumerable<Reservation>> GetByExpressionAsync(Expression<Func<Reservation, bool>> expression)
+        {
+            //voorbeeld bij search: expression = "p => p.ProductID == id"  -- je kent immers de ID property niet.
+            //returnt wel een collectie! Gebruik desnoods First().
+          return await this._context.Set<Reservation>().Where(expression).AsNoTracking()
+                .Include(res => res.Flight)
+                .Include(res => res.ReservedSeats)
+                .ThenInclude(resseat => resseat.Price)
+                .Include(resseat => resseat.ReservedSeats)
+                .ThenInclude(resseat => resseat.Person)
+                .ToListAsync();
+     
+        }
+    }
+}
