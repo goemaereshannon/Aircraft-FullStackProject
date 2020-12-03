@@ -6,16 +6,18 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RegisterComponent } from '../presentations/identity/register.component';
-import {DiscoverComponent} from '../presentations/flight/discover/discover.component'; 
+import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
+import { AvailableflightsComponent } from '../presentations/flight/availableflights/availableflights.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent, 
-    DiscoverComponent
+    RegisterComponent,
+    DiscoverComponent,
+    AvailableflightsComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,12 +25,12 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), 
-    RouterModule.forRoot([
-      {path: 'discover', component: DiscoverComponent}
-    ])
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
+    RouterModule.forRoot([{ path: 'discover', component: DiscoverComponent }]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

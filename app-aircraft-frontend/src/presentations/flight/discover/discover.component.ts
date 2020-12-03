@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Form, FormBuilder} from '@angular/forms'; 
+import { Router } from '@angular/router';
 
 import {FlightService} from '../flight.service'
 
@@ -15,7 +16,7 @@ export class DiscoverComponent implements OnInit {
   searchForm;
   
 
-  constructor(private flightService: FlightService, private formBuilder: FormBuilder) {
+  constructor(private flightService: FlightService, private formBuilder: FormBuilder, private router: Router) {
     this.searchForm = this.formBuilder.group({
       departure: '',
       destination: '', 
@@ -36,11 +37,6 @@ export class DiscoverComponent implements OnInit {
       console.log(data);
       this.destinations = data;
     }, error => {console.error({error})});
-  }
-
-  onSubmit(searchForm): void{
-    console.log("SUBMIT")
-    console.log(searchForm); 
   }
 
 
