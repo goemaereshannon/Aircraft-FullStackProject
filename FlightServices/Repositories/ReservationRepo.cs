@@ -17,7 +17,20 @@ namespace FlightServices.Repositories
         {
             this.context = _context;
         }
+        public  async Task<Reservation> GetAsyncByGuidWithAllSubModels(Guid Id)
+        {
+            //enkel bruikbaar bij een guid Key
+            return await _context.Set<Reservation>()
+                .Include(res => res.Flight).ThenInclude(fl => fl.Destination).ThenInclude(dest => dest.Location)
+                .Include(res => res.Flight).ThenInclude(fl => fl.Departure).ThenInclude(dep => dep.Location)
+                .Include(res => res.Flight).ThenInclude(fl => fl.Airplane)
+                .Include(res => res.ReservedSeats)
+                .ThenInclude(resseat => resseat.Price)
+                .Include(resseat => resseat.ReservedSeats)
+                .ThenInclude(resseat => resseat.Person)
+                 .FirstOrDefaultAsync(res => res.Id == Id);
 
+        }
         public override async Task<IEnumerable<Reservation>> GetAllAsync()
         {
             return await context.Reservations.Include(res => res.ReservedSeats).ToListAsync();

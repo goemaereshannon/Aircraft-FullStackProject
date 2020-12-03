@@ -22,6 +22,7 @@ namespace FlightServices.Mapping
         {
             CreateMap<CreateReservationDTO, Reservation>().ReverseMap();
             CreateMap<ReservationDTO, Reservation>().ReverseMap();
+            CreateMap<ReservationDetailsDTO, Reservation>().ReverseMap();
 
 
 

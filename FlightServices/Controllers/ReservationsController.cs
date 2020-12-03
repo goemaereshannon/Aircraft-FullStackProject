@@ -50,7 +50,7 @@ namespace FlightServices.Controllers
         //}
 
         // GET: api/Reservations/5
-        [HttpGet("api/reservation/{id}")]
+        [HttpGet("/api/reservation/{id}")]
         public async Task<ActionResult<ReservationDetailsDTO>> GetReservationDetails(Guid id)
         {
             try
@@ -59,7 +59,7 @@ namespace FlightServices.Controllers
                 {
                     return BadRequest(new { message = "Id is empty" });
                 }
-                Reservation reservation = await reservationRepo.GetAsyncByGuid(id);
+                Reservation reservation = await reservationRepo.GetAsyncByGuidWithAllSubModels(id);
                 ReservationDetailsDTO reservationDetailsDTO = mapper.Map<ReservationDetailsDTO>(reservation);
                 return Ok(reservationDetailsDTO);
             }
