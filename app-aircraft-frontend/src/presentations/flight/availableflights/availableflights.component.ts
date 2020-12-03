@@ -4,16 +4,20 @@ import { FlightService } from '../flight.service';
 @Component({
   selector: 'app-availableflights',
   templateUrl: './availableflights.component.html',
-  styleUrls: ['./availableflights.component.scss'],
+  styleUrls: [
+    './availableflights.component.scss',
+    '../../../app/app.component.scss',
+  ],
 })
-export class AvailableflightsComponent implements OnInit {
+export class AvailableflightsComponent {
+  // implements OnInit
   searchForm;
   departure;
   destination;
   dateOfDeparture;
   dateOfArrival;
   query = '';
-  searchedFlights;
+  searchedflights;
 
   constructor(private flightService: FlightService) {}
 
@@ -31,9 +35,8 @@ export class AvailableflightsComponent implements OnInit {
         this.dateOfDeparture == '' &&
         this.dateOfArrival == ''
       ) {
-        console.log('Op op. Alles is op');
         this.flightService.getFlights().subscribe((data) => {
-          this.searchedFlights = data;
+          this.searchedflights = data;
         });
       }
       if (this.departure != '') {
@@ -60,14 +63,12 @@ export class AvailableflightsComponent implements OnInit {
           this.query += `&arrivalTimeSearch=${this.dateOfArrival}`;
         }
       }
-      // this.flightService.getDepartures().subscribe(data => {
-      //   console.log(data);
-      //   this.departures = data;
-      // }, error => {console.error({error})});
+
       this.flightService
         .getFlightsByDatesDepartureAndDestination(this.query)
         .subscribe((data) => {
-          console.log(data);
+          console.log(this.query);
+          this.searchedflights = data;
         });
     }
   }

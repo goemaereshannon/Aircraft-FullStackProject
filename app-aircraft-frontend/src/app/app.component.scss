@@ -20,3 +20,11 @@ h1 {
     // border: none;
   }
 }
+
+.sm-text {
+  font-size: 0.75rem;
+  &__upper {
+    text-transform: uppercase;
+    color: #9da5ab;
+  }
+}
