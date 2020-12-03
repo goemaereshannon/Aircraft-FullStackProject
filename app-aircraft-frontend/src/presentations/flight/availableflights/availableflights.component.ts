@@ -69,6 +69,7 @@ export class AvailableflightsComponent {
         .subscribe((data) => {
           console.log(this.query);
           this.searchedflights = data;
+          console.log(this.searchedflights);
         });
     }
   }

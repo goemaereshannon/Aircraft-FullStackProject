@@ -1,4 +1,4 @@
-<div class="h-full">
+<div class="min-h-full">
   <header
     class="grid custom-grid items-center bg-maintheme-darkblue custom-header md:custom-header relative pt-6 px-4 md:pt-12"
   >
@@ -25,7 +25,80 @@
       Available flights
     </p>
   </header>
-  <main class="px-5 pb-5 relative custom-body">
+  <main class="px-5 pb-5 relative custom-body sm:mx-12 md:mx-24 lg:mx-40">
+    <!-- Geen vluchten-->
+    <div
+      *ngIf="searchedflights == undefined || searchedflights.length < 1"
+      class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center"
+    >
+      <p class="text-bold">No flights found</p>
+      <p class="text-maintheme-grey mb-12">
+        Try changing your departure and/or arrival date
+      </p>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="123.848"
+        height="158.909"
+        viewBox="0 0 123.848 158.909"
+      >
+        <g
+          id="Group_31"
+          data-name="Group 31"
+          transform="translate(-127.463 -364.239)"
+        >
+          <path
+            id="Path_35"
+            data-name="Path 35"
+            d="M2651.43,68.821s6.436-24.533,42.279-21.274c34.3,3.119,31.056,14.537,38.39,25.94h0c3.686,5,1.354,23.245-10.674,44.541-6.033,10.681-19.888,27.005-26.113,34.89-9.759,12.362-8.552,21.214-8.552,21.214"
+            transform="translate(-2523 318)"
+            fill="none"
+            stroke="#ffc4a1"
+            stroke-width="2"
+            stroke-dasharray="2 2"
+          />
+          <g
+            id="Group_15"
+            data-name="Group 15"
+            transform="translate(43.216 385)"
+          >
+            <g
+              id="Group_14"
+              data-name="Group 14"
+              transform="translate(175.427 114.405) rotate(-141)"
+            >
+              <path
+                id="Path_32"
+                data-name="Path 32"
+                d="M18.73.088C-.291-.307.018,4.714.018,4.714S63.16,9.44,45.234,2.21,26.422,7.8,26.422,7.8s-.754,16.344-5.133,15.968-3.623-16.99-3.623-16.99"
+                transform="translate(0 25.915)"
+                fill="none"
+                stroke="#4469c3"
+                stroke-width="2"
+              />
+              <path
+                id="Path_33"
+                data-name="Path 33"
+                d="M3.428,26.134l2.146-17S.279,4.53.006.98,8.154,4.669,8.154,4.669,12.7-.575,15.347.98c.49.288.1.615,0,1.216-.4,2.422-4.836,6.938-4.836,6.938l1.121,17"
+                transform="translate(14.102 0)"
+                fill="none"
+                stroke="#4469c3"
+                stroke-width="2"
+              />
+            </g>
+          </g>
+          <path
+            id="Path_36"
+            data-name="Path 36"
+            d="M2686.545,186.169s-3.874,6.45,2.4,6.728,4.577,7.661,4.577,7.661-5.544,6.97-10.484,1.375-1.458-7.414-1.458-7.414l28.921-22.172"
+            transform="translate(-2523 318)"
+            fill="none"
+            stroke="#ffc4a1"
+            stroke-width="2"
+            stroke-dasharray="2 2"
+          />
+        </g>
+      </svg>
+    </div>
     <!--Available flight component-->
     <div
       *ngFor="let flight of searchedflights"
@@ -113,7 +186,7 @@
             <p>8u25</p>
           </div> -->
           <div class="flex">
-            <p>Flight number:</p>
+            <p class="pl-1">Flight number:</p>
             <p class="font-bold text-uppercase">
               {{ flight.airplaneDTO.name }}
             </p>
