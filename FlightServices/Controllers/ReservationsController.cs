@@ -24,11 +24,11 @@ namespace FlightServices.Controllers
         private readonly IGenericRepo<PriceClass> genericPriceRepo;
         private readonly IGenericRepo<Person> genericPersonRepo;
         private readonly IGenericRepo<ReservedSeat> genericReservedSeatRepo;
-        private readonly IGenericRepo<Flight> flightRepo;
+        private readonly IFlightRepo flightRepo;
         private readonly IGenericRepo<Seat> genericSeatRepo;
         private readonly IAirplaneRepo airplaneRepo;
 
-        public ReservationsController(IReservationRepo reservationRepo,  IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IGenericRepo<Flight> flightRepo, IGenericRepo<Seat> genericSeatRepo, IAirplaneRepo airplaneRepo)
+        public ReservationsController(IReservationRepo reservationRepo,  IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IFlightRepo flightRepo, IGenericRepo<Seat> genericSeatRepo, IAirplaneRepo airplaneRepo)
         {
          
       
@@ -71,7 +71,7 @@ namespace FlightServices.Controllers
         }
         [HttpGet("/api/user/reservations/{userId}")]
 
-        public async Task <ActionResult<IEnumerable<Reservation>>> GetReservationsByUserId(Guid userId)
+        public async Task <ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByUserId(Guid userId)
         {
             try
             {
@@ -80,7 +80,13 @@ namespace FlightServices.Controllers
                     return BadRequest(new { message = "Id is empty" });
                 }
                 IEnumerable<Reservation> reservations = await reservationRepo.GetByExpressionAsync(res => res.UserId == userId);
-                return Ok(reservations);
+                foreach(Reservation reservation in reservations)
+                {
+                   Flight flight = await flightRepo.GetAsyncByGuid(reservation.FlightId);
+                    reservation.Flight = flight;
+                }
+                IEnumerable < ReservationDTO > reservationDTOs = mapper.Map<IEnumerable<ReservationDTO>>(reservations);
+                return Ok(reservationDTOs);
             }
             catch (Exception)
             {
