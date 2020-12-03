@@ -22,8 +22,10 @@ namespace FlightServices.Controllers
         private readonly IGenericRepo<PriceClass> genericPriceRepo;
         private readonly IGenericRepo<Person> genericPersonRepo;
         private readonly IGenericRepo<ReservedSeat> genericReservedSeatRepo;
+        private readonly IGenericRepo<Flight> flightRepo;
+        private readonly IGenericRepo<Seat> genericSeatRepo;
 
-        public ReservationsController(IGenericRepo<Reservation> genericRepo, IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo)
+        public ReservationsController(IGenericRepo<Reservation> genericRepo, IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IGenericRepo<Flight> flightRepo, IGenericRepo<Seat> genericSeatRepo)
         {
          
             this.genericRepo = genericRepo;
@@ -31,6 +33,8 @@ namespace FlightServices.Controllers
             this.genericPriceRepo = genericPriceRepo;
             this.genericPersonRepo = genericPersonRepo;
             this.genericReservedSeatRepo = genericReservedSeatRepo;
+            this.flightRepo = flightRepo;
+            this.genericSeatRepo = genericSeatRepo;
         }
 
         // GET: api/Reservations
@@ -145,15 +149,27 @@ namespace FlightServices.Controllers
 
             //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
             // Location createdLocation = await genericLocationRepo.Create(location);
-            if (reservedSeatDTO == null) return BadRequest(new { Message = "No seat input" });
+            if (reservedSeatDTO == null || reservationId == null) return BadRequest(new { Message = "No seat input" });
 
             try
             {
                 
+                
+                PriceClass price = new PriceClass();
+                Seat seat = new Seat();
+                if(!await genericPriceRepo.Exists(price, reservedSeatDTO.PriceId)) return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find price."
+                });
+                if (!await genericSeatRepo.Exists(seat, reservedSeatDTO.SeatId)) return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find seat."
+                });
                 ReservedSeat reservedSeat = mapper.Map<ReservedSeat>(reservedSeatDTO);
-                Reservation reservation = new Reservation(); 
-
-                if(await genericRepo.Exists(reservation, reservationId)){
+                Reservation reservation = new Reservation();
+                if (await genericRepo.Exists(reservation, reservationId)){
                     reservedSeat.ReservationId = reservationId;
                     var result = await genericReservedSeatRepo.Create(reservedSeat);
                     if (result == null) return BadRequest(new { Message = $"Reserved seat for {reservedSeatDTO.Person.FirstName} could not be saved" });
@@ -190,9 +206,28 @@ namespace FlightServices.Controllers
 
             try
             {
-                Reservation reservation = mapper.Map<Reservation>(reservationDTO);
-                var result = await genericRepo.Create(reservation);
-                return Created("api/reservations", reservationDTO); 
+                Flight flight = new Flight();
+                if (await flightRepo.Exists(flight, reservationDTO.FlightId))
+                {
+                    Reservation reservation = mapper.Map<Reservation>(reservationDTO);
+                    var createdReservation = await genericRepo.Create(reservation);
+                    if (createdReservation == null) return BadRequest(new { Message = $"Reservation could not be saved" });
+                    foreach (ReservedSeatDTO reservedSeatDTO in reservationDTO.ReservedSeats)
+                    {
+                        var result = await PostReservedSeat(reservedSeatDTO, createdReservation.Id);
+                        if (result == null) return BadRequest(new { Message = $"Reserved seat for {reservedSeatDTO.Person.FirstName} could not be saved" });
+                    }
+
+                    return Created("api/reservations", reservationDTO);
+                }
+                else
+                {
+                    return RedirectToAction("HandleErrorCode", "Error", new
+                    {
+                        statusCode = 404,
+                        errorMessage = $"Could not find flight. "
+                    });
+                }
             }
             catch (Exception ex)
             {

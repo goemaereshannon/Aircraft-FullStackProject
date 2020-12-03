@@ -11,9 +11,10 @@ namespace FlightServices.Models
 {
     public class Reservation
     {
-       
-        //public double TotalPrice { get; set; }
 
+        //public double TotalPrice { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         public Guid FlightId { get; set; }
         public Guid UserId { get; set; }
 
