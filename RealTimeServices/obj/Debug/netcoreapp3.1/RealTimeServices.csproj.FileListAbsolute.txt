@@ -1,0 +1,46 @@
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.csprojAssemblyReference.cache
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.AssemblyInfoInputs.cache
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.AssemblyInfo.cs
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.RazorTargetAssemblyInfo.cache
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\staticwebassets\RealTimeServices.StaticWebAssets.Manifest.cache
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\staticwebassets\RealTimeServices.StaticWebAssets.xml
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.exe
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.deps.json
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.runtimeconfig.json
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.runtimeconfig.dev.json
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.dll
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.pdb
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\bin\Debug\netcoreapp3.1\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.csproj.CoreCompileInputs.cache
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.csproj.CopyComplete
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.dll
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.pdb
+C:\Users\alexi\Documents\School\MCT\jaar 3\sem 1\Advanced Full Stack Web Development\Labo\ShoppingCart\CartServices\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.genruntimeconfig.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.exe
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.deps.json
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.runtimeconfig.json
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.runtimeconfig.dev.json
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.dll
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\RealTimeServices.pdb
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\bin\Debug\netcoreapp3.1\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.csprojAssemblyReference.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.AssemblyInfoInputs.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.AssemblyInfo.cs
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.csproj.CoreCompileInputs.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\staticwebassets\RealTimeServices.StaticWebAssets.Manifest.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\staticwebassets\RealTimeServices.StaticWebAssets.xml
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\scopedcss\bundle\RealTimeServices.styles.css
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.RazorTargetAssemblyInfo.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.csproj.CopyComplete
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.dll
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.pdb
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\RealTimeServices\obj\Debug\netcoreapp3.1\RealTimeServices.genruntimeconfig.cache
