@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServices", "Identit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReservationServices", "ReservationServices\ReservationServices.csproj", "{D857BBAF-CD52-4B24-A37D-D511FBC89BCA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealTimeServices", "RealTimeServices\RealTimeServices.csproj", "{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{D857BBAF-CD52-4B24-A37D-D511FBC89BCA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D857BBAF-CD52-4B24-A37D-D511FBC89BCA}.Release|x86.ActiveCfg = Release|Any CPU
 		{D857BBAF-CD52-4B24-A37D-D511FBC89BCA}.Release|x86.Build.0 = Release|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Debug|x86.Build.0 = Debug|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Release|x86.ActiveCfg = Release|Any CPU
+		{F7B453D9-F0C3-44E7-8D9E-19C88D213A59}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
