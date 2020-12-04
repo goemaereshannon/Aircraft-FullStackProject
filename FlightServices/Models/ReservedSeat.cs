@@ -26,7 +26,26 @@ namespace FlightServices.Models
 
 
         //calculated property for the specific ticketprice of this one seat
-        public double TicketPrice { get { return Price.Value * (Reservation.Flight.Distance / 1000); } }
+        public double TicketPrice { get; set; }
+        //public double TicketPrice { 
+        //    get 
+        //    { 
+        //        if( Reservation != null && Reservation.Flight.Distance != 0)
+        //        {
+        //            return Price.Value * (Reservation.Flight.Distance / 1000);
+        //        }
+        //        else
+        //        {
+        //            return 0;
+        //        }
+        //    }
+        //    set
+        //    {
+
+        //    }
+        //}
+
+
 
     }
 }

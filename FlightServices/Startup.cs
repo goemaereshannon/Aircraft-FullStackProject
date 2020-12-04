@@ -51,6 +51,8 @@ namespace FlightServices
             services.AddScoped<IDestinationRepo, DestinationRepo>(); 
             services.AddScoped<IDepartureRepo, DepartureRepo>();
             services.AddScoped<IAirplaneRepo, AirplaneRepo>();
+            services.AddScoped<IReservationRepo, ReservationRepo>();
+            services.AddScoped<IFlightRepo, FlightRepo>();
 
             //mapper 
             services.AddAutoMapper(typeof(FlightProfiles));

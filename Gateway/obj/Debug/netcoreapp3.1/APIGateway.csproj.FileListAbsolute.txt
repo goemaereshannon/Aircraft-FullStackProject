@@ -112,7 +112,6 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.pdb
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.genruntimeconfig.cache
-
 D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\appsettings.json
 D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -156,6 +155,4 @@ D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIG
 D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.pdb
 D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.genruntimeconfig.cache
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\scopedcss\bundle\APIGateway.styles.css
-
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.csprojAssemblyReference.cache
-

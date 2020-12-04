@@ -52,10 +52,10 @@ namespace FlightServices.Data
 
             builder.Entity<Flight>().HasMany(fl => fl.Reservations).WithOne(res => res.Flight).HasForeignKey(res => res.FlightId);
 
-            builder.Entity<Reservation>().HasKey(res => new { res.FlightId, res.UserId });
-            builder.Entity<Reservation>().HasMany(res => res.ReservedSeats);
+          //  builder.Entity<Reservation>().HasKey(res => new { res.FlightId, res.UserId });
+            
 
-
+            builder.Entity<ReservedSeat>().HasOne(rs => rs.Reservation).WithMany(res => res.ReservedSeats).HasForeignKey(rs => rs.ReservationId);
             builder.Entity<ReservedSeat>().HasOne(rs => rs.Seat).WithMany(seat => seat.ReservedSeats).HasForeignKey(rs => rs.SeatId);
             builder.Entity<ReservedSeat>().HasOne(rs => rs.Person).WithMany(person => person.ReservedSeats).HasForeignKey(rs => rs.PersonId);
             builder.Entity<ReservedSeat>().HasOne(rs => rs.Price).WithMany(price => price.ReservedSeats).HasForeignKey(rs => rs.PriceId);

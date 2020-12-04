@@ -364,7 +364,6 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.csprojAssemblyReference.cache
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.AssemblyInfoInputs.cache
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.AssemblyInfo.cs
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.csproj.CoreCompileInputs.cache
@@ -400,3 +399,4 @@ C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.dll
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.pdb
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.genruntimeconfig.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\IdentityServices\obj\Debug\netcoreapp3.1\IdentityServices.csprojAssemblyReference.cache

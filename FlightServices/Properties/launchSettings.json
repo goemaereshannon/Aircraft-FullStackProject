@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/FlightServices",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:59777",
       "sslPort": 44347

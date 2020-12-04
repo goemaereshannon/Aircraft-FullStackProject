@@ -29,6 +29,9 @@ namespace FlightServices.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ReservedSeats")
+                        .HasColumnType("int");
+
                     b.Property<int>("TotalSeats")
                         .HasColumnType("int");
 
@@ -44,6 +47,7 @@ namespace FlightServices.Migrations
                         {
                             Id = new Guid("9579b6cd-cad5-4608-88a6-270ce03f5a35"),
                             Name = "KL1730",
+                            ReservedSeats = 0,
                             TotalSeats = 200,
                             Type = "Embraer 190"
                         },
@@ -51,6 +55,7 @@ namespace FlightServices.Migrations
                         {
                             Id = new Guid("9e17af7b-df05-4c69-94b8-586659c7152f"),
                             Name = "BA2490",
+                            ReservedSeats = 0,
                             TotalSeats = 200,
                             Type = "Boeing 737 MAX"
                         });
@@ -244,7 +249,7 @@ namespace FlightServices.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("FlightServices.Models.Price", b =>
+            modelBuilder.Entity("FlightServices.Models.PriceClass", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -269,13 +274,25 @@ namespace FlightServices.Migrations
 
             modelBuilder.Entity("FlightServices.Models.Reservation", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("FlightId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalSeats")
+                        .HasColumnType("float");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("FlightId", "UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
 
                     b.ToTable("Reservations");
                 });
@@ -292,17 +309,14 @@ namespace FlightServices.Migrations
                     b.Property<Guid>("PriceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ReservationFlightId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ReservationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ReservationUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SeatId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("TicketPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -310,9 +324,9 @@ namespace FlightServices.Migrations
 
                     b.HasIndex("PriceId");
 
-                    b.HasIndex("SeatId");
+                    b.HasIndex("ReservationId");
 
-                    b.HasIndex("ReservationFlightId", "ReservationUserId");
+                    b.HasIndex("SeatId");
 
                     b.ToTable("ReservedSeats");
                 });
@@ -389,9 +403,15 @@ namespace FlightServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FlightServices.Models.Price", "Price")
+                    b.HasOne("FlightServices.Models.PriceClass", "Price")
                         .WithMany("ReservedSeats")
                         .HasForeignKey("PriceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlightServices.Models.Reservation", "Reservation")
+                        .WithMany("ReservedSeats")
+                        .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -400,10 +420,6 @@ namespace FlightServices.Migrations
                         .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("FlightServices.Models.Reservation", "Reservation")
-                        .WithMany("ReservedSeats")
-                        .HasForeignKey("ReservationFlightId", "ReservationUserId");
                 });
 
             modelBuilder.Entity("FlightServices.Models.Seat", b =>
