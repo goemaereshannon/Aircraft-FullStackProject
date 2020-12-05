@@ -10,6 +10,7 @@ using FlightServices.Models;
 using FlightServices.DTOs;
 using AutoMapper;
 using FlightServices.Repositories;
+using FlightServices.Messaging;
 
 namespace FlightServices.Controllers
 {
@@ -27,8 +28,9 @@ namespace FlightServices.Controllers
         private readonly IFlightRepo flightRepo;
         private readonly IGenericRepo<Seat> genericSeatRepo;
         private readonly IAirplaneRepo airplaneRepo;
+        private readonly ISender sender;
 
-        public ReservationsController(IReservationRepo reservationRepo,  IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IFlightRepo flightRepo, IGenericRepo<Seat> genericSeatRepo, IAirplaneRepo airplaneRepo)
+        public ReservationsController(IReservationRepo reservationRepo,  IMapper mapper, IGenericRepo<PriceClass> genericPriceRepo, IGenericRepo<Person> genericPersonRepo, IGenericRepo<ReservedSeat> genericReservedSeatRepo, IFlightRepo flightRepo, IGenericRepo<Seat> genericSeatRepo, IAirplaneRepo airplaneRepo, ISender sender)
         {
          
       
@@ -40,6 +42,7 @@ namespace FlightServices.Controllers
             this.flightRepo = flightRepo;
             this.genericSeatRepo = genericSeatRepo;
             this.airplaneRepo = airplaneRepo;
+            this.sender = sender;
         }
 
         // GET: api/Reservations
@@ -276,6 +279,11 @@ namespace FlightServices.Controllers
                             {
                                 //TODO: realtime message to admin
                                 Console.WriteLine("Airplane is fully booked.");
+                                MessageObject message = new MessageObject()
+                                {
+                                    Message = $"Airplane {flight.Airplane.Name} on flight with Id {flight.Id} is fully booked. Please add an extra plane."
+                                };
+                                await sender.Send( message);
                             }
                         }
                         else
@@ -289,7 +297,7 @@ namespace FlightServices.Controllers
                     }
                 
                     var createdReservation = await reservationRepo.Create(reservation);
-                    //TODO: check totalseats
+                   
                     if (createdReservation == null) return BadRequest(new { Message = $"Reservation could not be saved" });
                     return Created("/api/reservations", reservationDTO);
                 }

@@ -29,6 +29,11 @@ export class signalRService {
       .catch((err) => console.error(err));
   };
 
+  public showAdminMessage = () => {
+    this.hubConnection.on('admin', (data) => {
+      console.log({ adminMessage: data.message });
+    });
+  };
   //listen to message from realtimeservice
   public showBroadcast = () => {
     this.hubConnection.on('ServerMessage', (data) => {
