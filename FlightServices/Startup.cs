@@ -71,8 +71,10 @@ namespace FlightServices
                 c.IncludeXmlComments(xmlPath); 
             });
             // RABBITMQ
+            services.AddOptions();
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
             services.AddScoped<ISender, Sender>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

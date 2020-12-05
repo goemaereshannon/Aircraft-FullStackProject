@@ -41,4 +41,16 @@ services:
     volumes:
     - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
     - C:\Users\alexi\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  rabbitmq:
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_DEFAULT_USER: user
+    hostname: myrabbit
+    image: rabbitmq:3-management
+    ports:
+    - published: 5672
+      target: 5672
+    - published: 15672
+      target: 15672
 version: '3.4'

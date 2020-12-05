@@ -89,6 +89,11 @@ namespace FlightServices.Controllers
                     reservation.Flight = flight;
                 }
                 IEnumerable < ReservationDTO > reservationDTOs = mapper.Map<IEnumerable<ReservationDTO>>(reservations);
+                MessageObject message = new MessageObject()
+                {
+                    Message = $"Reservaties voor user{userId} opgehaald."
+                };
+                await sender.Send(message);
                 return Ok(reservationDTOs);
             }
             catch (Exception)

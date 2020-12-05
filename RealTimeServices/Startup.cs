@@ -40,7 +40,7 @@ namespace RealTimeServices
             });
             services.AddSignalR();
             //2.RabbitMQ
-
+            services.AddOptions();
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
            // services.AddTransient<IOrderCreateService, OrderCreateService>();
             services.AddHostedService<Receiver>();
@@ -56,7 +56,7 @@ namespace RealTimeServices
             }
             app.UseCors("MyAllowOrigins");
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints => { 
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapControllers();

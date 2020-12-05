@@ -11,14 +11,14 @@
       "NETCOREAPP3_1"
     ],
     "languageVersion": "8.0",
-    "platform": "",
+    "platform": "x64",
     "allowUnsafe": false,
     "warningsAsErrors": false,
     "optimize": false,
     "keyFile": "",
     "emitEntryPoint": true,
-    "xmlDoc": false,
-    "debugType": "portable"
+    "xmlDoc": true,
+    "debugType": "full"
   },
   "targets": {
     ".NETCoreApp,Version=v3.1": {

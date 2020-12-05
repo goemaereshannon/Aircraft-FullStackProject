@@ -8,6 +8,7 @@ using RabbitMQ.Client.Events;
 using RealTimeServices.Hubs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace RealTimeServices.Messaging
 {
-    public class Receiver : BackgroundService
+    public class Receiver: BackgroundService
     {
 
         // BackgroundService -> using Extensions.Hosting
@@ -54,11 +55,12 @@ namespace RealTimeServices.Messaging
             try {
                 //durable : true (order niet noodzakelijk gestart)
                 _connection = factory.CreateConnection();
-                //     _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+                 //    _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
                 _channel = _connection.CreateModel();
                 //declaratie moet overeenstemmen met sender queue: BasicPublish zonder routingkey
                 _channel.QueueDeclare(queue: _queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-                // _channel.QueueBind(queue: _queueName, exchange: "", routingKey: "Cart"); 
+
+                // _channel.QueueBind(queue: _queueName, exchange: "", routingKey: _queueName); 
 
             }
             catch(Exception exc) {
@@ -99,7 +101,8 @@ namespace RealTimeServices.Messaging
         private async Task HandleMessage(MessageObject message)
         {
             //TODO: call chathub
-            await hubContext.Clients.All.SendAsync("admin", message);
+              await hubContext.Clients.All.SendAsync("admin", message);
+            Debug.WriteLine($"{message.Message}");
       
         }
     }
