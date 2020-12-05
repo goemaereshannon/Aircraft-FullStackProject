@@ -1,6 +1,7 @@
 using AutoMapper;
 using FlightServices.Data;
 using FlightServices.Mapping;
+using FlightServices.Messaging;
 using FlightServices.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,7 @@ namespace FlightServices
             services.AddScoped<IAirplaneRepo, AirplaneRepo>();
             services.AddScoped<IReservationRepo, ReservationRepo>();
             services.AddScoped<IFlightRepo, FlightRepo>();
+           
 
             //mapper 
             services.AddAutoMapper(typeof(FlightProfiles));
@@ -67,7 +69,12 @@ namespace FlightServices
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath); 
-            }); 
+            });
+            // RABBITMQ
+            services.AddOptions();
+            services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
+            services.AddScoped<ISender, Sender>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
