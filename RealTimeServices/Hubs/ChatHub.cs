@@ -44,6 +44,19 @@ namespace RealTimeServices.Hubs
                 throw new Exception(exc.Message);
             }
         }
+        //public async Task AdminMessage(string userId, Data data)
+        //{
+        //    try
+        //    {
+                
+        //        Clients.User(userId).SendAsync("Admin", data);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
 
         
     }

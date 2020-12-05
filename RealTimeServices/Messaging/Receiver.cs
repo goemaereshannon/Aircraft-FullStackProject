@@ -100,8 +100,9 @@ namespace RealTimeServices.Messaging
 
         private async Task HandleMessage(MessageObject message)
         {
-            //TODO: call chathub
-              await hubContext.Clients.All.SendAsync("admin", message);
+            //TODO:send to admin
+            await hubContext.Clients.All.SendAsync("Admin", message);
+            
             Debug.WriteLine($"{message.Message}");
       
         }
