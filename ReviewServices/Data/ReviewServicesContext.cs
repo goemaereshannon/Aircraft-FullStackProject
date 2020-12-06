@@ -16,8 +16,10 @@ namespace ReviewServices.Data
             MongoClient client = new MongoClient(settings.ConnectionStringHost);
             Database = client.GetDatabase(settings.DatabaseName);
         }
+        
         //namen van collecties zijn casesensitive !!!
        // public IMongoCollection<Restaurant> Restaurants => Database.GetCollection<Restaurant>("restaurants");
         public IMongoCollection<Review> Reviews => Database.GetCollection<Review>("reviews");
+        public IMongoCollection<SubjectCategorie> SubjectCategories => Database.GetCollection<SubjectCategorie>("subjectCategories");
     }
 }

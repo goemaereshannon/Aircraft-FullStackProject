@@ -67,5 +67,13 @@ namespace ReviewServices.Repos
             .ToList();
             return result;
         }
+
+        public async Task<IEnumerable<Object>> GetAllSubjects()
+        {
+            var result = context.Reviews.AsQueryable().Select(r => new { r.Subject }).Distinct();
+            //IMongoCollection<SubjectCategorie> collection = context.SubjectCategories;
+            //var result = collection.AsQueryable().ToList();
+            return result;
+        }
     }
 }

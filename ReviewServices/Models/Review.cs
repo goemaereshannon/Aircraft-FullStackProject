@@ -16,6 +16,8 @@ namespace ReviewServices.Models
         }
         [BsonId] public ObjectId Id { get; set; } = new ObjectId();
 
+        //[BsonElement]
+        //public SubjectCategorie Subject { get; set; }
         [BsonElement]
         public string Subject { get; set; }
         [BsonElement]

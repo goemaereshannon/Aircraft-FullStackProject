@@ -13,5 +13,6 @@ namespace ReviewServices.Repos
         Task<IEnumerable<Review>> GetAll(ReviewFilter filter);
         Task<IEnumerable<Review>> GetReviewsForFlight(string id);
         Task<IEnumerable<Object>>GetReviewsGroupedBySubject();
+        Task<IEnumerable<Object>> GetAllSubjects();
     }
 }
