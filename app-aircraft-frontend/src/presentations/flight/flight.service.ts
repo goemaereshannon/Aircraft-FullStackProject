@@ -51,6 +51,14 @@ export class FlightService {
       .get<Flight[]>(`${baseURL}flights`)
       .pipe(catchError(this.handleError<Flight[]>('getFlights', [])));
   }
+
+  //RESERVATION COMPONENT
+  getFlightDetails(id: string): Observable<Flight> {
+    return this.http
+      .get<Flight>(`${baseURL}flights/${id}`)
+      .pipe(catchError(this.handleError<Flight>('getFlightDetails', null)));
+  }
+
   //ERROR HANDLING
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
