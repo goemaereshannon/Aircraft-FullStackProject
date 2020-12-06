@@ -7,11 +7,16 @@ import { ReviewComponent } from '../presentations/review/review.component';
 import { RegisterComponent } from '../presentations/identity/register.component';
 import { AvailableflightsComponent } from 'src/presentations/flight/availableflights/availableflights.component';
 import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
+import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
-  { path: '', component: DiscoverComponent },
+  {
+    path: '',
+    redirectTo: '/flight/discover',
+    pathMatch: 'full',
+  },
   {
     path: 'identity',
     children: [
@@ -41,10 +46,12 @@ const routes: Routes = [
         path: 'travelerinfo',
         component: TravelerinfoComponent,
       },
+      {
+        path: 'travelerseat',
+        component: TravelerseatComponent,
+      },
     ],
   },
-  //path with children path:'', component: Comp, children: [{},{}]
-  // { path: 'second-component', component: SecondComponent },
   // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
   {
     path: 'review',

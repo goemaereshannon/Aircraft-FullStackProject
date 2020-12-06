@@ -7,7 +7,7 @@
       width="24"
       height="20.583"
       viewBox="0 0 24 20.583"
-      routerLink="../../flight/discover"
+      routerLink="../travelerinfo"
     >
       <g id="arrows" transform="translate(2 -47.842)">
         <g id="Group_28" data-name="Group 28" transform="translate(-2 47.842)">
@@ -31,7 +31,6 @@
       class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center"
     >
       <div
-        *ngIf="flight != undefined"
         class="grid justify-items-center items-center custom-card-grid border-maintheme-grey"
       >
         <svg
@@ -119,131 +118,14 @@
     </div>
     <div class="flex flex-col">
       <label for="travelernr">Travelers</label>
-      <input type="number" name="" id="travelernr" placeholder="1" />
-    </div>
-    <div>
-      <form class="flex flex-col mt-5" [formGroup]="infoForm">
-        <p>Traveler 1</p>
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="firstName"
-          >First name
-        </label>
-        <input
-          type="text"
-          placeholder="John"
-          id="firstName"
-          formControlName="firstName"
-          required
-        />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="lastName"
-          >Last name</label
+      <div *ngFor="let r of reservation.reservedSeats">
+        <button
+          class="btn bg-white text-maintheme-black rounded-md focus:border-maintheme-salmon focus:border-2"
+          *(onClick)="onSubmit(r.firstName)"
         >
-        <input
-          type="text"
-          placeholder="Doe"
-          id="lastName"
-          formControlName="lastName"
-          required
-        />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="dateOfBirth"
-          >Date of birth</label
-        >
-        <input
-          type="date"
-          placeholder="01-01-2020"
-          id="dateOfBirth"
-          formControlName="dateOfBirth"
-        />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="passportnr"
-          >Passport number</label
-        >
-        <input
-          type="text"
-          placeholder="AA0000000"
-          id="passportnr"
-          formControlName="passportnr"
-        />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="addressnr"
-          >Address + nr</label
-        >
-        <input
-          type="text"
-          placeholder="Somewherestreet 100"
-          id="addressnr"
-          formControlName="addressnr"
-        />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="postalCity"
-          >Postal code + city</label
-        >
-        <input
-          type="text"
-          placeholder="0000 Utopia"
-          id="postalCity"
-          formControlName="postalCity"
-        />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="country"
-          >Country</label
-        >
-        <input
-          type="text"
-          placeholder="Worldland"
-          id="country"
-          formControlName="country"
-        />
-        <div class="flex flex-col justify-center items-center">
-          <a
-            routerLink="../travelerseat"
-            class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md mt-6"
-            style="width: 208px"
-            [state]="{ data: flight, form: infoForm.value }"
-          >
-            Next
-          </a>
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="77"
-            height="15"
-            viewBox="0 0 77 15"
-            class="mt-4"
-          >
-            <g
-              id="Group_43"
-              data-name="Group 43"
-              transform="translate(-145 -775)"
-            >
-              <circle
-                id="Ellipse_13"
-                data-name="Ellipse 13"
-                cx="7.5"
-                cy="7.5"
-                r="7.5"
-                transform="translate(145 775)"
-                fill="#35b6ff"
-              />
-              <circle
-                id="Ellipse_14"
-                data-name="Ellipse 14"
-                cx="7.5"
-                cy="7.5"
-                r="7.5"
-                transform="translate(176 775)"
-                fill="#35b6ff"
-                opacity="0.2"
-              />
-              <circle
-                id="Ellipse_17"
-                data-name="Ellipse 17"
-                cx="7.5"
-                cy="7.5"
-                r="7.5"
-                transform="translate(207 775)"
-                fill="#35b6ff"
-                opacity="0.2"
-              />
-            </g>
-          </svg>
-        </div>
-      </form>
+          {{ r.firstName }} {{ r.lastName }}
+        </button>
+      </div>
     </div>
   </main>
 </div>
