@@ -4,9 +4,10 @@ import { DiscoverComponent } from '../presentations/flight/discover/discover.com
 import { AppComponent } from '../app/app.component';
 import { RegisterComponent } from '../presentations/identity/register.component';
 import { AvailableflightsComponent } from 'src/presentations/flight/availableflights/availableflights.component';
+import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '', component: DiscoverComponent },
   {
     path: 'identity',
     children: [
@@ -26,6 +27,15 @@ const routes: Routes = [
       {
         path: 'availableflights',
         component: AvailableflightsComponent,
+      },
+    ],
+  },
+  {
+    path: 'reservation',
+    children: [
+      {
+        path: 'travelerinfo',
+        component: TravelerinfoComponent,
       },
     ],
   },
