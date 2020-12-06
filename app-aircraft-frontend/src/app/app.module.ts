@@ -11,6 +11,8 @@ import { AvailableflightsComponent } from '../presentations/flight/availableflig
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { TravelerinfoComponent } from 'src/presentations/reservation/travelerinfo/travelerinfo.component';
+import { TravelerseatComponent } from 'src/presentations/reservation/travelerseat/travelerseat.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { RouterModule } from '@angular/router';
     RegisterComponent,
     DiscoverComponent,
     AvailableflightsComponent,
+    TravelerinfoComponent,
+    TravelerseatComponent,
   ],
   imports: [
     BrowserModule,

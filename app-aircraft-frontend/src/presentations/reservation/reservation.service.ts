@@ -1,9 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { FlightService } from '../flight/flight.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReservationService {
-
-  constructor() { }
+  flight;
+  constructor(private flightService: FlightService) {}
+  ngOnInit(): void {
+    console.log(this.flight);
+  }
 }
