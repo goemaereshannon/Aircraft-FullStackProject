@@ -7,9 +7,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
 import { AppComponent } from '../app/app.component';
 import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
+import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
 
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/flight/discover',
+    pathMatch: 'full',
+  },
   {
     path: 'identity',
     children: [
@@ -58,10 +64,12 @@ const routes: Routes = [
         path: 'travelerinfo',
         component: TravelerinfoComponent,
       },
+      {
+        path: 'travelerseat',
+        component: TravelerseatComponent,
+      },
     ],
   },
-  //path with children path:'', component: Comp, children: [{},{}]
-  // { path: 'second-component', component: SecondComponent },
   // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 
