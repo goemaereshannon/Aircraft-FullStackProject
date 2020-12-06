@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,7 @@ namespace ReviewServices.Models
         public string Comment { get; set; }
         [BsonElement("Rating")]
         [BsonRepresentation(BsonType.Decimal128)]
-        
+        [Range(typeof(decimal), "0", "5")]
         public decimal Rating { get; set; }
 
         [BsonElement("DateOfCreation")]
@@ -40,6 +41,13 @@ namespace ReviewServices.Models
         [BsonElement("flightId")]
         [BsonRepresentation(BsonType.String)]
         public Guid FlightId { get; set; }
+
+        [BsonIgnore]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Flight Flight { get; set; }
+        [BsonIgnore]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Author Author { get; set; }
 
     }
 }

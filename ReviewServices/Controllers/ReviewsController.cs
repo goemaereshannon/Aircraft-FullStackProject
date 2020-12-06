@@ -21,6 +21,8 @@ namespace ReviewServices.Controllers
         {
             this.repo = repo;
         }
+
+        //TODO: filter by departureairport, destinationairport, timeofarrival, timeofdeparture
         //api/review?reviewfilter.subject=pricing&reviewFilter.id= ...
         [HttpGet("/api/reviews")]
         public async Task<IActionResult> Index([FromQuery] ReviewFilter reviewFilter)

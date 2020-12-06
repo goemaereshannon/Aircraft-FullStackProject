@@ -23,18 +23,29 @@ namespace ReviewServices.Repos
         {
             try
             {
+                var result = new List<Review>();
                 if (filter == null || filter.FlightId == null && filter.Subject == null && filter.DateOfCreation == null)
                 {
-                    var result = await context.Reviews.Find(FilterDefinition<Review>.Empty)
-                    .ToListAsync<Review>();
-                    return result;
+                    //var result = await context.Reviews.Aggregate().Lookup<Review, Author, Review>(context.Authors, aut => aut.UserId, d => d.UserId, aut => aut.Author);
+                    result = await context.Reviews.Find(FilterDefinition<Review>.Empty).ToListAsync<Review>();
+                   
                 }
                 else
                 {
-                    return await context.Reviews.Find(filter.ToFilterDefinition())
+                    result = await context.Reviews.Find(filter.ToFilterDefinition())
                     .SortBy(d => d.DateOfCreation).ThenBy(d => d.Subject)
                     .ToListAsync<Review>();
                 }
+
+                foreach (Review review in result)
+                {
+                    review.Flight = context.Flights.AsQueryable().Where(fl => fl.FlightId == review.FlightId).FirstOrDefault();
+                    review.Author = context.Authors.AsQueryable().Where(aut => aut.UserId == review.UserId).FirstOrDefault();
+                        
+
+                  }
+
+                return result;
             }
             catch (Exception exception)
             {

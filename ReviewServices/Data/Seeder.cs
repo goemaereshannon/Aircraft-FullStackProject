@@ -25,6 +25,38 @@ namespace ReviewServices.Data
            new Guid("d470123f-7795-4158-aa2b-9088e29de88d"),
            new Guid("33478a6b-437f-4416-932d-638b1c0415ea")
        };
+        public List<Flight> Flights = new List<Flight>
+        {
+           new Flight()
+           {
+              
+               FlightId =  new Guid("d470123f-7795-4158-aa2b-9088e29de88d"),
+               DepartureAirport= "JFK",
+               DestinationAirport ="BRU",
+             TimeOfDeparture = Convert.ToDateTime("15-12-2020 16:00"),
+                TimeOfArrival = Convert.ToDateTime("15-12-2020 18:00"),
+                
+
+           }, 
+            new Flight()
+           {
+
+               FlightId =  new Guid("33478a6b-437f-4416-932d-638b1c0415ea"),
+               DepartureAirport= "BRU",
+               DestinationAirport ="CDG",
+              TimeOfDeparture = Convert.ToDateTime("15-12-2020 15:00"),
+                TimeOfArrival = Convert.ToDateTime("15-12-2020 15:30"),
+
+
+           }
+        };
+        public Author Author = new Author()
+        {
+           
+            UserId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
+            FirstName = "Alex",
+            LastName = "Christi"
+        };
         //public List<SubjectCategorie> subjects = new List<SubjectCategorie> { 
         //    new SubjectCategorie { Subject = "Pricing" },
         //    new SubjectCategorie { Subject = "Food" }, 
@@ -48,19 +80,26 @@ namespace ReviewServices.Data
         public async Task initDatabase(int nmbrFlights = 2)
         {
             //geen data blijven toevoegen (MongoDB.Driver)
-           // context.Database.DropCollection("reviews");
+            context.Database.DropCollection("reviews");
+            context.Database.DropCollection("flights");
+            context.Database.DropCollection("authors");
           //  context.Database.DropCollection("subjectCategories");
             if (await context.Reviews.EstimatedDocumentCountAsync() == 0)
             {
                 try
                 {
                     //await context.SubjectCategories.InsertManyAsync(subjects);
+                    await context.Flights.InsertManyAsync(Flights);
+                   await context.Authors.InsertOneAsync(Author);
                     //3.Reviews toevoegen
                    await reviewRepo.CreateAsync(new Review
                     {
                         Id = new MongoDB.Bson.ObjectId(),
-                        FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
-                        UserId = Guid.NewGuid(),
+                        //FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
+                        FlightId = Lst_FlightGuids[0],
+                        Flight =Flights[0],
+                       // UserId = Guid.NewGuid(),
+                        UserId = Author.UserId,
                        //Subject = 
                        //new SubjectCategorie
                        //{
@@ -68,15 +107,18 @@ namespace ReviewServices.Data
                        //},
                        Subject = "Pricing",
                         Comment = "Too expensive",
-                        Rating = 4.5M
+                        Rating = 2.5M,
+                        Author = Author
 
 
                     }); ;
                    await reviewRepo.CreateAsync(new Review
                     {
                         Id = new MongoDB.Bson.ObjectId(),
-                        FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
-                        UserId = Guid.NewGuid(),
+                       // FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
+                       FlightId = Lst_FlightGuids[1],
+                       Flight = Flights[1],
+                       UserId = Author.UserId,
                        //Subject = new SubjectCategorie
                        //{
                        //    Subject = "Pricing"
@@ -84,63 +126,76 @@ namespace ReviewServices.Data
 
                        Subject = "Pricing",
                         Comment = "Cheap enough for me.",
-                        Rating = 7.2M
+                        Rating = 3.2M,
+                       Author = Author
 
-                    });
+                   });
 
                    await reviewRepo.CreateAsync(new Review
                     {
                         Id = new MongoDB.Bson.ObjectId(),
-                        FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
-                        UserId = Guid.NewGuid(),
+                       // FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
+                       FlightId = Lst_FlightGuids[0],
+                       Flight = Flights[0],
+                       UserId = Author.UserId,
                        // Subject = new SubjectCategorie { Subject = "Service" },
                        Subject = "Service",
                         Comment = "Excellent",
-                        Rating = 8.0M
-                    });
+                        Rating = 4.5M,
+                       Author = Author
+                   });
 
 
                     await reviewRepo.CreateAsync(new Review
                     {
                         Id = new MongoDB.Bson.ObjectId(),
-                        FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
-                        UserId = Guid.NewGuid(),
+                       // FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
+                        FlightId = Lst_FlightGuids[1],
+                        Flight = Flights[1],
+                        UserId = Author.UserId,
                         //Subject = new SubjectCategorie
                         //{
                         //    Subject = "Service"
                         //},
                         Subject = "Service",
                           Comment = "Abysmal.",
-                        Rating = 5
+                        Rating = 1,
+                        Author = Author
 
                     }) ;
 
                   await  reviewRepo.CreateAsync(new Review
                     {
                         Id = new MongoDB.Bson.ObjectId(),
-                        FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
-                        UserId = Guid.NewGuid(),
+                      //  FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
+                      FlightId = Lst_FlightGuids[0],
+                      Flight = Flights[0],
+                      UserId = Author.UserId,
                       //Subject = new SubjectCategorie { Subject= "Food" },
                       Subject = "Food",
                         Comment = "They gave my grandma rice, against her will.",
-                        Rating = 6
+                        Rating = 2,
+                      Author = Author
 
-                    });
+                  });
 
                   await  reviewRepo.CreateAsync(new Review
                     {
                         Id = new MongoDB.Bson.ObjectId(),
-                        FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
-                        UserId = Guid.NewGuid(),
+                      //  FlightId = Lst_FlightGuids[new Random().Next(Lst_FlightGuids.Count)],
+                      FlightId = Lst_FlightGuids[1],
+                      Flight = Flights[1],
+                      UserId = Author.UserId,
                       //Subject = new SubjectCategorie
                       //{
                       //    Subject = "Food"
                       //},
                       Subject = "Food",
                         Comment = "Excellent cheesecrackers.",
-                        Rating = 8
+                        Rating = 4,
+                      Author = Author
 
-                    });
+                  });
 
                     //zoekindexen aanmaken op Mongo
                     IndexKeysDefinition<Review> keys = "{FlightId: 1 }";

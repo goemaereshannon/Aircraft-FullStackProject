@@ -20,6 +20,8 @@ namespace ReviewServices.Data
         //namen van collecties zijn casesensitive !!!
        // public IMongoCollection<Restaurant> Restaurants => Database.GetCollection<Restaurant>("restaurants");
         public IMongoCollection<Review> Reviews => Database.GetCollection<Review>("reviews");
-        public IMongoCollection<SubjectCategorie> SubjectCategories => Database.GetCollection<SubjectCategorie>("subjectCategories");
+        public IMongoCollection<Author> Authors => Database.GetCollection<Author>("authors");
+        public IMongoCollection<Flight> Flights => Database.GetCollection<Flight>("flights");
+       // public IMongoCollection<SubjectCategorie> SubjectCategories => Database.GetCollection<SubjectCategorie>("subjectCategories");
     }
 }
