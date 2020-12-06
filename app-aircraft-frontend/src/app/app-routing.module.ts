@@ -12,7 +12,6 @@ import { TravelerseatComponent } from '../presentations/reservation/travelerseat
 import { ReviewComponent } from '../presentations/review/review.component';
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
-  { path: '', component: DiscoverComponent },
   {
     path: '',
     redirectTo: '/flight/discover',
@@ -56,10 +55,12 @@ const routes: Routes = [
         path: 'travelerinfo',
         component: TravelerinfoComponent,
       },
+      {
+        path: 'travelerseat',
+        component: TravelerseatComponent,
+      },
     ],
   },
-  //path with children path:'', component: Comp, children: [{},{}]
-  // { path: 'second-component', component: SecondComponent },
   // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
   {
     path: 'review',
