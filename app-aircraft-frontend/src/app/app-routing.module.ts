@@ -5,6 +5,8 @@ import { RegisterComponent } from '../presentations/identity/register/register.c
 import { AvailableflightsComponent } from '../presentations/flight/availableflights/availableflights.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
+import { AppComponent } from '../app/app.component';
+import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
 
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
@@ -49,6 +51,18 @@ const routes: Routes = [
       ).then((c) => c.ReviewModule),
   },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
+  {
+    path: 'reservation',
+    children: [
+      {
+        path: 'travelerinfo',
+        component: TravelerinfoComponent,
+      },
+    ],
+  },
+  //path with children path:'', component: Comp, children: [{},{}]
+  // { path: 'second-component', component: SecondComponent },
+  // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 
 @NgModule({
