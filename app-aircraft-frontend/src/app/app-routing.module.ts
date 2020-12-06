@@ -9,8 +9,10 @@ import { AppComponent } from '../app/app.component';
 import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
 import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
 
+import { ReviewComponent } from '../presentations/review/review.component';
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
+  { path: '', component: DiscoverComponent },
   {
     path: '',
     redirectTo: '/flight/discover',
@@ -47,6 +49,18 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'reservation',
+    children: [
+      {
+        path: 'travelerinfo',
+        component: TravelerinfoComponent,
+      },
+    ],
+  },
+  //path with children path:'', component: Comp, children: [{},{}]
+  // { path: 'second-component', component: SecondComponent },
+  // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
   {
     path: 'review',
     loadChildren: () =>
