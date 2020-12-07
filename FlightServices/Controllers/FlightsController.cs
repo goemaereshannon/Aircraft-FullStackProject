@@ -540,6 +540,49 @@ namespace FlightServices.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Returns all non-reserved seats for an airplane, based on airplaneId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        // GET: api/Flights
+        [HttpGet("/api/flights/airplane/{id}/seats/nonreserved")]
+        [ProducesResponseType(typeof(IEnumerable<SeatDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<SeatDTO>>> GetAlNonReservedSeatsByAirplaneId(Guid id)
+        {
+            IEnumerable<Seat> seats;
+
+            if (id == Guid.Empty) return BadRequest(new { message = "Id is empty" });
+            try
+            {
+
+                Airplane airplane = new Airplane();
+                if(await airplaneRepo.Exists(airplane, id))
+                {
+                    seats = await seatRepo.GetByExpressionAsync(seat => seat.AirplaneId == id && seat.Reserved == false);
+                    IEnumerable<SeatDTO> seatDTOs = mapper.Map<IEnumerable<Seat>, IEnumerable<SeatDTO>>(seats);
+                    return Ok(seatDTOs);
+                }
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find seats for airplane with id {id}"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Failed to get non-reserved seats for airplane with id {id} : {ex}"
+                });
+            }
+
+            
+
+        }
+
         [HttpPost("/api/flights/airplane")]
         public async Task<ActionResult<AirplaneDTO>> PostAirplane([FromBody] AirplaneDTO airplaneDTO)
         {

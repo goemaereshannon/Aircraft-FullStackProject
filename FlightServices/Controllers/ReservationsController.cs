@@ -96,10 +96,13 @@ namespace FlightServices.Controllers
                 await sender.Send(message);
                 return Ok(reservationDTOs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find reservations for user with id {userId} : {ex}"
+                });
             }
 
         }
@@ -112,17 +115,22 @@ namespace FlightServices.Controllers
             try
             {
                 prices = await genericPriceRepo.GetAllAsync();
-       
+                IEnumerable<PriceClassDTO> priceClassDTOs = mapper.Map<IEnumerable<PriceClass>, IEnumerable<PriceClassDTO>>(prices);
+                return Ok(priceClassDTOs);
+
             }
             catch (Exception ex)
             {
-                return NotFound(new { message = "Prices not found" + ex });
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Failed to get prices : {ex}"
+                });
             }
 
-           IEnumerable<PriceClassDTO> priceClassDTOs = mapper.Map<IEnumerable<PriceClass>, IEnumerable<PriceClassDTO>>(prices);
-            return Ok(priceClassDTOs);
 
         }
+
         // PUT: api/Reservations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
