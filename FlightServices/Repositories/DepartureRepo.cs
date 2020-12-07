@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace FlightServices.Repositories
 {
-    public class DepartureRepo : GenericRepo<DepartureRepo>, IDepartureRepo
+    public class DepartureRepo : GenericRepo<Departure>, IDepartureRepo
     {
-        private readonly FlightServicesContext context; 
+        private readonly FlightServicesContext _context; 
 
         public DepartureRepo(FlightServicesContext _context): base(_context)
         {
-            context = _context; 
+            this._context = _context; 
         }
 
         public async Task<Departure> GetDepartureWithLocationByDepartureId(Guid departureId)

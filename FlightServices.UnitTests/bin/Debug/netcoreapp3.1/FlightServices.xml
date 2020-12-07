@@ -26,6 +26,14 @@
             <param name="airplaneDTO"></param>
             <returns> airplaneDTO </returns>
         </member>
+        <member name="M:FlightServices.Controllers.FlightsController.DeleteAirplane(System.Guid)">
+            <summary>
+            Wijzigen van vliegtuig 
+            </summary>
+            <param name="id"></param>
+            <param name="airplaneDTO"></param>
+            <returns> airplaneDTO </returns>
+        </member>
         <member name="M:FlightServices.Controllers.FlightsController.PostFlight(FlightServices.DTOs.FlightCreateEditDTO)">
             <summary>
             Voeg een nieuwe flight toe. Een vertrek- of aankomstplaats of vliegtuig die niet bestaat wordt aangemaakt De response bevat info over de toegevoegde vlucht. 
