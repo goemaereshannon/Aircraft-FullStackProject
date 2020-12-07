@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "start-pwa":"ng build --prod && http-server -p 8080 -c-1 dist/app-aircraft-frontend",
     "build:prod": "NODE_ENV=production ng build --prod"
   },
   "private": true,
@@ -19,6 +20,7 @@
     "@angular/forms": "~10.2.0",
     "@angular/platform-browser": "~10.2.0",
     "@angular/platform-browser-dynamic": "~10.2.0",
+    "@angular/pwa": "^0.1100.3",
     "@angular/router": "~10.2.0",
     "@angular/service-worker": "~10.2.0",
     "@aspnet/signalr": "^1.1.4",
