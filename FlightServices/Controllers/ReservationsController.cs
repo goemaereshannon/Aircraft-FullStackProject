@@ -103,7 +103,26 @@ namespace FlightServices.Controllers
             }
 
         }
+        // GET: api/Flights
+        [HttpGet("/api/prices")]
+        [ProducesResponseType(typeof(IEnumerable<PriceClassDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<PriceClassDTO>>> GetPrices()
+        {
+            IEnumerable<PriceClass> prices;
+            try
+            {
+                prices = await genericPriceRepo.GetAllAsync();
+       
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = "Prices not found" + ex });
+            }
 
+           IEnumerable<PriceClassDTO> priceClassDTOs = mapper.Map<IEnumerable<PriceClass>, IEnumerable<PriceClassDTO>>(prices);
+            return Ok(priceClassDTOs);
+
+        }
         // PUT: api/Reservations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
