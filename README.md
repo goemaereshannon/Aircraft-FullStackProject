@@ -6,24 +6,57 @@ We coded everything ourselves. The backend is written in **C#** and uses **Entit
 
 This project is meant to practice and showcase our skills. This project still needs some work if it would be used in a real life scenario. Be sure to check out our to-do list and the rest of this README.md to get an idea of which functionalities are or aren't implemented.
 
-# To Do - deadline 15 December 2020
+The checklist that accompanies this project listing all requirements is processed in the explanation of the project. 
+
+Table of contents
 ____________________________________________________
-## Backend
+1. [To Do - deadline 15 December 2020](#to-do---deadline-15-december-2020)
+    1. [Backend backlog](#backend-backlog)
+    2. [Frontend backlog](#frontend-backlog)
+
+2. [Backend](#backend)
+    1. [Generally](#generally)
+    2. [Gateway](#gateway)
+    3. [Docker Compose](#docker-compose)
+    4. [Flight Service](#flight-service)   
+    5. [Flight Service Unittests](#flight-service-unittests)
+    6. [Identity Service](#identity-service)
+    7. [Realtime Service](#realtime-service)
+    8. [Review Service](#review-service)
+    
+3. [Frontend](#frontend)
+    1. [Framework](#framework)
+    2. [Testing](#testing)
+    3. [Styling](#styling)
+    4. [PWA](#pwa)
+    5. [Webpack optimisation](#webpack-optimisation]
+    6. [Self-learning](#self-learning)
+    
+4. [Project management](#project-management)
+5. [Successes](#successes)
+6. [Dificulties](#dificulties)
+7. [Future](#future) 
+
+    
+
+
+# To Do - deadline 15 December 2020
+## Backend backlog
 - connecting services with gateway (already set up and Identity Services are connected)
 - putting everything in docker containers (again, Identity Services already run on docker)
 - refactoring microservices 
-## Frontend
+## Frontend backlog
+- finalizing reservations 
 - 404 page
 - authorisation and login view 
 - views to write review 
 - display and rendering of real time messages 
 - unit and integration test 
 - webpack optimisation 
-- PWA 
-( - multilanguage on reservation form) 
+- multilanguage on reservation form
 
 # Backend
-
+## Generally
 We used LTS **.NET 3.1** to build an API for our Flight Booking Project. This project's API is build with **Entity Framework Core**.
 **CORS** is enabled throughout the entire project.
 
@@ -90,6 +123,7 @@ After flying, users can leave a review about their flight. This application uses
 
 # Frontend
 
+## Framework
 Since our project is meant to work with huge databases full of flight information, we needed a frontend framework that could this.
 
 We picked **Angular** because it is a well-known framework that is being used by a lot of big companies and has thus proven its claims about scalability and data-handling. 
@@ -98,10 +132,54 @@ Furthermore, apart from some basic features, this framework was completely new t
 
 We divided the frontend in services based on the microservices in the backend of the project. These services inject their data in smaller **components**. 
 
-**Self-learning**
-Aside learning Angular through Pluralsight we desided to add **reactive form** validation and take an Pluralsight course for it too. 
+## Testing 
+
+## Styling
+The styling is added with **tailwindcss**. CSS classes with specific, reused styling not included in tailwind are added in **scss**. 
+
+## PWA 
+Starting the project as PWA is possible using command ```npm run pwa-start``` after ```npm install```.
+
+## Webpack optimisation
+
+## Self-learning
+Aside learning Angular through Pluralsight we desided to add **reactive form** validation and take an Pluralsight course for it too. (Identity) 
 
 To prevent unauthenticated users form accessing certain routes, we added angular **route guards**.
+
+# Project management
+From the beginning we desided we both wanted this project to be a **fullstack** experience. That's why we both worked in the back- and frontend part. We worked separately but often  debugged together and explained our code after finishing big parts. We did a standup every Monday to update each other and scheduled our backlog in **Trello**. 
+- We created the DB scheme together. With this scheme Shannon built all needed classes. 
+- Alexandra started with the Identity services, gateway and docker compose in the backend and connected this with the frontend for the registration page. 
+- Meanwhile Shannon designed the frontend in Adobe XD and wrote the Flight services and the unit tests for the Flight service. 
+- Alexandra wrote the Reservation service, we decided to incorporate this in the Flight services to limit the dificulty of the project. She also wrote the real time service and the Review service in AMQP. 
+- Shannon worked through all flight and reservation pages in frontend. 
+We were facing the end of the project and decided to both work on the development side where we ended: Alexandra finished backend and Shannon worked on frontend. 
+
+We registrated our working hours with **Toggl** and the current subtotal is 199h:48min. We estimated to have worked 167h till now. (7 Dec) 
+
+# Successes 
+
+# Dificulties
+- Post of flight 
+
+# Future 
+**Backend**
+- seperate Reservation service (24h) 
+- changing CORS settings for production (1h)
+- chatbox (with responses on FAQ) (16h) 
+- getRandomDestination accomponied by 'Surprise me' button in frontend (2h)
+- delayedFlight (1h)
+- deleteFlight (status = cancelled) (1h)
+- getFlightsBasedOnCarrier (6h) 
+**Frontend**
+- custom select (1h)
+- modules (8h)
+- states inputs and buttons (2h)
+- custom validation classes instead of bootstrap (5h) 
+- error handling  (4h) 
+
+
 
 
 
