@@ -18,6 +18,7 @@ namespace ReviewServices.Repos
         {
             this.context = context;
         }
+        //TODO: genericrepo voor MongoDB
         //*** GET -------------------------------------------------------------
         public async Task<IEnumerable<Review>> GetAll(ReviewFilter filter = null)
         {

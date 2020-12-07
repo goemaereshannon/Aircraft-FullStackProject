@@ -44,7 +44,7 @@ namespace ReviewServices.Controllers
 
 
         }
-        [HttpGet("api/reviews/subjects")]
+        [HttpGet("/api/reviews/subjects")]
         public async Task<ActionResult> GetAllSubjects()
         {
             //var reviews= repo.GetAll(null);
