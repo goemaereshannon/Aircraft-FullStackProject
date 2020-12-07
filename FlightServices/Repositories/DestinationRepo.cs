@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlightServices.Repositories
 {
-    public class DestinationRepo : GenericRepo<DestinationRepo>, IDestinationRepo
+    public class DestinationRepo : GenericRepo<Destination>, IDestinationRepo
     {
         private readonly FlightServicesContext context;
 

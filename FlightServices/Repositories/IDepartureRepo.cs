@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace FlightServices.Repositories
 {
-    public interface IDepartureRepo
+    public interface IDepartureRepo: IGenericRepo<Departure>
     {
         Task<Departure> GetDepartureWithLocationByDepartureId(Guid departureId);
 
