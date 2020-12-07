@@ -189,6 +189,8 @@ namespace FlightServices.Controllers
             }
 
         }
+
+        //TODO: getprices
         //[HttpPost("/api/reservations/reservedseat")]
         //public async Task<ActionResult<ReservedSeatDTO>> PostReservedSeat([FromBody] ReservedSeatDTO reservedSeatDTO, Guid reservationId)
         //{

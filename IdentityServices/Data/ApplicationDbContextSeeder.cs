@@ -38,6 +38,7 @@ namespace IdentityServices.Data
             }
         }
 
+        //TODO: vaste id's gebruiken voor admin +testuser zodat deze gebruikt kunnen worden in seeder reviewservice + seeder reservation.
         private static async Task SeedAdmins(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             var nmbrAdmins = 3;
