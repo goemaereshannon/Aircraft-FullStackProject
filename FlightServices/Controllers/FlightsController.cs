@@ -82,7 +82,36 @@ namespace FlightServices.Controllers
             return Ok(flightsDTO); 
             
         }
+        // GET: api/Flights
+        [HttpGet("/api/flights/future")]
+        [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<FlightDTO>>> GetFutureFlights()
+        {
+            IEnumerable<Flight> flights;
+            try
+            {
+                flights = await flightRepo.GetByExpressionAsync(fl => fl.TimeOfDeparture >= DateTime.Now.AddHours(22));
+                //relaties
+                foreach (Flight f in flights)
+                {
+                    f.Departure = await departureRepo.GetDepartureWithLocationByDepartureId(new Guid(f.DepartureId.ToString()));
 
+                    f.Destination = await destinationRepo.GetDestinationWithLocationByDestinationId(new Guid(f.DestinationId.ToString()));
+
+                    Airplane airplane = await airplaneRepo.GetAsyncByGuid(f.AirplaneId.Value);
+                    f.Airplane = airplane;
+                }
+
+                var flightsDTO = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(flights);
+                return Ok(flightsDTO);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = "Flights not found" + ex });
+            }
+
+
+        }
         private async Task<IEnumerable<Flight>> GetFlightsInfo(IEnumerable<Flight> flights)
         {
             //relaties
