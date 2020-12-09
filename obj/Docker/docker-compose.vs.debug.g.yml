@@ -3,7 +3,7 @@ version: '3.4'
 services:
   apigateway:
     image: apigateway:dev
-    container_name: APIGateway
+    container_name: APIGateway_1
     build:
       target: base
       labels:

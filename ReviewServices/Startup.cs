@@ -57,6 +57,18 @@ namespace ReviewServices
                 //2. Include de xml file 
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowOrigins", builder =>
+                {
+                    builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin() // niet toegelaten indien credentials
+                                      // .WithOrigins("https://localhost", "http://localhost")
+                                      //.AllowCredentials()
+                    ;
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +78,7 @@ namespace ReviewServices
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("MyAllowOrigins");
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   apigateway:
-    container_name: APIGateway
+    container_name: APIGateway_1
     build:
       labels:
         com.microsoft.created-by: "visual-studio"
