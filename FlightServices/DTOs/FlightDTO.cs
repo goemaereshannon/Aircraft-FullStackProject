@@ -13,6 +13,8 @@ namespace FlightServices.DTOs
         public DateTime TimeOfDeparture { get; set; }
         public DateTime TimeOfArrival { get; set; }
         public string FlightStatus { get; set; } = "On time"; 
+        [DisplayFormat(DataFormatString = "{HH:mm:ss}")]
+        public string FlightDuration { get; set; } 
 
         public DepartureDTO DepartureDTO { get; set; } 
         public DestinationDTO DestinationDTO { get; set; }

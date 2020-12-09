@@ -18,6 +18,13 @@
             <param name="patchDoc">[{"value": "new value", "path":"FlightStatus", "op":"replace"}]</param>
             <returns></returns>
         </member>
+        <member name="M:FlightServices.Controllers.FlightsController.GetAlNonReservedSeatsByAirplaneId(System.Guid)">
+            <summary>
+            Returns all non-reserved seats for an airplane, based on airplaneId
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:FlightServices.Controllers.FlightsController.PutAirplane(System.Guid,FlightServices.DTOs.AirplaneDTO)">
             <summary>
             Wijzigen van vliegtuig 
