@@ -408,18 +408,20 @@ namespace FlightServices.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(search)) {
-                    IEnumerable<Destination> searchResult = await destinationRepo.GetByExpressionAsync(
+              result = await destinationRepo.GetByExpressionAsync(
                            //  &&
                            d => d.Location.City.Contains(search) ||
                            d.Location.Country.Contains(search) ||
                            d.Location.Airport.Contains(search)
                            );
+
                     //relaties
-                    foreach (Destination d in searchResult)
+                    foreach (Destination d in result)
                     {
                         d.Location = await genericLocationRepo.GetAsyncByGuid(d.LocationId);
                     }
-                    return Ok(searchResult); 
+                    result.OrderBy(sr => sr.Location.Country).ThenBy(sr => sr.Location.City).GroupBy(sr => sr.Location.Country);
+                   // return Ok(searchResult); 
                 }
                 else {
                     result = await destinationRepo.GetAllAsync();
@@ -427,15 +429,17 @@ namespace FlightServices.Controllers
                     {
                         i.Location = await genericLocationRepo.GetAsyncByGuid(i.LocationId); 
                     }
+                   result.OrderBy(sr => sr.Location.Country).ThenBy(sr => sr.Location.City).GroupBy(sr => sr.Location.Country);
                 }
+                var destinationDTO = mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationDTO>>(result);
+                return Ok(destinationDTO);
             }
             catch (Exception ex)
             {
                 return NotFound(new { message = "Destination locations not found" + ex });
             }
 
-            var destinationDTO = mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationDTO>>(result);
-            return Ok(destinationDTO);
+           
 
         }
         // GET: api/flights/departures/{search}
@@ -795,6 +799,7 @@ namespace FlightServices.Controllers
         {
             try
             {
+                IEnumerable<Seat> seats;
                 //DTO in body is leeg 
                 if (flightDTO == null)
                 {
@@ -805,11 +810,22 @@ namespace FlightServices.Controllers
 
                 //bestaat vliegtuig al? 
                 var airplaneByName = await airplaneRepo.GetAirplaneByName(flightDTO.AirplaneDTO.Name);
+                 seats = await seatRepo.GetByExpressionAsync(st => st.AirplaneId == airplaneByName.Id && st.Reserved == true) ;
+                foreach(Seat seat in seats)
+                {
+                    seat.Reserved = false;
+                }
+
                
                 if (airplaneByName == null) // nee 
                 {
                     await PostAirplane(flightDTO.AirplaneDTO);
                     var airplaneName = await airplaneRepo.GetAirplaneByName(flightDTO.AirplaneDTO.Name);
+                     seats = await seatRepo.GetByExpressionAsync(st => st.AirplaneId == airplaneName.Id && st.Reserved == true);
+                    foreach (Seat seat in seats)
+                    {
+                        seat.Reserved = false;
+                    }
                     newFlight.AirplaneId = airplaneName.Id; 
                 }
                 else //ja 
