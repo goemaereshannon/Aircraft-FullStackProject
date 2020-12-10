@@ -14,7 +14,7 @@ namespace FlightServices.Models
         public DateTime TimeOfArrival { get; set; }
         public string FlightStatus { get; set; } = "On time";
 
-        public float Distance { get; set; }
+        public float DistanceInKm { get; set; }
         
         private string _flightduration;
 

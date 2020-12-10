@@ -102,6 +102,7 @@ namespace FlightServices
 
             app.UseAuthorization();
             
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -63,13 +63,26 @@ namespace FlightServices.Controllers
                     return BadRequest(new { message = "Id is empty" });
                 }
                 Reservation reservation = await reservationRepo.GetAsyncByGuidWithAllSubModels(id);
+                if(reservation == null)  return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find reservations with id {id}"
+                });
+            
+
+
                 ReservationDetailsDTO reservationDetailsDTO = mapper.Map<ReservationDetailsDTO>(reservation);
+
                 return Ok(reservationDetailsDTO);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find reservations with id {id} : {ex}"
+                });
             }
         }
         [HttpGet("/api/user/reservations/{userId}")]
@@ -303,7 +316,7 @@ namespace FlightServices.Controllers
                         PriceClass price = await genericPriceRepo.GetAsyncByGuid(reservedSeat.PriceId);
                         if(price != null)
                         {
-                            reservedSeat.TicketPrice = price.Value != 0 && flight.Distance != 0 ? price.Value * (flight.Distance / 1000) : 0;
+                            reservedSeat.TicketPrice = price.Value != 0 && flight.DistanceInKm != 0 ? price.Value * (flight.DistanceInKm / 1000) : 0;
                            
                             reservation.TotalPrice += reservedSeat.TicketPrice;
                             reservation.TotalSeats += 1;
