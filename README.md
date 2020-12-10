@@ -29,7 +29,7 @@ ____________________________________________________
     2. [Testing](#testing)
     3. [Styling](#styling)
     4. [PWA](#pwa)
-    5. [Webpack optimisation](#webpack-optimisation]
+    5. [Webpack optimisation](#webpack-optimisation)
     6. [Self-learning](#self-learning)
     
 4. [Project management](#project-management)
@@ -47,7 +47,6 @@ ____________________________________________________
 - refactoring microservices 
 ## Frontend backlog
 - finalizing reservations 
-- 404 page
 - authorisation and login view 
 - views to write review 
 - display and rendering of real time messages 
@@ -131,6 +130,8 @@ We picked **Angular** because it is a well-known framework that is being used by
 Furthermore, apart from some basic features, this framework was completely new to both of us. So before we started we dived into transforming our **Adobe XD design** into code, we followed some courses on Pluralsight.
 
 We divided the frontend in services based on the microservices in the backend of the project. These services inject their data in smaller **components**. 
+
+When users provide a unknown path the Page Not Found component is shown and leads the user back to the "Discover" page.
 
 ## Testing 
 
