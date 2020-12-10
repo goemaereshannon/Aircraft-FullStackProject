@@ -21,90 +21,134 @@
 
 
 
-    {
-
-
-      "DownstreamHostAndPorts": [
-        {
-          //"Host": "localhost",
-          "Host": "identityservices",
-          // "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
-          "Port": 80 // --> externe dockerpoort van de identityservvice
-        }
-      ],
-      "DownstreamPathTemplate": "/api/auth/login",
-      "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/login",
-      //"ServiceName": "identity",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-
-    },
-    {
-      "DownstreamHostAndPorts": [
-        {
-          //"Host": "localhost",
-          "Host": "identityservices",
-          //"Port": 44398, //https poort van de service 
-          "Port": 80 // --> externe dockerpoort van de identityservvice
-        }
-      ],
-      "DownstreamPathTemplate": "/swagger/v1/{page}",
-      "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/identity/swagger/v1/{page}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-    },
-    {
-      "DownstreamHostAndPorts": [
-        {
-          //"Host": "localhost",
-          "Host": "identityservices",
-          //"Port": 44398, //https poort van de service 
-          "Port": 80 // --> externe dockerpoort van de identityservvice
-        }
-      ],
-      "DownstreamPathTemplate": "/swagger/{page}",
-      "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/identity/swagger/index.html",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-    }
     //{
+
+
     //  "DownstreamHostAndPorts": [
     //    {
-    //      "Host": "localhost",
-    //      "Port": 44385 //https poort van de service //launchsettings.json van het project dat je wil launchen //hier recipes_db
+    //      //"Host": "localhost",
+    //      "Host": "identityservices",
+    //      // "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
+    //      "Port": 80 // --> externe dockerpoort van de identityservvice
     //    }
     //  ],
-    //  "DownstreamPathTemplate": "/api/{allServices}",
-    //  "DownstreamScheme": "https",
-    //  "UpstreamPathTemplate": "/{allServices}",
+    //  "DownstreamPathTemplate": "/api/auth/login",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/login",
+    //  //"ServiceName": "identity",
     //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
 
+    //},
+
+    //IDENTITYSERVICES
+    //{
+
+    //  "DownstreamHostAndPorts": [
+
+    //    {
+
+    //      "Host": "identityservices",
+    //      "Port": 80 // was https poort van de recipes_db service (was44390) en nu container poort
+
+    //    }
+    //  ],
+
+    //  "DownstreamPathTemplate": "/swagger/{version}/{page}",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/identity/swagger/{version}/{page}",
+    //  "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "POST" ]
 
     //},
+
     //{
     //  "DownstreamHostAndPorts": [
     //    {
-    //      "Host": "recipes_db",
+    //      "Host": "identityservices",
     //      "Port": 80
+
     //    }
+
     //  ],
+
     //  "DownstreamPathTemplate": "/swagger/{page}",
     //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/swagger/{page}",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    //  "UpstreamPathTemplate": "/identity/swagger/{page}",
+    //  "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "POST" ]
+
     //},
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{anything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/identity/{anything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "POST" ]
+    },
+    //FLIGHTSERVICES
+    //{
+
+    //  "DownstreamHostAndPorts": [
+
+    //    {
+
+    //      "Host": "flightservices",
+    //      "Port": 80 // was https poort van de recipes_db service (was44390) en nu container poort
+
+    //    }
+    //  ],
+
+    //  "DownstreamPathTemplate": "/swagger/{version}/{page}",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/flight/swagger/{version}/{page}",
+    //  "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "POST" ]
+
+    //},
+
     //{
     //  "DownstreamHostAndPorts": [
     //    {
-    //      "Host": "recipes_db", //naam van de service
-    //      "Port": 80 //externe http(only) DOCKER poort van de recipes_db service
+    //      "Host": "flightservices",
+    //      "Port": 80
+
     //    }
+
     //  ],
-    //  "DownstreamPathTemplate": "/api/{allServices}",
+
+    //  "DownstreamPathTemplate": "/swagger/{page}",
     //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/{allServices}",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
-    //}
+    //  "UpstreamPathTemplate": "/flight/swagger/{page}",
+    //  "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "POST" ]
+
+    //},
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "flightservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{anything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/flight/{anything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "POST" ]
+    },
+    //REVIEWSERVICES
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reviewservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{anything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/review/{anything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "POST" ]
+    }
   ],
   "GlobalConfiguration": {
     "RequestIdKey": "OcRequestId",

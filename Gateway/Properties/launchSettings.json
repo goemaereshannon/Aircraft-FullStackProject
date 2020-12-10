@@ -27,9 +27,9 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/identity/swagger/index.html",
-      "publishAllPorts": true,
-      "useSSL": false
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}"
+      //"publishAllPorts": true,
+      //"useSSL": false
     }
   }
 }

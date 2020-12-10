@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QSRh/JUB1scfKpML2SKGDprnrlz7PtnGnQwd39Vc/HNqCI2pmfcyC3xxRr6ihypjhDvbJrew5nyOLjATO9ZSbg==",
+  "dgSpecHash": "x5714fX4/iH33pnir8a41wZ6rfYhWYh2Y3OmdGm1P/+vNCoPf8UdyUzcFOuBXNwakkgrOUx6Lxk9Jq4Gkr/ffQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\ReviewServices\\ReviewServices.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\alexi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\mongodb.bson\\2.11.5\\mongodb.bson.2.11.5.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\mongodb.driver\\2.11.5\\mongodb.driver.2.11.5.nupkg.sha512",

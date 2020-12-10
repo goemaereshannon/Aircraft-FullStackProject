@@ -147,8 +147,9 @@ namespace FlightServices.Data
             new Flight
             {
                 Id= new Guid("d470123f-7795-4158-aa2b-9088e29de88d"),
-                TimeOfDeparture = Convert.ToDateTime("15-12-2020 16:00"),
-                TimeOfArrival = Convert.ToDateTime("15-12-2020 18:00"),
+                //TimeOfDeparture = DateTime.Parse("15-12-2020T16:00:00Z"),
+                TimeOfDeparture = DateTime.Parse("2020-12-15T16:00:00Z"),
+                TimeOfArrival = DateTime.Parse("2020-12-15T18:00:00Z"),
                 DepartureId = new Guid("79A86C66-F7E4-4BC4-9E01-525AD78754BD"),
                 DestinationId = new Guid("628B89E3-FFD4-4659-BA39-C67EEE11672B"),
                 AirplaneId = new Guid("9E17AF7B-DF05-4C69-94B8-586659C7152F"),
@@ -158,8 +159,8 @@ namespace FlightServices.Data
             new Flight
             {
                 Id = new Guid("33478a6b-437f-4416-932d-638b1c0415ea"),
-                TimeOfDeparture = Convert.ToDateTime("15-12-2020 15:00"),
-                TimeOfArrival = Convert.ToDateTime("15-12-2020 15:30"),
+                 TimeOfDeparture = DateTime.Parse("2020-12-15T15:00:00Z"),
+                TimeOfArrival = DateTime.Parse("2020-12-15T15:30:00Z"),
                 DepartureId = new Guid("0AE2E025-10A8-4437-8A5B-9DDFFC77C180"),
                 DestinationId = new Guid("120DFA74-5A34-42DF-8C5D-345E3EC82458"),
                 AirplaneId = new Guid("9579B6CD-CAD5-4608-88A6-270CE03F5A35"),

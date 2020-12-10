@@ -92,7 +92,7 @@ namespace FlightServices
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
 
             app.UseCors("MyAllowOrigins");
 

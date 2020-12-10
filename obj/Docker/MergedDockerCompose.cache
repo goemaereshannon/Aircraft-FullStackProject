@@ -23,6 +23,22 @@ services:
       target: 1433
     volumes:
     - C:\Users\alexi\AppData\Roaming\DockerVolumes\sqlserver:/var/opt/mssql/data:rw
+  flightservices:
+    build:
+      context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject
+      dockerfile: FlightServices/Dockerfile
+    depends_on:
+      db:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: flightservices
+    ports:
+    - published: 32851
+      target: 80
+    volumes:
+    - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
   identityservices:
     build:
       context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject
@@ -36,11 +52,20 @@ services:
       ASPNETCORE_URLS: http://+:80
     image: identityservicesaircraft
     ports:
-    - published: 32808
+    - published: 32850
       target: 80
     volumes:
     - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
     - C:\Users\alexi\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  mongo:
+    container_name: mongodb3
+    image: mongo
+    ports:
+    - published: 27050
+      target: 27017
+    restart: always
+    volumes:
+    - C:\Users\alexi\AppData\Roaming\DockerVolumes\mongodbserver\data\db:/data/db:rw
   rabbitmq:
     container_name: rabbitmq
     environment:
@@ -53,4 +78,20 @@ services:
       target: 5672
     - published: 15672
       target: 15672
+  reviewservices:
+    build:
+      context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject
+      dockerfile: ReviewServices/Dockerfile
+    depends_on:
+      mongo:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: reviewservices
+    ports:
+    - published: 32852
+      target: 80
+    volumes:
+    - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
 version: '3.4'
