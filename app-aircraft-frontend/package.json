@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start-pwa":"ng build --prod && http-server -p 8080 -c-1 dist/app-aircraft-frontend",
+    "start-pwa": "ng build --prod && http-server -p 8080 -c-1 dist/app-aircraft-frontend",
     "build:prod": "NODE_ENV=production ng build --prod"
   },
   "private": true,
@@ -27,6 +27,7 @@
     "bootstrap": "^4.5.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "vfile-location": "^3.2.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

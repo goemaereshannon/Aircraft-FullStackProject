@@ -11,6 +11,7 @@ import { AvailableflightsComponent } from '../presentations/flight/availableflig
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
     RegisterComponent,
     DiscoverComponent,
     AvailableflightsComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
