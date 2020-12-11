@@ -342,8 +342,7 @@
               <a
                 class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md"
                 style="width: 208px"
-                routerLink="../availableflights"
-                [state]="{ data: searchForm.value }"
+                (click)="findFlight(searchForm.value)"
                 >Find my flight</a
               >
               <!-- (click)="onSubmit(searchForm.value)" -->
