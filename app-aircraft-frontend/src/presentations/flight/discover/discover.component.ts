@@ -9,6 +9,7 @@ import { FlightService } from '../flight.service';
   templateUrl: './discover.component.html',
   styleUrls: ['./discover.component.scss', '../../../app/app.component.scss'],
 })
+
 export class DiscoverComponent implements OnInit {
   flightstoday;
   departures;
@@ -27,6 +28,8 @@ export class DiscoverComponent implements OnInit {
       dateOfArrival: '',
     });
   }
+
+  
 
   ngOnInit(): void {
     this.flightService.getFlightsToday().subscribe(
