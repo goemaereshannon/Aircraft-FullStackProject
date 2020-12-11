@@ -4,14 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { environment } from './../environments/environment';
 import { RegisterComponent } from '../presentations/identity/register.component';
 import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
 import { AvailableflightsComponent } from '../presentations/flight/availableflights/availableflights.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from '../app/page-not-found/page-not-found.component';
+import { ReviewModule } from '../presentations/review/review.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReviewModule,
     FormsModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -35,4 +37,5 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   providers: [],
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}
