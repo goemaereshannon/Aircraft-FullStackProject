@@ -26,12 +26,18 @@ namespace RealTimeServices
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddHealthChecks();
+            services.AddOptions();
+
+            //rabbitmq 
+            var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
+            var serviceClientSettings = serviceClientSettingsConfig.Get<RabbitMqConfiguration>();
+            services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
             services.AddCors(options => {
                 options.AddPolicy("MyAllowOrigins", builder => {
                     builder.AllowAnyMethod().AllowAnyHeader()
                     //.AllowAnyOrigin() 
-                    .WithOrigins("http://localhost:4200") //naar appSettings… 
+                    .WithOrigins("http://localhost:4200", "http://localhost:80", "http://localhost:32820") //naar appSettings… 
                     .AllowCredentials(); //.MUST! 
                 });
             });
@@ -39,11 +45,16 @@ namespace RealTimeServices
             services.AddControllers(options => { options.RespectBrowserAcceptHeader = true; // false by default 
             });
             services.AddSignalR();
-            //2.RabbitMQ
-            services.AddOptions();
-            services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
-           // services.AddTransient<IOrderCreateService, OrderCreateService>();
-            services.AddHostedService<Receiver>();
+            ////2.RabbitMQ
+            //services.AddOptions();
+            //services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
+            // services.AddTransient<IOrderCreateService, OrderCreateService>();
+
+            //reciever pas toevoegen indien rabbitmq enabled is --> loopt anders vast
+            if (serviceClientSettings.Enabled)
+            {
+                services.AddHostedService<Receiver>();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

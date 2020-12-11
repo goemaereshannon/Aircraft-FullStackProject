@@ -25,7 +25,7 @@ namespace Gateway
     {
         private readonly IConfiguration configuration;
 
-        public Startup( IConfiguration configuration)
+         public Startup( IConfiguration configuration)
         {
             this.configuration = configuration;
         }
@@ -58,16 +58,15 @@ namespace Gateway
                 options.SaveToken = true;
 
             });
-            services.AddCors(options =>
-            {
-                options.AddPolicy("MyAllowOrigins", builder =>
-                {
-                    builder.AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowAnyOrigin() // niet toegelaten indien credentials
-                   // .WithOrigins("https://localhost", "http://localhost")
-                    //.AllowCredentials()
-                    ;
+
+            //cors
+            //can't allow any origin because of signalr
+            services.AddCors(options => {
+                options.AddPolicy("MyAllowOrigins", builder => {
+                    builder.AllowAnyMethod().AllowAnyHeader()
+                    //.AllowAnyOrigin() 
+                    .WithOrigins("http://localhost:4200", "http://localhost:80", "http://localhost:32820") //naar appSettings… 
+                    .AllowCredentials(); //.MUST! 
                 });
             });
             ////swagger 
@@ -131,6 +130,9 @@ namespace Gateway
             //{
             //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ocelot");
             //});
+
+            //websockets to connect with chathub
+            app.UseWebSockets(); 
            app.UseOcelot().Wait();
         }
     }

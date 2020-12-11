@@ -71,13 +71,33 @@ services:
     environment:
       RABBITMQ_DEFAULT_PASS: password
       RABBITMQ_DEFAULT_USER: user
+    healthcheck:
+      test: exit 0
     hostname: myrabbit
-    image: rabbitmq:3-management
+    image: rabbitmq:3-management-alpine
     ports:
     - published: 5672
       target: 5672
     - published: 15672
       target: 15672
+  realtimeservices:
+    build:
+      context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject
+      dockerfile: RealTimeServices/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: realtimeservices
+    ports:
+    - published: 32853
+      target: 80
+    restart: always
+    volumes:
+    - C:\Users\alexi\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\alexi\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
   reviewservices:
     build:
       context: C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject

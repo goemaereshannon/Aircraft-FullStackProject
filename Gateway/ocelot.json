@@ -1,81 +1,6 @@
 {
   "Routes": [
-    //{
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 58017 //http poort (only) van de cartservice
-    //    }
-    //  ],
-    //  "DownstreamPathTemplate": "/api/carts",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/carts",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-    //  "AuthenticationOptions": {
-    //    "AuthenticationProviderKey": "Bearer",
-    //    "AllowedScopes": []
-    //  }
-
-    //},
-
-
-
-
-    //{
-
-
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      //"Host": "localhost",
-    //      "Host": "identityservices",
-    //      // "Port": 44398 //https poort van de service //launchsettings.json van het project dat je wil launchen // hier identity
-    //      "Port": 80 // --> externe dockerpoort van de identityservvice
-    //    }
-    //  ],
-    //  "DownstreamPathTemplate": "/api/auth/login",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/login",
-    //  //"ServiceName": "identity",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-
-    //},
-
-    //IDENTITYSERVICES
-    //{
-
-    //  "DownstreamHostAndPorts": [
-
-    //    {
-
-    //      "Host": "identityservices",
-    //      "Port": 80 // was https poort van de recipes_db service (was44390) en nu container poort
-
-    //    }
-    //  ],
-
-    //  "DownstreamPathTemplate": "/swagger/{version}/{page}",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/identity/swagger/{version}/{page}",
-    //  "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "POST" ]
-
-    //},
-
-    //{
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "identityservices",
-    //      "Port": 80
-
-    //    }
-
-    //  ],
-
-    //  "DownstreamPathTemplate": "/swagger/{page}",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/identity/swagger/{page}",
-    //  "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "POST" ]
-
-    //},
+   //IDENTITYSERVICES
     {
       "DownstreamHostAndPorts": [
         {
@@ -148,6 +73,19 @@
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/review/{anything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "POST" ]
+    },
+    //REALTIMESERVICES
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "realtimeservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/{anything}",
+      "DownstreamScheme": "ws",
+      "UpstreamPathTemplate": "/{anything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "POST", "OPTIONS" ]
     }
   ],
   "GlobalConfiguration": {
