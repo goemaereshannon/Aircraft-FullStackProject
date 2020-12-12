@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Flight, Destination, Departure } from './flight';
+import { environment } from '../../environments/environment';
 
-var baseURL = 'https://localhost:44347/api/';
+var baseURL = environment.baseUrl;
 @Injectable({
   providedIn: 'root',
 })
