@@ -5,6 +5,7 @@ import { UserService } from 'services/user.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'presentations/shared/dialog/dialog.component';
+import { Flight } from 'presentations/flight/flight';
 @Component({
   selector: 'app-admin-discover',
   templateUrl: './admin-discover.component.html',
@@ -14,7 +15,7 @@ import { DialogComponent } from 'presentations/shared/dialog/dialog.component';
   ],
 })
 export class AdminDiscoverComponent implements OnInit {
-  allFlights;
+  allFlights: Flight[];
   AdminMessage: string;
   message: void;
   constructor(

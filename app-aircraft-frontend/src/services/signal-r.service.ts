@@ -8,12 +8,13 @@ import { DialogComponent } from 'presentations/shared/dialog/dialog.component';
 })
 export class SignalRService {
   constructor(
-    private dialog: MatDialog
-  ) // private dialogComponent: DialogComponent
-  {}
+    private dialog: MatDialog,
+    private dialogComponent: DialogComponent
+  ) {}
   private hubConnection: signalR.HubConnection;
   public message: string;
 
+  ngOnInit() {}
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('http://localhost:32820/chathub') //poort van de realtimeservice
@@ -37,7 +38,10 @@ export class SignalRService {
   public readAdminMessage = () => {
     return this.hubConnection.on('admin', (data): string => {
       console.log('message recieved');
-      this.dialog.open(DialogComponent);
+
+      //this.dialogComponent.DialogMessage = data.message;
+      // console.log(this.dialogComponent.DialogMessage);
+      this.dialog.open(DialogComponent, { data: data.message });
       return data;
     });
   };

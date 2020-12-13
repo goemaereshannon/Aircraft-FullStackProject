@@ -17,7 +17,7 @@ import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin
 import { LoginComponent } from '../presentations/identity/login/login.component';
 import { CommonModule } from '@angular/common';
 import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from '../presentations/shared/dialog/dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -42,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     JwtModule,
     MatDialogModule,
     BrowserAnimationsModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
@@ -51,6 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
+    { provide: MAT_DIALOG_DATA, useValue: {} },
   ],
   bootstrap: [AppComponent],
 })
