@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReviewComponent } from './review.component';
 
-console.log('REVIEW MODULE');
-
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [

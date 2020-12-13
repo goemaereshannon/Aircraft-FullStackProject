@@ -5,8 +5,9 @@ module.exports = {
     discover: "./src/presentations/flight/discover/discover.component.ts",
     availableflights:
       "./src/presentations/flight/availableflights/availableflights.component.ts",
-    register: "./src/presentations/identity/register.component.ts",
+    register: "./src/presentations/identity/register/register.component.ts",
     notfound: "./src/app/page-not-found/page-not-found.component.ts",
+    admin: "./src/presentations/admin/admin-discover/admin-discover.component.ts"
   },
   output: {
     filename: "[name].bundle.js",

@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
-import { AppComponent } from '../app/app.component';
-
-import { ReviewComponent } from '../presentations/review/review.component';
-import { RegisterComponent } from '../presentations/identity/register.component';
-import { AvailableflightsComponent } from 'src/presentations/flight/availableflights/availableflights.component';
+import { RegisterComponent } from '../presentations/identity/register/register.component';
+import { AvailableflightsComponent } from '../presentations/flight/availableflights/availableflights.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
 
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
@@ -16,6 +14,15 @@ const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent,
+      },
+    ],
+  },
+  {
+    path: 'admin',
+    children: [
+      {
+        path: 'discover',
+        component: AdminDiscoverComponent,
       },
     ],
   },
@@ -38,9 +45,8 @@ const routes: Routes = [
       import(
         /* webpackChunkName: "review" */
         /* webpackMode: "lazy" */
-        '../presentations/review/review.module').then(
-        (c) => c.ReviewModule
-      ),
+        '../presentations/review/review.module'
+      ).then((c) => c.ReviewModule),
   },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 ];

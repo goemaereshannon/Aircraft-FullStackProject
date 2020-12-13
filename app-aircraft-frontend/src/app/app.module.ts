@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from './../environments/environment';
-import { RegisterComponent } from '../presentations/identity/register.component';
+import { RegisterComponent } from '../presentations/identity/register/register.component';
 import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
 import { AvailableflightsComponent } from '../presentations/flight/availableflights/availableflights.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '../app/page-not-found/page-not-found.component';
 import { ReviewModule } from '../presentations/review/review.module';
+import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ReviewModule } from '../presentations/review/review.module';
     DiscoverComponent,
     AvailableflightsComponent,
     PageNotFoundComponent,
+    AdminDiscoverComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,5 +39,4 @@ import { ReviewModule } from '../presentations/review/review.module';
   providers: [],
   bootstrap: [AppComponent],
 })
-
 export class AppModule {}
