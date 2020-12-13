@@ -28,3 +28,12 @@ h1 {
     color: #9da5ab;
   }
 }
+
+.custom-card-grid {
+  grid-template-columns: 1fr 2fr 3fr;
+  z-index: 2;
+}
+.custom-button {
+  right: -1.5rem;
+  bottom: -1.25rem;
+}

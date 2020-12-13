@@ -21,10 +21,6 @@
 .custom-grid {
   grid-template-columns: 1fr 3fr 1fr;
 }
-.custom-card-grid {
-  grid-template-columns: 1fr 2fr 3fr;
-  z-index: 2;
-}
 
 .custom-body {
   z-index: 2;
@@ -37,9 +33,4 @@
     border-bottom-style: dashed;
     border-bottom-width: 0.2px;
   }
-}
-
-.custom-button {
-  right: -1.5rem;
-  bottom: -1.25rem;
 }
