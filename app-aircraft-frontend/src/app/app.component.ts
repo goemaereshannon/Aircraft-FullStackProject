@@ -8,6 +8,7 @@ import { signalRService } from '../services/signal-r.service';
 })
 export class AppComponent implements OnInit {
   title = 'app-aircraft-frontend';
+
   constructor(public signalRService: signalRService) {}
   ngOnInit() {
     this.signalRService.startConnection();

@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { LoginData } from '../user';
 import { UserService } from '../../../services/user.service';
@@ -35,12 +36,16 @@ export class LoginComponent implements OnInit {
         'Please enter a valid password. It has to be at least 8 characters.',
     },
   };
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(7)]],
     });
 
     const emailControl = this.loginForm.get('email');
@@ -119,6 +124,11 @@ export class LoginComponent implements OnInit {
     //   ]
     // ) {
     // }
-    //this.router.navigate(['/products']);
+    this.userService.isLoggedIn = true;
+    if (this.parsedToken['role'] == 'Admin') {
+      this.router.navigate(['/admin/discover']);
+    } else if (this.parsedToken['role'] == 'Customer') {
+      this.router.navigate(['/flight/discover']);
+    }
   }
 }

@@ -10,13 +10,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class UserService {
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
-
+  isLoggedIn: Boolean;
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     // Check whether the token is expired and return
     // true or false
-    console.log({ token });
-    console.log(this.jwtHelper.isTokenExpired(token));
+    //console.log({ token });
+    //console.log(this.jwtHelper.isTokenExpired(token));
     return !this.jwtHelper.isTokenExpired(token);
   }
   registerUser(user: User): Observable<any> {
@@ -52,6 +52,8 @@ export class UserService {
 
   logoutUser(): void {
     localStorage.removeItem('token');
+    console.log({ tokenremoved: localStorage.getItem('token') });
+    this.isLoggedIn = false;
   }
 
   parseJwt = (token: string): Object => {

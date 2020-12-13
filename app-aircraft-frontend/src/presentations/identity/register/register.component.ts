@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
       ), // validator moet meegegeven worden in een object omdat het hier gaat over een formgroup die gevalideerd wordt en niet 1 formcontrol
       passwordGroup: this.fb.group(
         {
-          password: ['', [Validators.required, Validators.minLength(8)]],
+          password: ['', [Validators.required, Validators.minLength(7)]],
           confirmPassword: ['', Validators.required],
         },
         { validator: inputMatcher('password') }

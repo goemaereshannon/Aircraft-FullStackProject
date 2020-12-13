@@ -1,25 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { AppComponent } from 'app/app.component';
 import { FlightService } from '../flight.service';
+import { UserService } from '../../../services/user.service';
+import { User } from 'presentations/identity/user';
 
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
   styleUrls: ['./discover.component.scss', '../../../app/app.component.scss'],
 })
-
 export class DiscoverComponent implements OnInit {
   flightstoday;
   departures;
   destinations;
   searchForm;
+  isLoggedIn: Boolean;
 
   constructor(
     private flightService: FlightService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.searchForm = this.formBuilder.group({
       departure: '',
@@ -29,9 +32,9 @@ export class DiscoverComponent implements OnInit {
     });
   }
 
-  
-
   ngOnInit(): void {
+    this.isLoggedIn = this.userService.isLoggedIn;
+    console.log({ isloggedin: this.isLoggedIn });
     this.flightService.getFlightsToday().subscribe(
       (data) => {
         this.flightstoday = data;
@@ -62,5 +65,8 @@ export class DiscoverComponent implements OnInit {
   findFlight(data): void {
     console.log(data);
     this.router.navigate(['/flight/availableflights']);
+  }
+  logout(): void {
+    this.userService.logoutUser();
   }
 }

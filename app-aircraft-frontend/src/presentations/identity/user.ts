@@ -9,6 +9,7 @@ export interface LoginData {
   email: string;
   password: string;
 }
+
 // public street?: string,
 // public houseNumber?:number,
 // public city?: string,
