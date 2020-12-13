@@ -1,9 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {
-  RouterTestingModule,
-  setupTestingRouter,
-} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from '../app-routing.module';
 
 import { PageNotFoundComponent } from './page-not-found.component';

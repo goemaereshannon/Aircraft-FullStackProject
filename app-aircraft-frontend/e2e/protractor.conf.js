@@ -13,7 +13,8 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    browserName: 'chrome'
+    browserName: 'chrome', 
+    //args: ['--headless'] //voor continious integration in headless mode runnen 
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
