@@ -121,9 +121,9 @@
       <div *ngFor="let r of reservation.reservedSeats">
         <button
           class="btn bg-white text-maintheme-black rounded-md focus:border-maintheme-salmon focus:border-2"
-          *(onClick)="onSubmit(r.firstName)"
+          (click)="onSubmit(r.person.firstName)"
         >
-          {{ r.firstName }} {{ r.lastName }}
+          {{ r.person.firstName }} {{ r.person.lastName }}
         </button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -520,7 +520,9 @@
               <rect x="1" y="1" width="14" height="14" rx="5" fill="none" />
             </g>
             <g
-              id="Rectangle_50"
+              id="C6"
+              (click)="seatClicked('C6')"
+              class="cursor-pointer"
               data-name="Rectangle 50"
               transform="translate(88 826)"
               fill="none"
@@ -531,7 +533,7 @@
               <rect x="1" y="1" width="14" height="14" rx="5" fill="none" />
             </g>
             <g
-              id="Rectangle_51"
+              id="B6"
               data-name="Rectangle 51"
               transform="translate(68 826)"
               fill="none"
@@ -542,10 +544,10 @@
               <rect x="1" y="1" width="14" height="14" rx="5" fill="none" />
             </g>
             <g
-              id="Rectangle_52"
+              id="A6"
               data-name="Rectangle 52"
               transform="translate(48 826)"
-              fill="#ffc4a1"
+              fill="none"
               stroke="#f7c6a6"
               stroke-width="2"
             >
@@ -560,7 +562,7 @@
             >
               <g transform="translate(-48 -850)">
                 <g
-                  id="Rectangle_53"
+                  id="F7"
                   data-name="Rectangle 53"
                   transform="translate(172 850)"
                   fill="none"
@@ -571,7 +573,7 @@
                   <rect x="1" y="1" width="14" height="14" rx="5" fill="none" />
                 </g>
                 <g
-                  id="Rectangle_54"
+                  id="Rectangle_E7"
                   data-name="Rectangle 54"
                   transform="translate(152 850)"
                   fill="none"
