@@ -14,6 +14,8 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '../app/page-not-found/page-not-found.component';
 import { ReviewModule } from '../presentations/review/review.module';
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
+import { LoginComponent } from '../presentations/identity/login/login.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,9 +25,11 @@ import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin
     AvailableflightsComponent,
     PageNotFoundComponent,
     AdminDiscoverComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     AppRoutingModule,
     ReviewModule,

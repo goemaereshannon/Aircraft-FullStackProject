@@ -138,14 +138,14 @@ export class RegisterComponent implements OnInit {
           'passwordGroup.password'
         ).value;
         console.log({ user: this.user });
-        var result = this.userService.registerUser(this.user).subscribe({
+        this.userService.registerUser(this.user).subscribe({
           next: () => this.onSaveComplete(),
           error: (err) => {
             this.errorMessage = err;
             this.validationMessage['emailMessage'] = err;
           },
         });
-        console.log({ result });
+
         console.log({ error: this.errorMessage });
       } else {
         this.registerForm.reset();
