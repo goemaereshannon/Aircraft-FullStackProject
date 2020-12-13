@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { signalRService } from '../services/signal-r.service';
+import { SignalRService } from '../services/signal-r.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,10 @@ import { signalRService } from '../services/signal-r.service';
 export class AppComponent implements OnInit {
   title = 'app-aircraft-frontend';
 
-  constructor(public signalRService: signalRService) {}
+  constructor(public signalRService: SignalRService) {}
   ngOnInit() {
     this.signalRService.startConnection();
-    this.signalRService.showAdminMessage();
+
     //this.startHttpRequest();
   }
   clicked = (event: Event) => {

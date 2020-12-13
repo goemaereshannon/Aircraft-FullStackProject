@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     },
     password: {
       minlength:
-        'Please enter a valid password. It has to be at least 8 characters.',
+        'Please enter a valid password. It has to be at least 7 characters.',
     },
   };
   constructor(

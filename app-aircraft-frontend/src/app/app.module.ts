@@ -17,7 +17,9 @@ import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin
 import { LoginComponent } from '../presentations/identity/login/login.component';
 import { CommonModule } from '@angular/common';
 import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '../presentations/shared/dialog/dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,7 @@ import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
     PageNotFoundComponent,
     AdminDiscoverComponent,
     LoginComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,8 @@ import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
     FormsModule,
     ReactiveFormsModule,
     JwtModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

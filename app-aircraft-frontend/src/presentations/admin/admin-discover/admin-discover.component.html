@@ -155,7 +155,11 @@
       <circle cx="991.17056" cy="607.78414" r="11.96804" fill="#ffc4a1" />
       <circle cx="600.35225" cy="480.67534" r="11.96804" fill="#ffc4a1" />
     </svg>
-    <div class="col-start-3 col-end-4">
+    <div
+      class="col-start-3 col-end-4"
+      (click)="logout()"
+      routerLink="/identity/login"
+    >
       <svg
         version="1.1"
         id="Capa_1"
