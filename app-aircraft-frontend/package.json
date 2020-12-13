@@ -27,6 +27,7 @@
     "angular-router-loader": "^0.8.5",
     "awesome-typescript-loader": "^5.2.1",
     "bootstrap": "^4.5.3",
+    "dataformat": "^1.0.0",
     "offline-plugin": "^5.0.7",
     "rxjs": "~6.6.0",
     "ts-loader": "^8.0.11",

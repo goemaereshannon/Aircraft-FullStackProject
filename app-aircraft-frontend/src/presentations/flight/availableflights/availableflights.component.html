@@ -185,12 +185,12 @@
           <p class="pr-2">{{ flight.timeOfArrival }}</p>
         </div>
         <div>
-          <!-- <div class="flex">
-            <p>Duration:</p>
-            <p>8u25</p>
-          </div> -->
           <div class="flex">
-            <p class="pl-1">Flight number:</p>
+            <p>Duration:</p>
+            <p>{{ flight.flightDuration }}</p>
+          </div>
+          <div class="flex">
+            <p>Flight number:</p>
             <p class="font-bold text-uppercase">
               {{ flight.airplaneDTO.name }}
             </p>

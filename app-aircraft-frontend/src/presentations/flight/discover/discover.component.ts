@@ -9,7 +9,6 @@ import { FlightService } from '../flight.service';
   templateUrl: './discover.component.html',
   styleUrls: ['./discover.component.scss', '../../../app/app.component.scss'],
 })
-
 export class DiscoverComponent implements OnInit {
   flightstoday;
   departures;
@@ -28,8 +27,6 @@ export class DiscoverComponent implements OnInit {
       dateOfArrival: '',
     });
   }
-
-  
 
   ngOnInit(): void {
     this.flightService.getFlightsToday().subscribe(
@@ -59,8 +56,11 @@ export class DiscoverComponent implements OnInit {
       }
     );
   }
-  findFlight(data): void {
-    console.log(data);
-    this.router.navigate(['/flight/availableflights']);
+  findFlight(): void {
+    const payload = this.searchForm.value;
+    console.log(payload);
+    this.router.navigate(['/flight/availableflights'], {
+      state: { data: payload },
+    });
   }
 }
