@@ -35,9 +35,9 @@ namespace FlightServices.Controllers
         private readonly IDestinationRepo destinationRepo;
         private readonly IAirplaneRepo airplaneRepo;
         private readonly IGenericRepo<Seat> seatRepo;
+        private readonly IGenericRepo<PriceClass> priceRepo;
 
-
-        public FlightsController(IMemoryCache memoryCache, IFlightRepo flightRepo, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IAirplaneRepo airplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IGenericRepo<Seat> seatRepo)
+        public FlightsController(IMemoryCache memoryCache, IFlightRepo flightRepo, IDepartureRepo departureRepo, IDestinationRepo destinationRepo, IAirplaneRepo airplaneRepo, IGenericRepo<Location> genericLocationRepo, IMapper mapper, IGenericRepo<Seat> seatRepo, IGenericRepo<PriceClass> priceRepo)
         {
             this.memoryCache = memoryCache;
             this.flightRepo = flightRepo;
@@ -47,6 +47,7 @@ namespace FlightServices.Controllers
             this.destinationRepo = destinationRepo;
             this.airplaneRepo = airplaneRepo;
             this.seatRepo = seatRepo;
+            this.priceRepo = priceRepo;
             this.mapper = mapper;
           
         }
@@ -103,6 +104,12 @@ namespace FlightServices.Controllers
                 }
 
                 var flightsDTO = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(flights);
+                foreach(FlightDTO flight in flightsDTO)
+                {
+                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                   flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+                   
+                }
                 return Ok(flightsDTO);
             }
             catch (Exception ex)
@@ -233,7 +240,15 @@ namespace FlightServices.Controllers
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result))); 
+
+                               IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs); 
                             }
                             else // DEP DEST DEP T
                             {
@@ -244,7 +259,14 @@ namespace FlightServices.Controllers
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                                IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs);
                             }
 
                         }
@@ -259,7 +281,14 @@ namespace FlightServices.Controllers
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                                IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs);
                             }
                             else // DEP + DEST
                             {
@@ -269,7 +298,15 @@ namespace FlightServices.Controllers
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                                result = result.Where(fl => fl.TimeOfDeparture >= DateTime.Now.AddDays(1));
+                                IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs);
                             }
                         }
                     }
@@ -285,7 +322,14 @@ namespace FlightServices.Controllers
                                 f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
                                 f.Departure.Location.Country.Contains(flightSearchDTO.Departure)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                                IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs);
                             }
                             else // DEP DEP T
                             {
@@ -294,7 +338,15 @@ namespace FlightServices.Controllers
                                 f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
                                 f.Departure.Location.Country.Contains(flightSearchDTO.Departure) 
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                                result = result.Where(fl => fl.TimeOfDeparture >= DateTime.Now.AddDays(1));
+                                IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs);
                             }
 
                         }
@@ -307,7 +359,14 @@ namespace FlightServices.Controllers
                                 f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
                                 f.Departure.Location.Country.Contains(flightSearchDTO.Departure) 
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                                IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs);
                             }
                             else  // DEP
                             {
@@ -315,7 +374,16 @@ namespace FlightServices.Controllers
                                 f.Departure.Location.City.Contains(flightSearchDTO.Departure) ||
                                 f.Departure.Location.Country.Contains(flightSearchDTO.Departure) 
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                                result = result.Where(fl => fl.TimeOfDeparture >= DateTime.Now.AddDays(1));
+                                IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+
+                                foreach (FlightDTO flight in flightDTOs)
+                                {
+                                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                    flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                                }
+                                return Ok(flightDTOs);
                             }
                         }
                     }
@@ -332,8 +400,15 @@ namespace FlightServices.Controllers
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                            foreach (FlightDTO flight in flightDTOs)
+                            {
+                                List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
                             }
+                            return Ok(flightDTOs);
+                        }
                             else // DEST + DEP T
                             {
                                 IEnumerable<Flight> result = await flightRepo.GetByExpressionAsync(f =>
@@ -341,8 +416,15 @@ namespace FlightServices.Controllers
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                            foreach (FlightDTO flight in flightDTOs)
+                            {
+                                List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
                             }
+                            return Ok(flightDTOs);
+                        }
 
                         }
                         else // DEST 
@@ -354,16 +436,32 @@ namespace FlightServices.Controllers
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                            foreach (FlightDTO flight in flightDTOs)
+                            {
+                                List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
                             }
+                            return Ok(flightDTOs);
+                        }
                             else // DEST
                             {
                                 IEnumerable<Flight> result = await flightRepo.GetByExpressionAsync(f =>
                                 f.Destination.Location.City.Contains(flightSearchDTO.Destination) ||
                                 f.Destination.Location.Country.Contains(flightSearchDTO.Destination)
                                 );
-                                return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                            result = result.Where(fl => fl.TimeOfDeparture >= DateTime.Now.AddDays(1));
+                            result = result.Where(fl => fl.TimeOfDeparture >= DateTime.Now.AddDays(1));
+                            IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                            foreach (FlightDTO flight in flightDTOs)
+                            {
+                                List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                                flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
                             }
+                            return Ok(flightDTOs);
+                        }
                         }
                     
                    
@@ -373,16 +471,30 @@ namespace FlightServices.Controllers
                     IEnumerable<Flight> result = await flightRepo.GetByExpressionAsync(f =>
                                f.TimeOfDeparture.Date == flightSearchDTO.DepartureTime 
                                );
-                    return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                    IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                    foreach (FlightDTO flight in flightDTOs)
+                    {
+                        List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                        flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                    }
+                    return Ok(flightDTOs);
                 }
                 else if(flightSearchDTO.DestinationTime != null) // enkel destT 
                 {
                     IEnumerable<Flight> result = await flightRepo.GetByExpressionAsync(f =>
                                f.TimeOfArrival.Date == flightSearchDTO.DestinationTime
                                );
-                    return Ok(mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result)));
+                    IEnumerable<FlightDTO> flightDTOs = mapper.Map<IEnumerable<Flight>, IEnumerable<FlightDTO>>(await GetFlightsInfo(result));
+                    foreach (FlightDTO flight in flightDTOs)
+                    {
+                        List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                        flight.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                    }
+                    return Ok(flightDTOs);
                 }
-                return await GetFlights(); 
+                return await GetFutureFlights(); 
             }
             catch (Exception ex)
             {

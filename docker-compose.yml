@@ -8,7 +8,7 @@ services:
         - ASPNETCORE_ENVIRONMENT=Development
         - ASPNETCORE_URLS=http://+:80
     ports:
-        - "32808:80"
+        - "32850:80"
         
     build:
       context: .
@@ -30,12 +30,67 @@ services:
       dockerfile: Gateway/Dockerfile
 
   rabbitmq:
-        image: rabbitmq:3-management
+        image: rabbitmq:3-management-alpine
         container_name: rabbitmq
         hostname: myrabbit
+        healthcheck:
+                test: "exit 0"
         environment:
             - RABBITMQ_DEFAULT_USER=user
             - RABBITMQ_DEFAULT_PASS=password
         ports:
-            - 5672:5672
-            - 15672:15672
+            - "5672:5672"
+            - "15672:15672"
+
+  flightservices:
+    image: ${DOCKER_REGISTRY-}flightservices
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://+:80
+    ports:
+        - "32851:80"
+    build:
+      context: .
+      dockerfile: FlightServices/Dockerfile
+    depends_on:
+        - db
+
+  reviewservices:
+    image: ${DOCKER_REGISTRY-}reviewservices
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://+:80
+    ports:
+        - "32852:80"
+    build:
+      context: .
+      dockerfile: ReviewServices/Dockerfile
+    depends_on:
+        - mongo
+  mongo:
+    image: mongo
+    container_name: mongodb3
+    ports:
+         - 27050:27017
+    restart: always
+
+    volumes:
+        - "${APPDATA}/DockerVolumes/mongodbserver/data/db:/data/db"
+
+  realtimeservices:
+    image: ${DOCKER_REGISTRY-}realtimeservices
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://+:80
+    ports:
+        - "32853:80"
+    restart: always
+    depends_on: 
+         rabbitmq:
+            condition: service_healthy
+    build:
+      context: .
+      dockerfile: RealTimeServices/Dockerfile
+  
+
+

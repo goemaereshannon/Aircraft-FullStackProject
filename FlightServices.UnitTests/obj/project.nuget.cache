@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "K0FuS+HfaNEIE5iTFf3qSpuUKuCocBw7b/3zfbAelew7ZeaWAZoGPzc4Oyw4UfiQrCf8mXdIO4HjC1r3AfYd0g==",
+  "dgSpecHash": "L1coj7rUco6cSuQsUdyB4XuhjZ0LGHGfc5U9ZvzuSYFfMNijqOw8dvUnYumDaimmF8LM3IgbpJTrHSl1VMvYPA==",
   "success": true,
   "projectFilePath": "C:\\Users\\alexi\\Documents\\School\\MCT\\FlightReservation\\Aircraft-FullStackProject\\FlightServices.UnitTests\\FlightServices.UnitTests.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,7 @@
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.testplatform.objectmodel\\16.8.0\\microsoft.testplatform.objectmodel.16.8.0.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.testplatform.testhost\\16.8.0\\microsoft.testplatform.testhost.16.8.0.nupkg.sha512",
+    "C:\\Users\\alexi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\3.1.4\\microsoft.visualstudio.web.codegeneration.3.1.4.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.contracts\\3.1.4\\microsoft.visualstudio.web.codegeneration.contracts.3.1.4.nupkg.sha512",
     "C:\\Users\\alexi\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\3.1.4\\microsoft.visualstudio.web.codegeneration.core.3.1.4.nupkg.sha512",

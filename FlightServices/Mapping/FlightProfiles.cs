@@ -153,7 +153,7 @@ namespace FlightServices.Mapping
                    Type = model.Airplane.Type,
                    TotalSeats = model.Airplane.TotalSeats,
                }))
-               .ForMember(dest => dest.Id, opt => opt.MapFrom(model => model.Id)).ReverseMap(); 
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(model => model.Id)).ForMember(dest => dest.Price, opt => opt.Ignore()).ForMember(dest => dest.AirplaneId, opt => opt.MapFrom(model => model.AirplaneId)).ReverseMap(); 
                ;
         }
     }

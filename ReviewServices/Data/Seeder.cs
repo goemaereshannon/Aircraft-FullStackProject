@@ -27,35 +27,35 @@ namespace ReviewServices.Data
        };
         public List<Flight> Flights = new List<Flight>
         {
-           new Flight()
-           {
-              
-               FlightId =  new Guid("d470123f-7795-4158-aa2b-9088e29de88d"),
-               DepartureAirport= "JFK",
+             new Flight
+            {
+                FlightId= new Guid("d470123f-7795-4158-aa2b-9088e29de88d"),
+                //TimeOfDeparture = DateTime.Parse("15-12-2020T16:00:00Z"),
+                TimeOfDeparture = DateTime.Parse("2020-12-15T16:00:00Z"),
+                TimeOfArrival = DateTime.Parse("2020-12-15T18:00:00Z"),
+                     DepartureAirport= "JFK",
                DestinationAirport ="BRU",
-             TimeOfDeparture = Convert.ToDateTime("15-12-2020 16:00"),
-                TimeOfArrival = Convert.ToDateTime("15-12-2020 18:00"),
-                
 
-           }, 
-            new Flight()
-           {
-
-               FlightId =  new Guid("33478a6b-437f-4416-932d-638b1c0415ea"),
+            },
+            new Flight
+            {
+                FlightId = new Guid("33478a6b-437f-4416-932d-638b1c0415ea"),
+                 TimeOfDeparture = DateTime.Parse("2020-12-15T15:00:00Z"),
+                TimeOfArrival = DateTime.Parse("2020-12-15T15:30:00Z"),
                DepartureAirport= "BRU",
                DestinationAirport ="CDG",
-              TimeOfDeparture = Convert.ToDateTime("15-12-2020 15:00"),
-                TimeOfArrival = Convert.ToDateTime("15-12-2020 15:30"),
+                
+               
 
-
-           }
+            }
+          
         };
         public Author Author = new Author()
         {
            
             UserId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
             FirstName = "Alex",
-            LastName = "Christi"
+            LastName = "Christiaens"
         };
         //public List<SubjectCategorie> subjects = new List<SubjectCategorie> { 
         //    new SubjectCategorie { Subject = "Pricing" },

@@ -156,3 +156,8 @@ D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIG
 D:\3MCT\Fullstack\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.genruntimeconfig.cache
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\scopedcss\bundle\APIGateway.styles.css
 C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\obj\Debug\netcoreapp3.1\APIGateway.csprojAssemblyReference.cache
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\APIGateway.xml
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\alexi\Documents\School\MCT\FlightReservation\Aircraft-FullStackProject\Gateway\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
