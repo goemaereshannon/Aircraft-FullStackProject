@@ -77,6 +77,7 @@ public class JWTServices<TEntity> where TEntity : IdentityUser<Guid>
             foreach (var role in roles)
             {
                 await userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
+                await userManager.AddClaimAsync(user, new Claim("role", role));
             }
 
             userClaims = await userManager.GetClaimsAsync(user);
@@ -97,11 +98,12 @@ public class JWTServices<TEntity> where TEntity : IdentityUser<Guid>
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256); //key en protocol
 
             //4. aanmaken van het token
+            double minuten = Convert.ToDouble(configuration["Tokens:Expires"]);
             var token = new JwtSecurityToken(
              issuer: configuration["Tokens:Issuer"],  //onze website
              audience: configuration["Tokens:Audience"],//gebruikers
              claims: claims,
-             expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["Tokens: Expires"])),
+             expires: DateTime.Now.AddMinutes(minuten),
              signingCredentials: creds //controleert token v
              );
 

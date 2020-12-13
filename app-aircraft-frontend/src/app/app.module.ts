@@ -16,6 +16,7 @@ import { ReviewModule } from '../presentations/review/review.module';
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
 import { LoginComponent } from '../presentations/identity/login/login.component';
 import { CommonModule } from '@angular/common';
+import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -35,12 +36,17 @@ import { CommonModule } from '@angular/common';
     ReviewModule,
     FormsModule,
     ReactiveFormsModule,
+    JwtModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+
     RouterModule.forRoot([{ path: 'discover', component: DiscoverComponent }]),
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { User } from '../user';
-import { UserService } from '../user.service';
+import { UserService } from '../../../services/user.service';
 
 //custom validator om meerdere inputvelden ten opzichte van elkaar te validaten
 function inputMatcher(formgroup: string): ValidatorFn {

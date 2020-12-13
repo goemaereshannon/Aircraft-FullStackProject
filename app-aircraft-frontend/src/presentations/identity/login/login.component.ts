@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { LoginData } from '../user';
-import { UserService } from '../user.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   // user = new User();
   loginData: LoginData;
+  parsedToken: Object;
   validationMessage = {
     emailMessage: '',
     passwordMessage: '',
@@ -107,16 +108,17 @@ export class LoginComponent implements OnInit {
   onSaveComplete(data: any): void {
     // Reset the form to clear the flags
     this.loginForm.reset();
-    var parsedToken = this.parseJwt(data.token);
-    console.log(parsedToken);
+    this.parsedToken = this.userService.parseJwt(data.token);
+
+    console.log(this.parsedToken);
+    localStorage.setItem('token', data.token);
     console.log('ingelogd');
+    // if (
+    //   this.parsedToken[
+    //     'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+    //   ]
+    // ) {
+    // }
     //this.router.navigate(['/products']);
   }
-  parseJwt = (token: string): Object => {
-    try {
-      return JSON.parse(atob(token.split('.')[1]));
-    } catch (error) {
-      return null;
-    }
-  };
 }
