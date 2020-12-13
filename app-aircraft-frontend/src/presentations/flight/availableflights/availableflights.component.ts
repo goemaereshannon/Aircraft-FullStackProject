@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 import { FlightService } from '../flight.service';
+var dateFormat = require('dataformat');
 
 @Component({
   selector: 'app-availableflights',
@@ -19,10 +21,14 @@ export class AvailableflightsComponent {
   query = '';
   searchedflights;
 
-  constructor(private flightService: FlightService) {}
+  constructor(
+    private flightService: FlightService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.searchForm = history.state.data;
+    console.log(history.state.data);
     console.log(this.searchForm);
     if (this.searchForm) {
       this.departure = this.searchForm.departure;
@@ -35,7 +41,7 @@ export class AvailableflightsComponent {
         this.dateOfDeparture == '' &&
         this.dateOfArrival == ''
       ) {
-        this.flightService.getFlights().subscribe((data) => {
+        this.flightService.getFutureFlights().subscribe((data) => {
           this.searchedflights = data;
         });
       }
@@ -70,6 +76,32 @@ export class AvailableflightsComponent {
           console.log(this.query);
           this.searchedflights = data;
           console.log(this.searchedflights);
+          this.searchedflights.forEach((element) => {
+            element.timeOfArrival = new Date(element.timeOfArrival);
+            var dateString =
+              ('0' + element.timeOfArrival.getUTCDate()).slice(-2) +
+              '/' +
+              ('0' + (element.timeOfArrival.getUTCMonth() + 1)).slice(-2) +
+              '/' +
+              element.timeOfArrival.getUTCFullYear() +
+              ' ' +
+              ('0' + element.timeOfArrival.getUTCHours()).slice(-2) +
+              ':' +
+              ('0' + element.timeOfArrival.getUTCMinutes()).slice(-2);
+            element.timeOfArrival = dateString;
+            element.timeOfDeparture = new Date(element.timeOfDeparture);
+            var dateString =
+              ('0' + element.timeOfDeparture.getUTCDate()).slice(-2) +
+              '/' +
+              ('0' + (element.timeOfDeparture.getUTCMonth() + 1)).slice(-2) +
+              '/' +
+              element.timeOfDeparture.getUTCFullYear() +
+              ' ' +
+              ('0' + element.timeOfDeparture.getUTCHours()).slice(-2) +
+              ':' +
+              ('0' + element.timeOfDeparture.getUTCMinutes()).slice(-2);
+            element.timeOfDeparture = dateString;
+          });
         });
     }
   }

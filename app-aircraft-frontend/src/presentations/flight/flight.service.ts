@@ -53,6 +53,12 @@ export class FlightService {
       .pipe(catchError(this.handleError<Flight[]>('getFlights', [])));
   }
 
+  getFutureFlights(): Observable<Flight[]> {
+    return this.http
+      .get<Flight[]>(`${baseURL}flights/future`)
+      .pipe(catchError(this.handleError<Flight[]>('getFutureFlights', [])));
+  }
+
   //RESERVATION COMPONENT
   getFlightDetails(id: string): Observable<Flight> {
     return this.http
