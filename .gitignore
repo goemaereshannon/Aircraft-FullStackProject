@@ -21,3 +21,23 @@ Aircraft_Backend/appsettings.json
 .vs/
 
 FlightServices/bin/
+FlightServices/obj/
+
+IdentityServices/bin/
+IdentityServices/obj/
+
+RealTimeServices/bin/
+RealTimeServices/obj/
+
+Gateway/bin/
+Gateway/obj/
+
+FlightServices.UnitTests/bin/
+FlightServices.UnitTests/obj/
+
+ReviewServices/bin/
+ReviewServices/obj/
+
+bin/
+
+obj/
