@@ -36,6 +36,7 @@ namespace FlightServices.UnitTests.Controllers
         private Mock<IAirplaneRepo> mockAirplaneRepo;
         private Mock<IGenericRepo<Location>> mockGenericLocationRepo;
         private Mock<IGenericRepo<Seat>> mockGenericSeatRepo;
+        private Mock<IGenericRepo<PriceClass>> mockGenericPriceRepo;
         
         public FlightsController APIcontroller; 
 
@@ -65,11 +66,12 @@ namespace FlightServices.UnitTests.Controllers
             mockAirplaneRepo = new Mock<IAirplaneRepo>();
             mockGenericLocationRepo = new Mock<IGenericRepo<Location>>();
             mockGenericSeatRepo = new Mock<IGenericRepo<Seat>>();
+            mockGenericPriceRepo = new Mock<IGenericRepo<PriceClass>>();
             
 
             mockCache = new Mock<IMemoryCache>();
             
-            APIcontroller = new FlightsController(mockCache.Object, mockFlightRepo.Object, mockDepartureRepo.Object, mockDestinationRepo.Object, mockAirplaneRepo.Object, mockGenericLocationRepo.Object, mapper, mockGenericSeatRepo.Object); ;
+            APIcontroller = new FlightsController(mockCache.Object, mockFlightRepo.Object, mockDepartureRepo.Object, mockDestinationRepo.Object, mockAirplaneRepo.Object, mockGenericLocationRepo.Object, mapper, mockGenericSeatRepo.Object, mockGenericPriceRepo.Object); ;
 
         }
 

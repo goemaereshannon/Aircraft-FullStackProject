@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace FlightServices.DTOs
 
         public Guid AirplaneId { get; set; }
 
-        
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public PriceClassDTO Price { get; set; }
 
         public DepartureDTO DepartureDTO { get; set; } 

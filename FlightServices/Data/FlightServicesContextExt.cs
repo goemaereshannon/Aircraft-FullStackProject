@@ -131,6 +131,11 @@ namespace FlightServices.Data
                         Name= "B2",
                         AirplaneId = airplane.Id
                     },
+                     new Seat
+                     {
+                         Name="C1",
+                         AirplaneId= airplane.Id
+                     }
 
                 };
 
