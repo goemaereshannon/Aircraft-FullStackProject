@@ -20,6 +20,7 @@ export class AvailableflightsComponent {
   dateOfArrival;
   query = '';
   searchedflights;
+  seats;
 
   constructor(
     private flightService: FlightService,
@@ -43,6 +44,11 @@ export class AvailableflightsComponent {
       ) {
         this.flightService.getFutureFlights().subscribe((data) => {
           this.searchedflights = data;
+          if (this.searchedflights) {
+            this.searchedflights.forEach((element) => {
+              this.flightService.convertToTime(element);
+            });
+          }
         });
       }
       if (this.departure != '') {
@@ -73,35 +79,17 @@ export class AvailableflightsComponent {
       this.flightService
         .getFlightsByDatesDepartureAndDestination(this.query)
         .subscribe((data) => {
-          console.log(this.query);
           this.searchedflights = data;
-          console.log(this.searchedflights);
-          this.searchedflights.forEach((element) => {
-            element.timeOfArrival = new Date(element.timeOfArrival);
-            var dateString =
-              ('0' + element.timeOfArrival.getUTCDate()).slice(-2) +
-              '/' +
-              ('0' + (element.timeOfArrival.getUTCMonth() + 1)).slice(-2) +
-              '/' +
-              element.timeOfArrival.getUTCFullYear() +
-              ' ' +
-              ('0' + element.timeOfArrival.getUTCHours()).slice(-2) +
-              ':' +
-              ('0' + element.timeOfArrival.getUTCMinutes()).slice(-2);
-            element.timeOfArrival = dateString;
-            element.timeOfDeparture = new Date(element.timeOfDeparture);
-            var dateString =
-              ('0' + element.timeOfDeparture.getUTCDate()).slice(-2) +
-              '/' +
-              ('0' + (element.timeOfDeparture.getUTCMonth() + 1)).slice(-2) +
-              '/' +
-              element.timeOfDeparture.getUTCFullYear() +
-              ' ' +
-              ('0' + element.timeOfDeparture.getUTCHours()).slice(-2) +
-              ':' +
-              ('0' + element.timeOfDeparture.getUTCMinutes()).slice(-2);
-            element.timeOfDeparture = dateString;
-          });
+          if (this.searchedflights) {
+            this.searchedflights.forEach((element) => {
+              this.flightService.convertToTime(element);
+              this.flightService
+                .getAvailableSeats(element.id)
+                .subscribe((data) => {
+                  this.seats = data.length;
+                });
+            });
+          }
         });
     }
   }

@@ -11,8 +11,8 @@ import { AvailableflightsComponent } from '../presentations/flight/availableflig
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { TravelerinfoComponent } from 'src/presentations/reservation/travelerinfo/travelerinfo.component';
-import { TravelerseatComponent } from 'src/presentations/reservation/travelerseat/travelerseat.component';
+import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
+import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
 import { PageNotFoundComponent } from '../app/page-not-found/page-not-found.component';
 import { ReviewModule } from '../presentations/review/review.module';
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';

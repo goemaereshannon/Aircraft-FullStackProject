@@ -211,9 +211,9 @@
             </div> -->
           </div>
           <div>
-            <div class="flex">
+            <div *ngIf="seats != undefined || seats != null" class="flex">
               <p>Seats available</p>
-              <p class="pl-2 font-bold">34</p>
+              <p class="pl-2 font-bold">{{ seats }}</p>
             </div>
             <!-- <div class="flex">
               <p>Seats available</p>

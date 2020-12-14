@@ -22,6 +22,7 @@ export interface Flight {
   timeOfArrival: Date;
   flightStatus: string;
   flightDuration: Time;
+  airplaneId: string;
   departureDTO: {
     locationDTO: {
       city: string;

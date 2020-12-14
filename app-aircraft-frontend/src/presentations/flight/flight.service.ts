@@ -5,12 +5,41 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Flight, Destination, Departure } from './flight';
 import { environment } from '../../environments/environment';
 
-var baseURL = environment.baseUrl;
+var baseURL = `${environment.baseUrl}flight/`;
 @Injectable({
   providedIn: 'root',
 })
 export class FlightService {
   constructor(private http: HttpClient) {}
+
+  //MISC
+  convertToTime(element): any {
+    element.timeOfArrival = new Date(element.timeOfArrival);
+    var dateString =
+      ('0' + element.timeOfArrival.getUTCDate()).slice(-2) +
+      '/' +
+      ('0' + (element.timeOfArrival.getUTCMonth() + 1)).slice(-2) +
+      '/' +
+      element.timeOfArrival.getUTCFullYear() +
+      ' ' +
+      ('0' + element.timeOfArrival.getUTCHours()).slice(-2) +
+      ':' +
+      ('0' + element.timeOfArrival.getUTCMinutes()).slice(-2);
+    element.timeOfArrival = dateString;
+    element.timeOfDeparture = new Date(element.timeOfDeparture);
+    var dateString =
+      ('0' + element.timeOfDeparture.getUTCDate()).slice(-2) +
+      '/' +
+      ('0' + (element.timeOfDeparture.getUTCMonth() + 1)).slice(-2) +
+      '/' +
+      element.timeOfDeparture.getUTCFullYear() +
+      ' ' +
+      ('0' + element.timeOfDeparture.getUTCHours()).slice(-2) +
+      ':' +
+      ('0' + element.timeOfDeparture.getUTCMinutes()).slice(-2);
+    element.timeOfDeparture = dateString;
+  }
+
   //DISCOVER COMPONENT
   getFlightsToday(): Observable<Flight[]> {
     return this.http
@@ -57,6 +86,12 @@ export class FlightService {
     return this.http
       .get<Flight[]>(`${baseURL}flights/future`)
       .pipe(catchError(this.handleError<Flight[]>('getFutureFlights', [])));
+  }
+
+  getAvailableSeats(id): Observable<any[]> {
+    return this.http
+      .get<any[]>(`${baseURL}flights/airplane/${id}/seats/nonreserved`)
+      .pipe(catchError(this.handleError<any[]>('getAvailableSeats', null)));
   }
 
   //RESERVATION COMPONENT
