@@ -8,6 +8,9 @@ import {
 import { UserService } from '../../services/user.service';
 import { ReviewService } from '../../services/review.service';
 import { User } from '../identity/user';
+import { Flight } from 'presentations/flight/flight';
+import { Author, Review, ReviewedFlight } from './Review';
+import { FlightService } from 'presentations/flight/flight.service';
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
@@ -18,21 +21,30 @@ export class ReviewComponent implements OnInit {
   flightId: string = 'd470123f-7795-4158-aa2b-9088e29de88d';
   user: User;
   subjects: string[];
+  flight: Flight;
+  reviewedFlight: ReviewedFlight;
+  review: Review;
+  author: Author;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private flightService: FlightService
   ) {}
 
   ngOnInit(): void {
     this.reviewForm = this.fb.group({
-      subject: this.fb.array([]),
+      subject: ['', [Validators.required]],
       description: ['', [Validators.maxLength(250)]],
+      rating: [0, [Validators.max(5), Validators.min(0)]],
     });
     this.getsubjects();
+    this.getFlight();
+
     console.log(this.userService.loggedInUser);
   }
+
   getsubjects(): void {
     this.reviewService.getSubjects().subscribe({
       next: (data) => (this.subjects = data.result),
@@ -41,5 +53,50 @@ export class ReviewComponent implements OnInit {
       },
     });
   }
-  postReview(): void {}
+  getFlight(): void {
+    this.flightService.getFlightById(this.flightId).subscribe({
+      next: (data) => this.makeFlight(data),
+      error: (err) => {
+        console.log({ err });
+      },
+    });
+  }
+  makeFlight(flight: Flight): void {
+    this.reviewedFlight = {} as ReviewedFlight;
+    this.reviewedFlight.flightId = flight.id;
+    this.reviewedFlight.timeOfArrival = flight.timeOfArrival;
+    this.reviewedFlight.timeOfDeparture = flight.timeOfDeparture;
+    this.reviewedFlight.departureAirport =
+      flight.departureDTO.locationDTO.airport;
+    this.reviewedFlight.destinationAirport =
+      flight.destinationDTO.locationDTO.airport;
+  }
+  makeAuthor(user: User): void {
+    this.author = {} as Author;
+    this.author.firstName = user.firstName;
+    this.author.lastName = user.lastName;
+    this.author.userId = this.userService.UserId;
+  }
+  postReview(): void {
+    this.makeAuthor(this.userService.loggedInUser);
+    if (this.reviewForm.valid) {
+      if (this.reviewForm.dirty) {
+        this.review = {} as Review;
+        this.review.subject = this.reviewForm.get('subject').value;
+        this.review.comment = this.reviewForm.get('description').value;
+        this.review.flightId = this.flightId;
+        this.review.flight = this.reviewedFlight;
+        this.review.author = this.author;
+        this.review.userId = this.author.userId.toString();
+        console.log({ reviewToBePosted: this.review });
+        this.review.rating = this.reviewForm.get('rating').value;
+        this.reviewService.postReview(this.review).subscribe({
+          next: (data) => console.log({ postedreview: data }),
+          error: (err) => {
+            console.log({ err });
+          },
+        });
+      }
+    }
+  }
 }

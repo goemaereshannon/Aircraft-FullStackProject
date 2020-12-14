@@ -96,6 +96,7 @@
             >
             <div class="">
               <select id="subjectId" formControlName="subject">
+                <option value="" disabled>Choose a subject to review.</option>
                 <option
                   *ngFor="let subject of subjects"
                   [value]="subject.subject"
@@ -167,6 +168,7 @@
                   : 'Disabled until the form data is valid'
               "
               [disabled]="!reviewForm.valid"
+              (click)="postReview()"
             >
               Save Review
             </button>

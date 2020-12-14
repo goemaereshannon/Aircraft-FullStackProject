@@ -30,20 +30,20 @@ export class ReviewService {
   //         catchError(this.handleError)
   //       );
   //   }
-  //   loginUser(loginData: LoginData): Observable<any> {
-  //     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  postReview(review: Review): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  //     return this.http
-  //       .post<User>(
-  //         'http://localhost:32820/identity/auth/login',
-  //         JSON.stringify(loginData),
-  //         { headers }
-  //       )
-  //       .pipe(
-  //         tap((data) => console.log('loginUser: ' + JSON.stringify(data))),
-  //         catchError(this.handleError)
-  //       );
-  //   }
+    return this.http
+      .post<Review>(
+        'http://localhost:32820/review/reviews',
+        JSON.stringify(review),
+        { headers }
+      )
+      .pipe(
+        tap((data) => console.log('reviewPosted: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
 
   //   logoutUser(): void {
   //     localStorage.removeItem('token');
