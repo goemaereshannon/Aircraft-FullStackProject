@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { User } from '../user';
-import { UserService } from '../user.service';
+import { UserService } from '../../../services/user.service';
 
 //custom validator om meerdere inputvelden ten opzichte van elkaar te validaten
 function inputMatcher(formgroup: string): ValidatorFn {
@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
       ), // validator moet meegegeven worden in een object omdat het hier gaat over een formgroup die gevalideerd wordt en niet 1 formcontrol
       passwordGroup: this.fb.group(
         {
-          password: ['', [Validators.required, Validators.minLength(8)]],
+          password: ['', [Validators.required, Validators.minLength(7)]],
           confirmPassword: ['', Validators.required],
         },
         { validator: inputMatcher('password') }
@@ -138,14 +138,14 @@ export class RegisterComponent implements OnInit {
           'passwordGroup.password'
         ).value;
         console.log({ user: this.user });
-        var result = this.userService.registerUser(this.user).subscribe({
+        this.userService.registerUser(this.user).subscribe({
           next: () => this.onSaveComplete(),
           error: (err) => {
             this.errorMessage = err;
             this.validationMessage['emailMessage'] = err;
           },
         });
-        console.log({ result });
+
         console.log({ error: this.errorMessage });
       } else {
         this.registerForm.reset();
