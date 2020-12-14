@@ -1,4 +1,5 @@
 <div class="min-h-screen h-full">
+  <!--
   <div class="grid grid-template justify-items-center py-8">
     <svg
       width="166"
@@ -157,9 +158,12 @@
     </svg>
     <div
       *ngIf="isLoggedIn"
-      class="col-start-3 col-end-4"
+      class="col-start-3 col-end-4 justify-items-center"
       routerLink="/identity/login"
     >
+      <div *ngIf="user != undefined">
+        Welkom {{ user.firstName }} {{ user.lastName }}
+      </div>
       <svg
         id="Capa_1"
         enable-background="new 0 0 512 512"
@@ -168,6 +172,7 @@
         width="50"
         xmlns="http://www.w3.org/2000/svg"
         (click)="logout()"
+        class="flex self-center mx-auto"
       >
         <g>
           <path
@@ -304,8 +309,9 @@
       </svg>
       <p class="sm-text text-center">Log in</p>
     </div>
-  </div>
-  <main class="h-screen md:flex md:justify-around mx-8 md:mx-16">
+  </div> -->
+  <app-user-profile></app-user-profile>
+  <main class="md:flex md:justify-around mx-8 md:mx-16">
     <div>
       <h1>Book your flight</h1>
       <div class="flex flex-row">

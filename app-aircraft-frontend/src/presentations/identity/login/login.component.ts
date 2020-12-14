@@ -115,7 +115,10 @@ export class LoginComponent implements OnInit {
     this.loginForm.reset();
     this.parsedToken = this.userService.parseJwt(data.token);
 
-    console.log(this.parsedToken);
+    // console.log(this.parsedToken);
+    // console.log(this.parsedToken['thisUserId']);
+    this.userService.UserId = this.parsedToken['thisUserId'];
+
     localStorage.setItem('token', data.token);
     console.log('ingelogd');
     // if (
@@ -124,6 +127,7 @@ export class LoginComponent implements OnInit {
     //   ]
     // ) {
     // }
+    console.log(this.userService.loggedInUser);
     this.userService.isLoggedIn = true;
     if (this.parsedToken['role'] == 'Admin') {
       this.router.navigate(['/admin/discover']);

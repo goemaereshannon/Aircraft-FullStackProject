@@ -15,6 +15,14 @@ export class AuthGuardService implements CanActivate {
       return false;
     }
     this.auth.isLoggedIn = true;
+    this.auth.getUserId();
+    var result = this.auth.getProfileInfoUser().subscribe({
+      next: (data) => this.auth.setUser(data),
+      error: (err) => {
+        console.log({ err });
+      },
+    });
+    console.log({ result });
     return true;
   }
 }

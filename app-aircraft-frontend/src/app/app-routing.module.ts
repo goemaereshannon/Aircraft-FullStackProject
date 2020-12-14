@@ -42,17 +42,18 @@ const routes: Routes = [
       {
         path: 'discover',
         component: DiscoverComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
       },
       {
         path: 'availableflights',
         component: AvailableflightsComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
     ],
   },
   {
     path: 'review',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import(
         /* webpackChunkName: "review" */
