@@ -21,7 +21,10 @@
         </g>
       </g>
     </svg>
-    <p class="text-white text-xl sm:text-2xl justify-self-center">
+    <p
+      i18n="@@Make reservation"
+      class="text-white text-xl sm:text-2xl justify-self-center"
+    >
       Make reservation
     </p>
   </header>
@@ -109,12 +112,12 @@
         </div>
         <div>
           <div class="flex">
-            <p>Duration:</p>
+            <p i18n="@@Duration">Duration:</p>
             <p>{{ flight.flightDuration }}</p>
           </div>
           <div class="flex">
-            <p class="pl-1">Flight number:</p>
-            <p class="font-bold text-uppercase">
+            <p  i18n="@@Flightnumber" class="pl-1">Flight number:</p>
+            <p  class="font-bold text-uppercase">
               {{ flight.airplaneDTO.name }}
             </p>
           </div>
@@ -122,13 +125,16 @@
       </div>
     </div>
     <div class="flex flex-col">
-      <label for="travelernr">Travelers</label>
+      <label for="travelernr" i18n="@@Travelers">Travelers</label>
       <input type="number" name="" id="travelernr" placeholder="1" />
     </div>
     <div>
       <form class="flex flex-col mt-5" [formGroup]="infoForm">
-        <p>Traveler 1</p>
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="firstName"
+        <p i18n="@@Traveler">Traveler 1</p>
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="firstName"
+          i18n="@@Firstname"
           >First name
         </label>
         <input
@@ -138,7 +144,10 @@
           formControlName="firstName"
           required
         />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="lastName"
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="lastName"
+          i18n="@@Lastname"
           >Last name</label
         >
         <input
@@ -148,7 +157,10 @@
           formControlName="lastName"
           required
         />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="dateOfBirth"
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="dateOfBirth"
+          i18n="@Dateofbirth"
           >Date of birth</label
         >
         <input
@@ -157,7 +169,10 @@
           id="dateOfBirth"
           formControlName="dateOfBirth"
         />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="passportnr"
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="passportnr"
+          i18n="@Passportnumber"
           >Passport number</label
         >
         <input
@@ -166,7 +181,10 @@
           id="passportnr"
           formControlName="passportnr"
         />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="addressnr"
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="addressnr"
+          i18n="@Address+nr"
           >Address + nr</label
         >
         <input
@@ -175,7 +193,10 @@
           id="addressnr"
           formControlName="addressnr"
         />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="postalCity"
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="postalCity"
+          i18n="@@Postalcode+city"
           >Postal code + city</label
         >
         <input
@@ -184,7 +205,10 @@
           id="postalCity"
           formControlName="postalCity"
         />
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="country"
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="country"
+          i18n="@@Country"
           >Country</label
         >
         <input
@@ -198,8 +222,9 @@
             routerLink="../travelerseat"
             class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md mt-6"
             style="width: 208px"
-            [state]="{ data: flight, form: infoForm.value }"
+            i18n="@@Next"
           >
+            <!-- [state]="{ data: flight, form: infoForm.value }" -->
             Next
           </a>
 

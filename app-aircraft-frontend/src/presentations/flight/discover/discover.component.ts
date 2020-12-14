@@ -56,8 +56,7 @@ export class DiscoverComponent implements OnInit {
       }
     );
   }
-  findFlight(): void {
-    const payload = this.searchForm.value;
+  findFlight(payload): void {
     console.log(payload);
     this.router.navigate(['/flight/availableflights'], {
       state: { data: payload },

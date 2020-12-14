@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="fr-FR" datatype="plaintext" original="ng2.template">
+		<body>
+			<trans-unit id="Make reservation" datatype="html">
+				<source>
+					Make reservation
+				</source>
+				<target>
+					Faire une réservation
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						27
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Duration" datatype="html">
+				<source>
+					Duration:
+				</source>
+				<target>
+					Durée:
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						115
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Flightnumber" datatype="html">
+				<source>
+					Flight number:
+				</source>
+				<target>
+					Numéro du vol:
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						119
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Travelers" datatype="html">
+				<source>
+					Travelers
+				</source>
+				<target>
+					Voyageurs
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						128
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Traveler" datatype="html">
+				<source>
+					Traveler
+				</source>
+				<target>
+					Voyageur
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						133
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Firstname" datatype="html">
+				<source>
+					First name
+				</source>
+				<target>
+					Prénom
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						138
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Lastname" datatype="html">
+				<source>
+					Last name
+				</source>
+				<target>
+					Nom de famille
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						151
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="4dfbe8e9e0b5fd0f16d3d888ba2359495c7f996f" datatype="html">
+				<source>
+					Date of birth
+				</source>
+				<target>
+					Date de naissance
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						164
+					</context>
+				</context-group>
+				<note priority="1" from="description">
+					@Dateofbirth
+				</note>
+			</trans-unit>
+			<trans-unit id="439773cbd40125dea31d4ce8e33648a2202f6332" datatype="html">
+				<source>
+					Passport number
+				</source>
+				<target>
+					Numéro de passeport
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						176
+					</context>
+				</context-group>
+				<note priority="1" from="description">
+					@Passportnumber
+				</note>
+			</trans-unit>
+			<trans-unit id="2949ac668222e24643b80f2088e98c1834c88f36" datatype="html">
+				<source>
+					Address + nr
+				</source>
+				<target>
+					Adresse + nr
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						188
+					</context>
+				</context-group>
+				<note priority="1" from="description">
+					@Address+nr
+				</note>
+			</trans-unit>
+			<trans-unit id="Postalcode+city" datatype="html">
+				<source>
+					Postal code + city
+				</source>
+				<target>
+					Code zip + ville
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						200
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Country" datatype="html">
+				<source>
+					Country
+				</source>
+				<target>
+					Pays
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						212
+					</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="Next" datatype="html">
+				<source>
+					Next
+				</source>
+				<target>
+					Avancer
+				</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">
+						src/presentations/reservation/travelerinfo/travelerinfo.component.html
+					</context>
+					<context context-type="linenumber">
+						226
+					</context>
+				</context-group>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
