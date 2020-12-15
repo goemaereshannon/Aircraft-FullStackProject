@@ -1,0 +1,153 @@
+<div class="min-h-screen h-full">
+  <app-user-profile></app-user-profile>
+  <div class="flex justify-around px-20 align-items-center">
+    <div class="flex align-items-center justify-center col-md-5">
+      <svg
+        class="my-auto"
+        xmlns="http://www.w3.org/2000/svg"
+        width="210.169"
+        height="125.822"
+        viewBox="0 0 210.169 125.822"
+      >
+        <g
+          id="Group_55"
+          data-name="Group 55"
+          transform="translate(-82.036 -78.896)"
+        >
+          <g
+            id="Group_15"
+            data-name="Group 15"
+            transform="translate(-52.783 35)"
+          >
+            <g
+              id="Group_14"
+              data-name="Group 14"
+              transform="translate(175.427 114.405) rotate(-141)"
+            >
+              <path
+                id="Path_32"
+                data-name="Path 32"
+                d="M18.73.088C-.291-.307.018,4.714.018,4.714S63.16,9.44,45.234,2.21,26.422,7.8,26.422,7.8s-.754,16.344-5.133,15.968-3.623-16.99-3.623-16.99"
+                transform="translate(0 25.915)"
+                fill="none"
+                stroke="#4469c3"
+                stroke-width="2"
+              />
+              <path
+                id="Path_33"
+                data-name="Path 33"
+                d="M3.428,26.134l2.146-17S.279,4.53.006.98,8.154,4.669,8.154,4.669,12.7-.575,15.347.98c.49.288.1.615,0,1.216-.4,2.422-4.836,6.938-4.836,6.938l1.121,17"
+                transform="translate(14.102 0)"
+                fill="none"
+                stroke="#4469c3"
+                stroke-width="2"
+              />
+            </g>
+          </g>
+          <path
+            id="Path_34"
+            data-name="Path 34"
+            d="M585,160.188s-60.7,102.794,71.045,48.9,77.075-82.076,77.075-82.076-50.289-30.525-57.975,48.835,104.681,33.241,104.681,33.241"
+            transform="translate(-488 -21)"
+            fill="none"
+            stroke="#ffc4a1"
+            stroke-width="2"
+            stroke-dasharray="2"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <div class="my-auto col-md-4">
+      <div class="text-center my-3 text-3xl font-medium">
+        Review for flight from {{ data.departure }} to
+        {{ data.destination }}
+      </div>
+      <form
+        novalidate
+        class="c-form"
+        (ngSubmit)="postReview()"
+        [formGroup]="reviewForm"
+      >
+        <div
+          class="form-group row mb-4 border-b-0.5 hover:border-b-2 border-maintheme-grey"
+        >
+          <div class="col-md border-maintheme-grey">
+            <label
+              class="col-form-label text-maintheme-grey uppercase"
+              for="subjectId"
+              >Subject</label
+            >
+            <div class="c-form__select">
+              <select id="subjectId" formControlName="subject">
+                <option value="" disabled>Choose a subject to review.</option>
+                <option
+                  *ngFor="let subject of subjects"
+                  [value]="subject.subject"
+                >
+                  {{ subject.subject }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- <mat-form-field appearance="fill">
+          <mat-label for="subjectId">Subject</mat-label>
+
+          <mat-select [FormControl]="subjectControl" required id="subjectId">
+            <mat-option>Choose a subject to review.</mat-option>
+            <mat-option
+              *ngFor="let subject of subjects"
+              [value]="subject.subject"
+            >
+              {{ subject.subject }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="subjectControl.hasError('required')"
+            >Please choose a subject to review</mat-error
+          >
+        </mat-form-field> -->
+        <pm-star
+          [rating]="starRating"
+          (ratingClick)="onRatingClicked($event)"
+        ></pm-star>
+        <div class="form-group row mb-4 border-b-0.5 border-maintheme-grey">
+          <div class="col-md border-maintheme-grey">
+            <label
+              class="col-form-label text-maintheme-grey uppercase"
+              for="passwordId"
+              >Description</label
+            >
+            <div class="">
+              <textarea
+                class="c-form__input bg-maintheme-lightblue w-100"
+                id="passwordId"
+                placeholder="Describe your flight experience"
+                required
+                formControlName="description"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row m-4">
+          <div class="offset-md-2 col-md-4 flex flex-row justify-center">
+            <button
+              class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md"
+              type="submit"
+              style="width: 80px"
+              [title]="
+                reviewForm.valid
+                  ? 'Save your entered data'
+                  : 'Disabled until the form data is valid'
+              "
+              [disabled]="!reviewForm.valid"
+            >
+              Save Review
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

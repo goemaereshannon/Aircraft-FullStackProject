@@ -1,0 +1,281 @@
+<div class="min-h-full h-full">
+  <header
+    class="grid custom-grid items-center bg-maintheme-darkblue custom-header md:custom-header relative pt-6 px-4 md:pt-12"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="20.583"
+      viewBox="0 0 24 20.583"
+      routerLink="../../flight/discover"
+    >
+      <g id="arrows" transform="translate(2 -47.842)">
+        <g id="Group_28" data-name="Group 28" transform="translate(-2 47.842)">
+          <path
+            id="Path_30"
+            data-name="Path 30"
+            d="M22.557,40.448a1.716,1.716,0,0,0-.3-.022H5.329l.369-.172a3.434,3.434,0,0,0,.97-.687l4.748-4.748a1.777,1.777,0,0,0,.249-2.275,1.717,1.717,0,0,0-2.576-.223L.5,40.907a1.717,1.717,0,0,0,0,2.428h0l8.586,8.586a1.717,1.717,0,0,0,2.576-.172,1.777,1.777,0,0,0-.249-2.275L6.677,44.719a3.434,3.434,0,0,0-.859-.627L5.3,43.861H22.166a1.777,1.777,0,0,0,1.812-1.442A1.717,1.717,0,0,0,22.557,40.448Z"
+            transform="translate(0 -31.842)"
+            fill="#fff"
+          />
+        </g>
+      </g>
+    </svg>
+
+    <p
+      i18n="@@Make reservation"
+      class="text-white text-xl sm:text-2xl justify-self-center"
+    >
+      Make reservation
+      <!-- <app-switch-language></app-switch-language> -->
+    </p>
+  </header>
+
+  <main class="px-5 sm:px-auto pb-5 relative custom-body sm:mx-auto max-w-lg">
+    <!-- Geen vluchten-->
+    <div
+      class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center"
+    >
+      <div
+        *ngIf="flight != undefined"
+        class="grid justify-items-center items-center custom-card-grid border-maintheme-grey"
+      >
+        <svg
+          class=""
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="56"
+          viewBox="0 0 12 56"
+        >
+          <g id="Group_21" data-name="Group 21" transform="translate(-55 -235)">
+            <line
+              id="Line_16"
+              data-name="Line 16"
+              y2="34"
+              transform="translate(60.5 245.5)"
+              fill="none"
+              stroke="#9da5ab"
+              stroke-width="0.2"
+            />
+            <g id="Group_16" data-name="Group 16" transform="translate(1 44)">
+              <circle
+                id="Ellipse_10"
+                data-name="Ellipse 10"
+                cx="6"
+                cy="6"
+                r="6"
+                transform="translate(54 235)"
+                fill="#4469c3"
+                opacity="0.1"
+              />
+              <circle
+                id="Ellipse_2"
+                data-name="Ellipse 2"
+                cx="5"
+                cy="5"
+                r="5"
+                transform="translate(55 236)"
+                fill="#4469c3"
+              />
+            </g>
+            <g id="Group_6" data-name="Group 6" transform="translate(1)">
+              <circle
+                id="Ellipse_10-2"
+                data-name="Ellipse 10"
+                cx="6"
+                cy="6"
+                r="6"
+                transform="translate(54 235)"
+                fill="#ffc4a1"
+                opacity="0.1"
+              />
+              <g
+                id="Ellipse_2-2"
+                data-name="Ellipse 2"
+                transform="translate(55 236)"
+                fill="#ffc4a1"
+                stroke="#ffc4a1"
+                stroke-width="1"
+              >
+                <circle cx="5" cy="5" r="5" stroke="none" />
+                <circle cx="5" cy="5" r="4.5" fill="none" />
+              </g>
+            </g>
+          </g>
+        </svg>
+        <div class="border-maintheme-grey custom-border mb-2">
+          <p class="text-base text-capitalize">
+            {{ flight.departureDTO.locationDTO.city }}
+          </p>
+          <p class="pr-2">{{ flight.timeOfDeparture }}</p>
+          <p class="text-base text-capitalize pt-2">
+            {{ flight.destinationDTO.locationDTO.city }}
+          </p>
+          <p class="pr-2">{{ flight.timeOfArrival }}</p>
+        </div>
+        <div>
+          <div class="flex">
+            <p i18n="@@Duration">Duration:</p>
+            <p>{{ flight.flightDuration }}</p>
+          </div>
+          <div class="flex">
+            <p i18n="@@Flightnumber" class="pl-1">Flight number:</p>
+            <p class="font-bold text-uppercase">
+              {{ flight.airplaneDTO.name }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label for="travelernr" i18n="@@Travelers">Travelers</label>
+      <input type="number" name="" id="travelernr" placeholder="1" />
+    </div>
+    <div>
+      <form class="flex flex-col mt-5" [formGroup]="infoForm">
+        <p i18n="@@Traveler">Traveler 1</p>
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="firstName"
+          i18n="@@Firstname"
+          >First name
+        </label>
+        <input
+          type="text"
+          placeholder="John"
+          id="firstName"
+          formControlName="firstName"
+          required
+        />
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="lastName"
+          i18n="@@Lastname"
+          >Last name</label
+        >
+        <input
+          type="text"
+          placeholder="Doe"
+          id="lastName"
+          formControlName="lastName"
+          required
+        />
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="dateOfBirth"
+          i18n="@Dateofbirth"
+          >Date of birth</label
+        >
+        <input
+          type="date"
+          placeholder="01-01-2020"
+          id="dateOfBirth"
+          formControlName="dateOfBirth"
+        />
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="passportnr"
+          i18n="@Passportnumber"
+          >Passport number</label
+        >
+        <input
+          type="text"
+          placeholder="AA0000000"
+          id="passportnr"
+          formControlName="passportnr"
+        />
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="addressnr"
+          i18n="@Address+nr"
+          >Address + nr</label
+        >
+        <input
+          type="text"
+          placeholder="Somewherestreet 100"
+          id="addressnr"
+          formControlName="addressnr"
+        />
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="postalCity"
+          i18n="@@Postalcode+city"
+          >Postal code + city</label
+        >
+        <input
+          type="text"
+          placeholder="0000 Utopia"
+          id="postalCity"
+          formControlName="postalCity"
+        />
+        <label
+          class="text-maintheme-grey sm-text__upper mt-4"
+          for="country"
+          i18n="@@Country"
+          >Country</label
+        >
+        <input
+          type="text"
+          placeholder="Worldland"
+          id="country"
+          formControlName="country"
+        />
+        <div class="flex flex-col justify-center items-center">
+          <a
+            [state]="{ data: flight, form: infoForm.value }"
+            routerLink="../travelerseat"
+            class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md mt-6"
+            style="width: 208px"
+            i18n="@@Next"
+          >
+            Next
+          </a>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="77"
+            height="15"
+            viewBox="0 0 77 15"
+            class="mt-4"
+          >
+            <g
+              id="Group_43"
+              data-name="Group 43"
+              transform="translate(-145 -775)"
+            >
+              <circle
+                id="Ellipse_13"
+                data-name="Ellipse 13"
+                cx="7.5"
+                cy="7.5"
+                r="7.5"
+                transform="translate(145 775)"
+                fill="#35b6ff"
+              />
+              <circle
+                id="Ellipse_14"
+                data-name="Ellipse 14"
+                cx="7.5"
+                cy="7.5"
+                r="7.5"
+                transform="translate(176 775)"
+                fill="#35b6ff"
+                opacity="0.2"
+              />
+              <circle
+                id="Ellipse_17"
+                data-name="Ellipse 17"
+                cx="7.5"
+                cy="7.5"
+                r="7.5"
+                transform="translate(207 775)"
+                fill="#35b6ff"
+                opacity="0.2"
+              />
+            </g>
+          </svg>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

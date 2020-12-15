@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 
 import * as signalR from '@aspnet/signalr';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'presentations/shared/dialog/dialog.component';
 @Injectable({
   providedIn: 'root',
 })
-export class signalRService {
+export class SignalRService {
+  constructor(
+    private dialog: MatDialog,
+    private dialogComponent: DialogComponent
+  ) {}
   private hubConnection: signalR.HubConnection;
   public message: string;
 
+  ngOnInit() {}
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:58269/chathub') //poort van de realtimeservice
+      .withUrl('http://localhost:32820/chathub') //poort van de realtimeservice
       .build();
     this.hubConnection
       .start()
@@ -29,9 +35,14 @@ export class signalRService {
       .catch((err) => console.error(err));
   };
 
-  public showAdminMessage = () => {
-    this.hubConnection.on('admin', (data) => {
-      console.log({ adminMessage: data.message });
+  public readAdminMessage = () => {
+    return this.hubConnection.on('admin', (data): string => {
+      console.log('message recieved');
+
+      //this.dialogComponent.DialogMessage = data.message;
+      // console.log(this.dialogComponent.DialogMessage);
+      this.dialog.open(DialogComponent, { data: data.message });
+      return data;
     });
   };
   //listen to message from realtimeservice

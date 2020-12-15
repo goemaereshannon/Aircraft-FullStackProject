@@ -16,7 +16,8 @@ namespace FlightServices.Models
         public Guid ClassId { get; set; } = Guid.Parse("3F2504E0-4F89-11D3-9A0C-0305E82C3301");
 
         public virtual Airplane Airplane { get; set; }
-               
+
+        public bool Reserved { get; set; } = false;
         public virtual ICollection<ReservedSeat> ReservedSeats { get; set; }
 
        

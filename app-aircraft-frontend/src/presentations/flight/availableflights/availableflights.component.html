@@ -1,26 +1,30 @@
-<div class="min-h-full">
+<div class="min-h-screen h-full">
   <header
     class="grid custom-grid items-center bg-maintheme-darkblue custom-header md:custom-header relative pt-6 px-4 md:pt-12"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="20.583"
-      viewBox="0 0 24 20.583"
-      routerLink="/flight/discover"
-    >
-      <g id="arrows" transform="translate(2 -47.842)">
-        <g id="Group_28" data-name="Group 28" transform="translate(-2 47.842)">
-          <path
-            id="Path_30"
-            data-name="Path 30"
-            d="M22.557,40.448a1.716,1.716,0,0,0-.3-.022H5.329l.369-.172a3.434,3.434,0,0,0,.97-.687l4.748-4.748a1.777,1.777,0,0,0,.249-2.275,1.717,1.717,0,0,0-2.576-.223L.5,40.907a1.717,1.717,0,0,0,0,2.428h0l8.586,8.586a1.717,1.717,0,0,0,2.576-.172,1.777,1.777,0,0,0-.249-2.275L6.677,44.719a3.434,3.434,0,0,0-.859-.627L5.3,43.861H22.166a1.777,1.777,0,0,0,1.812-1.442A1.717,1.717,0,0,0,22.557,40.448Z"
-            transform="translate(0 -31.842)"
-            fill="#fff"
-          />
-        </g>
-      </g>
-    </svg>
+    <a routerLink="/flight/discover">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="20.583"
+        viewBox="0 0 24 20.583"
+      >
+        <g id="arrows" transform="translate(2 -47.842)">
+          <g
+            id="Group_28"
+            data-name="Group 28"
+            transform="translate(-2 47.842)"
+          >
+            <path
+              id="Path_30"
+              data-name="Path 30"
+              d="M22.557,40.448a1.716,1.716,0,0,0-.3-.022H5.329l.369-.172a3.434,3.434,0,0,0,.97-.687l4.748-4.748a1.777,1.777,0,0,0,.249-2.275,1.717,1.717,0,0,0-2.576-.223L.5,40.907a1.717,1.717,0,0,0,0,2.428h0l8.586,8.586a1.717,1.717,0,0,0,2.576-.172,1.777,1.777,0,0,0-.249-2.275L6.677,44.719a3.434,3.434,0,0,0-.859-.627L5.3,43.861H22.166a1.777,1.777,0,0,0,1.812-1.442A1.717,1.717,0,0,0,22.557,40.448Z"
+              transform="translate(0 -31.842)"
+              fill="#fff"
+            />
+          </g>
+        </g></svg
+    ></a>
     <p class="text-white text-xl sm:text-2xl justify-self-center">
       Available flights
     </p>
@@ -181,12 +185,12 @@
           <p class="pr-2">{{ flight.timeOfArrival }}</p>
         </div>
         <div>
-          <!-- <div class="flex">
-            <p>Duration:</p>
-            <p>8u25</p>
-          </div> -->
           <div class="flex">
-            <p class="pl-1">Flight number:</p>
+            <p>Duration:</p>
+            <p>{{ flight.flightDuration }}</p>
+          </div>
+          <div class="flex">
+            <p>Flight number:</p>
             <p class="font-bold text-uppercase">
               {{ flight.airplaneDTO.name }}
             </p>
@@ -199,7 +203,9 @@
           <div>
             <div class="flex">
               <p>Economy class</p>
-              <p class="pl-2 font-bold">€503</p>
+              <p class="pl-2 font-bold">
+                {{ flight.price.value }} {{ flight.price.currency }}
+              </p>
             </div>
             <!-- <div class="flex">
               <p>Business class</p>
@@ -207,9 +213,9 @@
             </div> -->
           </div>
           <div>
-            <div class="flex">
+            <div *ngIf="seats != undefined || seats != null" class="flex">
               <p>Seats available</p>
-              <p class="pl-2 font-bold">34</p>
+              <p class="pl-2 font-bold">{{ seats }}</p>
             </div>
             <!-- <div class="flex">
               <p>Seats available</p>
@@ -219,8 +225,9 @@
         </div>
       </div>
       <a
-        [state]="{ data: flight.id }"
         class="text-white btn bg-maintheme-blue rounded-2xl absolute custom-button flex"
+        routerLink="../../reservation/travelerinfo"
+        [state]="{ data: flight.id }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

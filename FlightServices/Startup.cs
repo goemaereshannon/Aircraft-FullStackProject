@@ -92,7 +92,7 @@ namespace FlightServices
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
 
             app.UseCors("MyAllowOrigins");
 
@@ -102,6 +102,7 @@ namespace FlightServices
 
             app.UseAuthorization();
             
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

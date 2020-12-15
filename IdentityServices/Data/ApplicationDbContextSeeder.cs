@@ -15,7 +15,12 @@ namespace IdentityServices.Data
     {
         private readonly ApplicationDbContext context;
 
-
+      public static  List<string> EmailList = new List<string>
+        {
+            "alex.christiaens@student.howest.be",
+            "shannon.goemaere@student.howest.be"
+        };
+       
         public static async Task SeedAsync(ApplicationDbContext context, IWebHostEnvironment env, RoleManager<Role> roleManager, UserManager<User> userManager)
         {
             try
@@ -28,6 +33,8 @@ namespace IdentityServices.Data
                 await SeedRoles(roleManager);
                 await context.SaveChangesAsync();
                 await SeedAdmins(userManager, roleManager);
+                await SeedDocent(userManager, roleManager);
+                await SeedCustomers(userManager, roleManager);
                 await context.SaveChangesAsync();
 
             }
@@ -38,10 +45,68 @@ namespace IdentityServices.Data
             }
         }
 
+        private static async Task SeedDocent(UserManager<User> userManager, RoleManager<Role> roleManager)
+        {
+           User  docent = new User
+            {
+                Id = Guid.NewGuid(),
+                Email = "docent@howest.be",
+                UserName = "docent@howest.be"
+
+            };
+            await userManager.CreateAsync(docent, "Docent@1");
+            var role = roleManager.Roles.Where(r => r.Name.StartsWith("A")).FirstOrDefault();
+            var userResult = await userManager.AddToRoleAsync(docent, role.Name);
+        }
+
+        private static async Task SeedCustomers(UserManager<User> userManager, RoleManager<Role> roleManager)
+        {
+
+            try
+            {
+                foreach (string email in EmailList)
+                {
+                    if (userManager.FindByNameAsync(email).Result == null)
+                    {
+                        User customer = new User
+                        {
+                            Id = Guid.NewGuid(),
+
+                            Email = email,
+                            UserName = email,
+                            FirstName = email.Split('.')[0],
+                            LastName = email.Split('.')[1].Split('@')[0]
+
+
+
+
+                        };
+                        await userManager.CreateAsync(customer, "Wachtwoord");
+                        var role = roleManager.Roles.Where(r => r.Name.StartsWith("C")).FirstOrDefault();
+                        var userResult = await userManager.AddToRoleAsync(customer, role.Name);
+
+                        if (!userResult.Succeeded)
+                        {
+                            throw new InvalidOperationException("Failed to build user and roles");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex);
+            }
+        }
+
         //TODO: vaste id's gebruiken voor admin +testuser zodat deze gebruikt kunnen worden in seeder reviewservice + seeder reservation.
         private static async Task SeedAdmins(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             var nmbrAdmins = 3;
+            try
+            {
+
+           
             for (var i = 1; i<= nmbrAdmins; i++)
             {
                 if (userManager.FindByNameAsync("emailAdmin" + i + "@howest.be").Result == null)
@@ -75,7 +140,13 @@ namespace IdentityServices.Data
                     }
                 }
             }
-            
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex);
+            }
+
         }
 
         private static async Task SeedRoles(RoleManager<Role> roleManager)

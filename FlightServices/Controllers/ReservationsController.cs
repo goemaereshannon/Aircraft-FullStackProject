@@ -63,13 +63,26 @@ namespace FlightServices.Controllers
                     return BadRequest(new { message = "Id is empty" });
                 }
                 Reservation reservation = await reservationRepo.GetAsyncByGuidWithAllSubModels(id);
+                if(reservation == null)  return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find reservations with id {id}"
+                });
+            
+
+
                 ReservationDetailsDTO reservationDetailsDTO = mapper.Map<ReservationDetailsDTO>(reservation);
+
                 return Ok(reservationDetailsDTO);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find reservations with id {id} : {ex}"
+                });
             }
         }
         [HttpGet("/api/user/reservations/{userId}")]
@@ -96,11 +109,38 @@ namespace FlightServices.Controllers
                 await sender.Send(message);
                 return Ok(reservationDTOs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 404,
+                    errorMessage = $"Could not find reservations for user with id {userId} : {ex}"
+                });
             }
+
+        }
+        // GET: api/Flights
+        [HttpGet("/api/prices")]
+        [ProducesResponseType(typeof(IEnumerable<PriceClassDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<PriceClassDTO>>> GetPrices()
+        {
+            IEnumerable<PriceClass> prices;
+            try
+            {
+                prices = await genericPriceRepo.GetAllAsync();
+                IEnumerable<PriceClassDTO> priceClassDTOs = mapper.Map<IEnumerable<PriceClass>, IEnumerable<PriceClassDTO>>(prices);
+                return Ok(priceClassDTOs);
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("HandleErrorCode", "Error", new
+                {
+                    statusCode = 400,
+                    errorMessage = $"Failed to get prices : {ex}"
+                });
+            }
+
 
         }
 
@@ -276,8 +316,11 @@ namespace FlightServices.Controllers
                         PriceClass price = await genericPriceRepo.GetAsyncByGuid(reservedSeat.PriceId);
                         if(price != null)
                         {
-                            reservedSeat.TicketPrice = price.Value != 0 && flight.Distance != 0 ? price.Value * (flight.Distance / 1000) : 0;
-                           
+                            Seat seat = await genericSeatRepo.GetAsyncByGuid(reservedSeat.SeatId);
+                            seat.Reserved = true;
+                            await genericSeatRepo.Update(seat, seat.Id);
+                            reservedSeat.TicketPrice = price.Value != 0 && flight.DistanceInKm != 0 ? price.Value * (flight.DistanceInKm / 1000) : 0;
+                            reservedSeat.PersonId = reservedSeat.Person.Id;
                             reservation.TotalPrice += reservedSeat.TicketPrice;
                             reservation.TotalSeats += 1;
                             flight.Airplane = await airplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);
