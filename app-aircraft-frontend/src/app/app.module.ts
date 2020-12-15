@@ -21,6 +21,7 @@ import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from '../presentations/shared/dialog/dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'presentations/shared/shared.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SharedModule } from 'presentations/shared/shared.module';
     MatDialogModule,
     BrowserAnimationsModule,
     SharedModule,
+    MatSelectModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

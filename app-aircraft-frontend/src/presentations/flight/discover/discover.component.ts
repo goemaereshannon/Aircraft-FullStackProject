@@ -87,7 +87,4 @@ export class DiscoverComponent implements OnInit {
     console.log(data);
     this.router.navigate(['/flight/availableflights']);
   }
-  logout(): void {
-    this.userService.logoutUser();
-  }
 }

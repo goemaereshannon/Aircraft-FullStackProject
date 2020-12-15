@@ -28,10 +28,13 @@ export class UserProfileComponent implements OnInit {
 
     // this.user = { ...this.userService.loggedInUser };
 
-    console.log(this.userService.loggedInUser);
-    console.log(this.userService.UserId);
-    console.log({ isloggedin: this.isLoggedIn });
-    console.log({ user: this.userService.loggedInUser });
-    console.log({ dezeklojo: this.user });
+    // console.log(this.userService.loggedInUser);
+    // console.log(this.userService.UserId);
+    // console.log({ isloggedin: this.isLoggedIn });
+    // console.log({ user: this.userService.loggedInUser });
+    // console.log({ dezeklojo: this.user });
+  }
+  logout(): void {
+    this.userService.logoutUser();
   }
 }

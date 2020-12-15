@@ -4,6 +4,7 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
+  FormControl,
 } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ReviewService } from '../../services/review.service';
@@ -26,6 +27,7 @@ export class ReviewComponent implements OnInit {
   review: Review;
   author: Author;
   starRating: number;
+  subjectControl = new FormControl('', Validators.required);
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +38,7 @@ export class ReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.reviewForm = this.fb.group({
-      subject: ['', [Validators.required]],
+      subject: ['', Validators.required],
       description: ['', [Validators.maxLength(250)]],
       rating: [0, [Validators.max(5), Validators.min(0)]],
     });
