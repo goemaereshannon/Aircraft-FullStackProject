@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { User } from 'presentations/identity/user';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -9,7 +10,7 @@ import { User } from 'presentations/identity/user';
 export class UserProfileComponent implements OnInit {
   isLoggedIn: Boolean;
   user: User;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.userService.ngOnInit();
@@ -36,5 +37,12 @@ export class UserProfileComponent implements OnInit {
   }
   logout(): void {
     this.userService.logoutUser();
+    this.isLoggedIn = this.userService.isLoggedIn;
+    this.router.navigate(['/identity/login']);
+  }
+  login(): void {
+    //this.userService.logoutUser();
+    //this.isLoggedIn = this.userService.isLoggedIn;
+    this.router.navigate(['/identity/login']);
   }
 }
