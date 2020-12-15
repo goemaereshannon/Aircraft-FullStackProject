@@ -36,7 +36,7 @@ namespace FlightServices
             });
             services.AddDbContext<FlightServicesContext>(options =>
             options.UseSqlServer(
-             Configuration.GetConnectionString("Flight_DBc"))
+             Configuration.GetConnectionString("Flight_DB"))
             );
 
             services.AddControllers()

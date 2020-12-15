@@ -10,11 +10,11 @@ import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo
 import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
 
 import { ReviewComponent } from '../presentations/review/review.component';
+import { ConfirmationComponent } from 'presentations/reservation/confirmation/confirmation.component';
 
 import { AppModule } from './app.module';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-const languageList = ['en', 'nl', 'fr', 'zh', 'es'];
 
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
@@ -68,6 +68,10 @@ const routes: Routes = [
       {
         path: 'travelerseat',
         component: TravelerseatComponent,
+      },
+      {
+        path: 'confirmation',
+        component: ConfirmationComponent,
       },
     ],
   },
