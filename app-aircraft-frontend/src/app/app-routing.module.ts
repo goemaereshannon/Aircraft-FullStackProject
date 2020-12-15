@@ -58,12 +58,10 @@ const routes: Routes = [
       {
         path: 'discover',
         component: DiscoverComponent,
-        //canActivate: [AuthGuard],
       },
       {
         path: 'availableflights',
         component: AvailableflightsComponent,
-        // canActivate: [AuthGuard],
       },
     ],
   },
@@ -71,15 +69,11 @@ const routes: Routes = [
     path: 'reservation',
     children: [
       {
-        path: 'travelerinfo/*',
-        redirectTo: `/reservation/travelerinfo/en`,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'travelerinfo/:lang',
+        path: 'travelerinfo',
         component: TravelerinfoComponent,
         canActivate: [AuthGuard],
       },
+
       {
         path: 'travelerseat',
         component: TravelerseatComponent,
@@ -107,19 +101,7 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
   },
-  {
-    path: 'reservation',
-    children: [
-      {
-        path: 'travelerinfo',
-        component: TravelerinfoComponent,
-      },
-      {
-        path: 'travelerseat',
-        component: TravelerseatComponent,
-      },
-    ],
-  },
+
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 
   // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
