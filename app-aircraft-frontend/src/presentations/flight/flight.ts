@@ -42,4 +42,11 @@ export interface Flight {
     type: string;
     totalSeats: number;
   };
+  price: {
+    id: string;
+    beginDate: Date;
+    endDate: Date;
+    value: number;
+    currency: string;
+  };
 }

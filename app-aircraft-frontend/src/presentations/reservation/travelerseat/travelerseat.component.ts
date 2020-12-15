@@ -52,7 +52,7 @@ export class TravelerseatComponent implements OnInit {
       this.reservation.reservedSeats.forEach((element) => {
         element.person.firstName = history.state.form.firstName;
         element.person.lastName = history.state.form.lastName;
-        element.priceId = 'A74E9652-AEC6-4172-9199-67F718937F14';
+        element.priceId = this.flight.price.id;
       });
     }
   }

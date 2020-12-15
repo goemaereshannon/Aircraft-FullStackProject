@@ -44,6 +44,7 @@ export class TravelerinfoComponent implements OnInit {
         .subscribe((data) => {
           if (data) {
             this.flight = data;
+            console.log({ prijs: this.flight.price });
           }
         });
     }
