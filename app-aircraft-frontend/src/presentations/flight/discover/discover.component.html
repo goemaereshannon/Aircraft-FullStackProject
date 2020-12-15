@@ -503,6 +503,9 @@
     <div>
       <!--TODAY'S FLIGHTS-->
       <h1>Today's flights</h1>
+      <div *ngIf="flightstoday == undefined || flightstoday.length < 1">
+        No flights today
+      </div>
       <div class="flightstoday">
         <div *ngFor="let flight of flightstoday">
           <div class="sm-text flex flex-row justify-between">

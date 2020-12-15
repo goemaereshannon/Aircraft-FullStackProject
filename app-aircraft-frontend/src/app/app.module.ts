@@ -11,6 +11,8 @@ import { AvailableflightsComponent } from '../presentations/flight/availableflig
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
+import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
 import { PageNotFoundComponent } from '../app/page-not-found/page-not-found.component';
 import { ReviewModule } from '../presentations/review/review.module';
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
@@ -22,6 +24,7 @@ import { DialogComponent } from '../presentations/shared/dialog/dialog.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'presentations/shared/shared.module';
 import { MatSelectModule } from '@angular/material/select';
+import { ConfirmationComponent } from 'presentations/reservation/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +32,11 @@ import { MatSelectModule } from '@angular/material/select';
     RegisterComponent,
     DiscoverComponent,
     AvailableflightsComponent,
+    TravelerinfoComponent,
+    TravelerseatComponent,
     PageNotFoundComponent,
     AdminDiscoverComponent,
+    ConfirmationComponent,
     LoginComponent,
     DialogComponent,
   ],

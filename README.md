@@ -146,9 +146,9 @@ The styling is added with **tailwindcss**. CSS classes with specific, reused sty
 
 Starting the project as PWA is possible using command `npm run pwa-start` after `npm install`.
 
-## Webpack optimisation 
+## Webpack optimisation
 
-We used webpack to optimize the project's performance. 
+We used webpack to optimize the project's performance.
 To start off with, the difference between running `npx webpack --mode development` and `npx webpack --mode production` is already significant. Runnig in production mode already reduces te size of the project, this mode enables **minification and uglification**.
 
 The review module is **dynamicly imported** inside the app module causing the biggest difference. The review module is only loaded when needed (lazy loading). The components are also splitted in different code **chunks**.
@@ -195,3 +195,6 @@ We registrated our working hours with **Toggl** and the current subtotal is 199h
 - states inputs and buttons (2h)
 - custom validation classes instead of bootstrap (5h)
 - error handling (4h)
+- possibility to book a return flight: extra step in reservation to choose return flight (2h)
+- storing previous search (1h)
+- guard on reservation form: closing reservation means data is not getting saved (2h)

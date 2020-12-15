@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 import { FlightService } from '../flight.service';
+var dateFormat = require('dataformat');
 
 @Component({
   selector: 'app-availableflights',
@@ -18,11 +20,16 @@ export class AvailableflightsComponent {
   dateOfArrival;
   query = '';
   searchedflights;
+  seats;
 
-  constructor(private flightService: FlightService) {}
+  constructor(
+    private flightService: FlightService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.searchForm = history.state.data;
+    console.log(history.state.data);
     console.log(this.searchForm);
     if (this.searchForm) {
       this.departure = this.searchForm.departure;
@@ -35,8 +42,13 @@ export class AvailableflightsComponent {
         this.dateOfDeparture == '' &&
         this.dateOfArrival == ''
       ) {
-        this.flightService.getFlights().subscribe((data) => {
+        this.flightService.getFutureFlights().subscribe((data) => {
           this.searchedflights = data;
+          if (this.searchedflights) {
+            this.searchedflights.forEach((element) => {
+              this.flightService.convertToTime(element);
+            });
+          }
         });
       }
       if (this.departure != '') {
@@ -67,9 +79,17 @@ export class AvailableflightsComponent {
       this.flightService
         .getFlightsByDatesDepartureAndDestination(this.query)
         .subscribe((data) => {
-          console.log(this.query);
           this.searchedflights = data;
-          console.log(this.searchedflights);
+          if (this.searchedflights) {
+            this.searchedflights.forEach((element) => {
+              this.flightService.convertToTime(element);
+              this.flightService
+                .getAvailableSeats(element.airplaneId)
+                .subscribe((data) => {
+                  this.seats = data.length;
+                });
+            });
+          }
         });
     }
   }

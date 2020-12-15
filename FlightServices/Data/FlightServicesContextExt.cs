@@ -114,21 +114,29 @@ namespace FlightServices.Data
                 {
                     new Seat
                     {
-                         Name = "A1",
+                         Name = "C6",
                     AirplaneId = airplane.Id
                     },
                     new Seat
                     {
-                        Name= "A2",
+                        Name= "B6",
                         AirplaneId = airplane.Id
                     },
                      new Seat
                     {
-                        Name= "B1",
+                        Name= "A6",
                         AirplaneId = airplane.Id
                     }, new Seat
                     {
-                        Name= "B2",
+                        Name= "F7",
+                        AirplaneId = airplane.Id
+                    },new Seat
+                    {
+                        Name= "E7",
+                        AirplaneId = airplane.Id
+                    },new Seat
+                    {
+                        Name= "A20",
                         AirplaneId = airplane.Id
                     },
                      new Seat
@@ -164,8 +172,8 @@ namespace FlightServices.Data
             new Flight
             {
                 Id = new Guid("33478a6b-437f-4416-932d-638b1c0415ea"),
-                 TimeOfDeparture = DateTime.Parse("2020-12-15T15:00:00Z"),
-                TimeOfArrival = DateTime.Parse("2020-12-15T15:30:00Z"),
+                 TimeOfDeparture = DateTime.Parse("2020-12-20T15:00:00Z"),
+                TimeOfArrival = DateTime.Parse("2020-12-20T15:30:00Z"),
                 DepartureId = new Guid("0AE2E025-10A8-4437-8A5B-9DDFFC77C180"),
                 DestinationId = new Guid("120DFA74-5A34-42DF-8C5D-345E3EC82458"),
                 AirplaneId = new Guid("9579B6CD-CAD5-4608-88A6-270CE03F5A35"),
@@ -173,20 +181,21 @@ namespace FlightServices.Data
                 FlightStatus = "On time", 
                 DistanceInKm = 5885
 
-            },
-            //  new Flight
-            //{
-            //    Id = new Guid("33478a6b-437f-4416-932d-638b1c04156a"),
-            //     TimeOfDeparture = DateTime.Parse("2020-12-15T15:00:00Z"),
-            //    TimeOfArrival = DateTime.Parse("2020-12-15T15:30:00Z"),
-            //    DepartureId = new Guid("0AE2E025-10A8-4437-8A5B-9DDFFC77C180"),
-            //    DestinationId = new Guid("120DFA74-5A34-42DF-8C5D-345E3EC82458"),
-            //    AirplaneId = new Guid("9579B6CD-CAD5-4608-88A6-270CE03F5A35"),
-            //   // FlightDuration = "05:00:00",
-            //    FlightStatus = "On time",
-            //    DistanceInKm = 5885
+            }
+            ,
+            new Flight
+            {
+                Id = new Guid("e8fa7a35-e04c-4935-b11a-c1ef7d3640c4"),
+                 TimeOfDeparture = DateTime.Parse("2020-12-20T15:00:00Z"),
+                TimeOfArrival = DateTime.Parse("2020-12-20T15:30:00Z"),
+                DepartureId = new Guid("0AE2E025-10A8-4437-8A5B-9DDFFC77C180"),
+                DestinationId = new Guid("120DFA74-5A34-42DF-8C5D-345E3EC82458"),
+                AirplaneId = new Guid("b9db76ad-8665-42c8-8282-49d181cebd01"),
+               // FlightDuration = "05:00:00",
+                FlightStatus = "On time",
+                DistanceInKm = 5885
 
-            //}
+            }
         };
         private readonly static List<Departure> _departureData = new List<Departure>
         {
@@ -261,6 +270,13 @@ namespace FlightServices.Data
             new Airplane
             {
                 Id = new Guid("9E17AF7B-DF05-4C69-94B8-586659C7152F"),
+                Name = "BA2490",
+                Type = "Boeing 737 MAX",
+                //TotalSeats = 4
+            },
+                        new Airplane
+            {
+                Id = new Guid("b9db76ad-8665-42c8-8282-49d181cebd01"),
                 Name = "BA2490",
                 Type = "Boeing 737 MAX",
                 //TotalSeats = 4

@@ -6,10 +6,21 @@ import { LoginComponent } from '../presentations/identity/login/login.component'
 import { AvailableflightsComponent } from '../presentations/flight/availableflights/availableflights.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
+import { AppComponent } from '../app/app.component';
+import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo/travelerinfo.component';
+import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
+
+import { ReviewComponent } from '../presentations/review/review.component';
+import { ConfirmationComponent } from 'presentations/reservation/confirmation/confirmation.component';
 import { RoleGuardService as RoleGuard } from '../services/role-guard.service';
 import { AuthGuardService as AuthGuard } from 'services/guard.service';
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/flight/discover',
+    pathMatch: 'full',
+  },
   {
     path: 'identity',
     children: [
@@ -52,6 +63,24 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'reservation',
+    children: [
+      {
+        path: 'travelerinfo',
+        component: TravelerinfoComponent,
+      },
+      {
+        path: 'travelerseat',
+        component: TravelerseatComponent,
+      },
+      {
+        path: 'confirmation',
+        component: ConfirmationComponent,
+      },
+    ],
+  },
+  // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+  {
     path: 'review',
     canActivate: [AuthGuard],
     loadChildren: () =>
@@ -62,6 +91,20 @@ const routes: Routes = [
       ).then((c) => c.ReviewModule),
   },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
+  {
+    path: 'reservation',
+    children: [
+      {
+        path: 'travelerinfo',
+        component: TravelerinfoComponent,
+      },
+      {
+        path: 'travelerseat',
+        component: TravelerseatComponent,
+      },
+    ],
+  },
+  // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 
 @NgModule({

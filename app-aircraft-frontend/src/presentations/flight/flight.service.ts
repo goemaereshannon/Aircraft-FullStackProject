@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Flight, Destination, Departure } from './flight';
+import { environment } from '../../environments/environment';
 
 var baseURL = 'http://localhost:32820/flight/';
 @Injectable({
@@ -10,6 +11,35 @@ var baseURL = 'http://localhost:32820/flight/';
 })
 export class FlightService {
   constructor(private http: HttpClient) {}
+
+  //MISC
+  convertToTime(element): any {
+    element.timeOfArrival = new Date(element.timeOfArrival);
+    var dateString =
+      ('0' + element.timeOfArrival.getUTCDate()).slice(-2) +
+      '/' +
+      ('0' + (element.timeOfArrival.getUTCMonth() + 1)).slice(-2) +
+      '/' +
+      element.timeOfArrival.getUTCFullYear() +
+      ' ' +
+      ('0' + element.timeOfArrival.getUTCHours()).slice(-2) +
+      ':' +
+      ('0' + element.timeOfArrival.getUTCMinutes()).slice(-2);
+    element.timeOfArrival = dateString;
+    element.timeOfDeparture = new Date(element.timeOfDeparture);
+    var dateString =
+      ('0' + element.timeOfDeparture.getUTCDate()).slice(-2) +
+      '/' +
+      ('0' + (element.timeOfDeparture.getUTCMonth() + 1)).slice(-2) +
+      '/' +
+      element.timeOfDeparture.getUTCFullYear() +
+      ' ' +
+      ('0' + element.timeOfDeparture.getUTCHours()).slice(-2) +
+      ':' +
+      ('0' + element.timeOfDeparture.getUTCMinutes()).slice(-2);
+    element.timeOfDeparture = dateString;
+  }
+
   //DISCOVER COMPONENT
   getFlightsToday(): Observable<Flight[]> {
     return this.http
@@ -52,16 +82,29 @@ export class FlightService {
       .pipe(catchError(this.handleError<Flight[]>('getFlights', [])));
   }
 
-  //AVAILABLE FLIGHTS COMPONENT
-  getFlightById(flightId: string): Observable<Flight> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  getFutureFlights(): Observable<Flight[]> {
     return this.http
-      .get<Flight>(`${baseURL}flights/${flightId}`, { headers })
-      .pipe(
-        tap((data) => console.log(data)),
-        catchError(this.handleError<Flight>(`getFlightById`))
-      );
+      .get<Flight[]>(`${baseURL}flights/future`)
+      .pipe(catchError(this.handleError<Flight[]>('getFutureFlights', [])));
   }
+
+  getAvailableSeats(airplaneid): Observable<any[]> {
+    console.log({
+      link: `${baseURL}flights/airplane/${airplaneid}/seats/nonreserved`,
+    });
+
+    return this.http
+      .get<any[]>(`${baseURL}flights/airplane/${airplaneid}/seats/nonreserved`)
+      .pipe(catchError(this.handleError<any[]>('getAvailableSeats', null)));
+  }
+
+  //RESERVATION COMPONENT
+  getFlightDetails(id: string): Observable<Flight> {
+    return this.http
+      .get<Flight>(`${baseURL}flights/${id}`)
+      .pipe(catchError(this.handleError<Flight>('getFlightDetails', null)));
+  }
+
   //ERROR HANDLING
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
