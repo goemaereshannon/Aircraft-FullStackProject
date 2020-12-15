@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Flight, Destination, Departure } from './flight';
 import { environment } from '../../environments/environment';
 
-var baseURL = `${environment.baseUrl}flight/`;
+var baseURL = `${environment.baseUrl}`;
 @Injectable({
   providedIn: 'root',
 })
@@ -88,9 +88,13 @@ export class FlightService {
       .pipe(catchError(this.handleError<Flight[]>('getFutureFlights', [])));
   }
 
-  getAvailableSeats(id): Observable<any[]> {
+  getAvailableSeats(airplaneid): Observable<any[]> {
+    console.log({
+      link: `${baseURL}flights/airplane/${airplaneid}/seats/nonreserved`,
+    });
+
     return this.http
-      .get<any[]>(`${baseURL}flights/airplane/${id}/seats/nonreserved`)
+      .get<any[]>(`${baseURL}flights/airplane/${airplaneid}/seats/nonreserved`)
       .pipe(catchError(this.handleError<any[]>('getAvailableSeats', null)));
   }
 

@@ -84,7 +84,7 @@ export class AvailableflightsComponent {
             this.searchedflights.forEach((element) => {
               this.flightService.convertToTime(element);
               this.flightService
-                .getAvailableSeats(element.id)
+                .getAvailableSeats(element.airplaneId)
                 .subscribe((data) => {
                   this.seats = data.length;
                 });
