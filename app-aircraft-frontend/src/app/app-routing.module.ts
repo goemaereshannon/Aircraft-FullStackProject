@@ -73,18 +73,22 @@ const routes: Routes = [
       {
         path: 'travelerinfo/*',
         redirectTo: `/reservation/travelerinfo/en`,
+        canActivate: [AuthGuard],
       },
       {
         path: 'travelerinfo/:lang',
         component: TravelerinfoComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'travelerseat',
         component: TravelerseatComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'confirmation',
         component: ConfirmationComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },
