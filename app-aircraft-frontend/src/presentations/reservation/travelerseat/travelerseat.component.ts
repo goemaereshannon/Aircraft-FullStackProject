@@ -16,10 +16,8 @@ import { ReservationService } from '../reservation.service';
 export class TravelerseatComponent implements OnInit {
   flight;
   reservation: Reservation;
-  clickedSeat: {
-    id: string;
-    name: string;
-  };
+  clickedSeatId;
+  clickedSeatName;
 
   constructor(
     private reservationService: ReservationService,
@@ -58,15 +56,18 @@ export class TravelerseatComponent implements OnInit {
   }
 
   seatClicked(value: string, id) {
-    var previousSeat = this.clickedSeat;
-    this.clickedSeat.name = value;
-    this.clickedSeat.id = id;
-    if (previousSeat != null) {
-      (document.querySelector(`#${previousSeat}`) as HTMLElement).style.fill =
-        '#ffffff';
+    var previousSeatName = this.clickedSeatName;
+    var previouSeatId = this.clickedSeatId;
+    this.clickedSeatName = value;
+    this.clickedSeatId = id;
+    if (previousSeatName != null) {
+      (document.querySelector(
+        `#${previousSeatName}`
+      ) as HTMLElement).style.fill = '#ffffff';
     }
-    (document.querySelector(`#${this.clickedSeat}`) as HTMLElement).style.fill =
-      '#5ab5f9';
+    (document.querySelector(
+      `#${this.clickedSeatName}`
+    ) as HTMLElement).style.fill = '#5ab5f9';
   }
   onSubmit(value: string) {
     console.log(value);
@@ -75,7 +76,7 @@ export class TravelerseatComponent implements OnInit {
 
   toConfirmation() {
     //TODO : loop through multiple persons in reservation
-    this.reservation.reservedSeats[0].seatId = this.clickedSeat.id;
+    this.reservation.reservedSeats[0].seatId = this.clickedSeatId;
     console.log({ reservatie: this.reservation });
     this.router.navigate(['/reservation/confirmation'], {
       state: { flightToBook: this.flight, reservationToMake: this.reservation },

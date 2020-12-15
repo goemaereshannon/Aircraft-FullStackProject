@@ -124,7 +124,7 @@
       <label for="travelernr">Travelers</label>
       <input type="number" name="" id="travelernr" placeholder="1" />
     </div>
-    <div>
+    <div *ngIf="reservation != undefined || reservation != null">
       <form
         class="flex flex-col mt-5"
         *ngFor="let persons of reservation.reservedSeats"
@@ -133,20 +133,20 @@
         <label class="text-maintheme-grey sm-text__upper mt-4" for="firstName"
           >First name
         </label>
-        <p>{{ person.firstName }}.</p>
-        <label class="text-maintheme-grey sm-text__upper mt-4" for="lastName">{{
-          person.lastName
-        }}</label>
-        <p></p>
+        <p>{{ persons.person.firstName }}</p>
+        <label class="text-maintheme-grey sm-text__upper mt-4" for="lastName"
+          >Last name</label
+        >
+        <p>{{ persons.person.lastName }}</p>
 
         <div class="flex flex-col justify-center items-center">
           <a
-            routerLink="../travelerseat"
+            (click)="submit()"
             class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md mt-6"
             style="width: 208px"
           >
             <!-- [state]="{ data: flight, form: infoForm.value }" -->
-            Next
+            Confirm
           </a>
 
           <svg

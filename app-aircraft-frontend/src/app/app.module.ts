@@ -16,6 +16,7 @@ import { TravelerseatComponent } from '../presentations/reservation/travelerseat
 import { PageNotFoundComponent } from '../app/page-not-found/page-not-found.component';
 import { ReviewModule } from '../presentations/review/review.module';
 import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin-discover.component';
+import { ConfirmationComponent } from 'presentations/reservation/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AdminDiscoverComponent } from 'presentations/admin/admin-discover/admin
     TravelerseatComponent,
     PageNotFoundComponent,
     AdminDiscoverComponent,
+    ConfirmationComponent,
   ],
   imports: [
     BrowserModule,

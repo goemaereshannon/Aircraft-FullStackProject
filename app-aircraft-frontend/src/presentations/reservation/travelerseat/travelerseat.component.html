@@ -25,9 +25,7 @@
       Make reservation
     </p>
   </header>
-  <main
-    class="px-5 sm:px-auto pb-5 relative custom-body sm:mx-auto max-w-lg flex md:flex-row flex-col"
-  >
+  <main class="px-5 sm:px-auto pb-5 relative custom-body sm:mx-auto max-w-lg">
     <!-- Geen vluchten-->
     <div
       class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center"
@@ -126,8 +124,8 @@
           (click)="onSubmit(r.person.firstName)"
         >
           {{ r.person.firstName }} {{ r.person.lastName }}
-          <span class="font-bold" *ngIf="clickedSeat.name"
-            >: <span class="text-maintheme-blue">{{ clickedSeat.name }}</span>
+          <span class="font-bold" *ngIf="clickedSeatName"
+            >: <span class="text-maintheme-blue">{{ clickedSeatName }}</span>
           </span>
         </button>
         <svg
