@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'presentations/shared/shared.module';
 import { MatSelectModule } from '@angular/material/select';
 import { ConfirmationComponent } from 'presentations/reservation/confirmation/confirmation.component';
+import { ProfileComponent } from 'presentations/profile/profile.component';
 import { SwitchLanguageComponent } from 'presentations/shared/switch-language/switch-language.component';
 
 
@@ -42,6 +43,7 @@ import { SwitchLanguageComponent } from 'presentations/shared/switch-language/sw
     SwitchLanguageComponent,
     LoginComponent,
     DialogComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

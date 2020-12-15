@@ -99,7 +99,10 @@ const routes: Routes = [
         '../presentations/review/review.module'
       ).then((c) => c.ReviewModule),
   },
-  { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
   {
     path: 'reservation',
     children: [
@@ -113,10 +116,8 @@ const routes: Routes = [
       },
     ],
   },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-  },
+  { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
+
   // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 

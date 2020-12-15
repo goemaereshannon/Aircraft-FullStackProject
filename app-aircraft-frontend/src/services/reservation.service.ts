@@ -17,7 +17,14 @@ export class ReservationService {
   ngOnInit(): void {
     console.log(this.flight);
   }
-
+  getReservationById(userId: string): Observable<any> {
+    return this.http
+      .get<Reservation>(`${baseURL}user/reservations/${userId}`)
+      .pipe(
+        tap((data) => console.log('reservationBooked' + JSON.stringify(data))),
+        catchError(this.handleError<Reservation>('postReservation', null))
+      );
+  }
   postReservation(reservation: Reservation): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http

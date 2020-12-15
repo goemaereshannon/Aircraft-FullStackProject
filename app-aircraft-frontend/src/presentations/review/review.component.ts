@@ -44,7 +44,11 @@ export class ReviewComponent implements OnInit {
       rating: [0, [Validators.max(5), Validators.min(0)]],
     });
     this.getsubjects();
-    this.getFlight();
+    if (history.state.data) {
+      this.flightId = history.state.data;
+      this.getFlight();
+    }
+
     this.starRating = 0;
     console.log(this.userService.loggedInUser);
   }
@@ -97,7 +101,7 @@ export class ReviewComponent implements OnInit {
         this.review.author = this.author;
         this.review.userId = this.author.userId.toString();
         console.log({ reviewToBePosted: this.review });
-        this.review.rating = this.reviewForm.get('rating').value;
+        this.review.rating = this.starRating;
         this.reviewService.postReview(this.review).subscribe({
           next: (data) => console.log({ postedreview: data }),
           error: (err) => {
