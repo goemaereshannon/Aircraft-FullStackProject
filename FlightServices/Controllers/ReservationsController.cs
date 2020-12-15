@@ -316,8 +316,11 @@ namespace FlightServices.Controllers
                         PriceClass price = await genericPriceRepo.GetAsyncByGuid(reservedSeat.PriceId);
                         if(price != null)
                         {
+                            Seat seat = await genericSeatRepo.GetAsyncByGuid(reservedSeat.SeatId);
+                            seat.Reserved = true;
+                            await genericSeatRepo.Update(seat, seat.Id);
                             reservedSeat.TicketPrice = price.Value != 0 && flight.DistanceInKm != 0 ? price.Value * (flight.DistanceInKm / 1000) : 0;
-                           
+                            reservedSeat.PersonId = reservedSeat.Person.Id;
                             reservation.TotalPrice += reservedSeat.TicketPrice;
                             reservation.TotalSeats += 1;
                             flight.Airplane = await airplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);

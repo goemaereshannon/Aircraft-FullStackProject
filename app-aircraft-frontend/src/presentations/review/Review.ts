@@ -3,7 +3,7 @@ export interface Review {
   id: {};
   subject: string;
   comment: string;
-  rating: Float32Array;
+  rating: number;
   dateOfCreation: Date;
   userId: string;
   flightId: string;

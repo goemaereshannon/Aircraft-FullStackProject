@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightService } from 'presentations/flight/flight.service';
+import { FlightService } from 'services/flight.service';
 import { SignalRService } from 'services/signal-r.service';
 import { UserService } from 'services/user.service';
 

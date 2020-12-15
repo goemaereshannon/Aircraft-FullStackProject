@@ -164,6 +164,10 @@ namespace FlightServices.Controllers
 
 
                 var flightDTO = mapper.Map<Flight, FlightDTO>(flight);
+                    List<PriceClass> prices = await priceRepo.GetByExpressionAsync(pr => pr.BeginDate <= DateTime.Now && pr.EndDate > DateTime.Now) as List<PriceClass>;
+                    flightDTO.Price = mapper.Map<PriceClassDTO>(prices[0]);
+
+                
                 return Ok(flightDTO);
 
 

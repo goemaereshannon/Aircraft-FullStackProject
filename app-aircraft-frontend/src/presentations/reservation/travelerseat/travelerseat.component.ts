@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FlightService } from 'presentations/flight/flight.service';
+import { FlightService } from 'services/flight.service';
 import { getHeapStatistics } from 'v8';
-import { Reservation } from '../reservation';
-import { ReservationService } from '../reservation.service';
+import { Reservation, Seat } from '../reservation';
+import { ReservationService } from '../../../services/reservation.service';
+import { Flight } from 'presentations/flight/flight';
+import { element } from 'protractor';
+import { UserService } from 'services/user.service';
 
 @Component({
   selector: 'app-travelerseat',
@@ -14,15 +17,18 @@ import { ReservationService } from '../reservation.service';
   ],
 })
 export class TravelerseatComponent implements OnInit {
-  flight;
+  flight: Flight;
   reservation: Reservation;
-  clickedSeatId;
-  clickedSeatName;
+  clickedSeatId: any;
+  clickedSeatName: any;
+  seats: Array<Seat>;
+  seat: Seat;
 
   constructor(
     private reservationService: ReservationService,
     private flightService: FlightService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -33,23 +39,35 @@ export class TravelerseatComponent implements OnInit {
       //reservation
       this.reservation = this.initializeReservation();
       this.reservation.flightId = this.flight.id;
-      this.reservation.userId = '';
+
       this.flightService
         .getAvailableSeats(this.flight.airplaneId)
         .subscribe((data) => {
           this.getSeats(data);
         });
+
       //
     }
     if (history.state.form != undefined || history.state.form != null) {
       this.reservation.reservedSeats.forEach((element) => {
         element.person.firstName = history.state.form.firstName;
         element.person.lastName = history.state.form.lastName;
+        element.priceId = this.flight.price.id;
       });
     }
   }
   getSeats(data: Array<any>): void {
+    console.log({ seats: data });
+    this.seats = [] as Array<Seat>;
+    //this.seats = { ...data };
+    console.log({ dezestoelen: this.seats });
     data.forEach((element) => {
+      this.seats.push(element);
+      var selector = document.querySelector(`#${element.name}`) as HTMLElement;
+      console.log({
+        selector: selector,
+      });
+      console.log({ name: element.name });
       (document.querySelector(`#${element.name}`) as HTMLElement).style.fill =
         '#ffffff';
     });
@@ -60,6 +78,16 @@ export class TravelerseatComponent implements OnInit {
     var previouSeatId = this.clickedSeatId;
     this.clickedSeatName = value;
     this.clickedSeatId = id;
+    this.seats.forEach((element: Seat) => {
+      if (element.name == this.clickedSeatName) {
+        this.seat = element;
+      }
+    });
+    // this.seats.forEach((element) => {
+    //   if (element.name == this.clickedSeatName) {
+    //     this.seat = element;
+    //   }
+    // });
     if (previousSeatName != null) {
       (document.querySelector(
         `#${previousSeatName}`
@@ -76,7 +104,7 @@ export class TravelerseatComponent implements OnInit {
 
   toConfirmation() {
     //TODO : loop through multiple persons in reservation
-    this.reservation.reservedSeats[0].seatId = this.clickedSeatId;
+    this.reservation.reservedSeats[0].seatId = this.seat.id;
     console.log({ reservatie: this.reservation });
     this.router.navigate(['/reservation/confirmation'], {
       state: { flightToBook: this.flight, reservationToMake: this.reservation },

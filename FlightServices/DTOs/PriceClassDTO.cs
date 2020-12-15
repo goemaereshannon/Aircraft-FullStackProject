@@ -7,7 +7,7 @@ namespace FlightServices.DTOs
 {
     public class PriceClassDTO
     {
-        
+        public Guid Id { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
         public double Value { get; set; }

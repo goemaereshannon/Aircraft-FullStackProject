@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Time } from '@angular/common';
 import {
   AbstractControl,
   FormBuilder,
@@ -6,12 +7,14 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ReviewService } from '../../services/review.service';
 import { User } from '../identity/user';
 import { Flight } from 'presentations/flight/flight';
 import { Author, Review, ReviewedFlight } from './Review';
-import { FlightService } from 'presentations/flight/flight.service';
+import { FlightService } from 'services/flight.service';
+
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
@@ -28,12 +31,14 @@ export class ReviewComponent implements OnInit {
   author: Author;
   starRating: number;
   subjectControl = new FormControl('', Validators.required);
+  data: { destination: string; departure: string };
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private reviewService: ReviewService,
-    private flightService: FlightService
+    private flightService: FlightService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +48,13 @@ export class ReviewComponent implements OnInit {
       rating: [0, [Validators.max(5), Validators.min(0)]],
     });
     this.getsubjects();
-    this.getFlight();
+    if (history.state.data) {
+      this.flightId = history.state.data.id;
+      this.data = { ...history.state.data };
+      console.log({ data: this.data });
+      this.getFlight();
+    }
+
     this.starRating = 0;
     console.log(this.userService.loggedInUser);
   }
@@ -96,7 +107,7 @@ export class ReviewComponent implements OnInit {
         this.review.author = this.author;
         this.review.userId = this.author.userId.toString();
         console.log({ reviewToBePosted: this.review });
-        this.review.rating = this.reviewForm.get('rating').value;
+        this.review.rating = this.starRating;
         this.reviewService.postReview(this.review).subscribe({
           next: (data) => console.log({ postedreview: data }),
           error: (err) => {
@@ -105,5 +116,6 @@ export class ReviewComponent implements OnInit {
         });
       }
     }
+    this.router.navigate(['/profile']);
   }
 }

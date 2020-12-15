@@ -3,10 +3,10 @@ import { Injectable, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { FlightService } from '../flight/flight.service';
-import { Reservation } from './reservation';
+import { FlightService } from './flight.service';
+import { Reservation } from '../presentations/reservation/reservation';
 
-var baseURL = `${environment.baseUrl}`;
+var baseURL = `${environment.baseUrl}flight/`;
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,14 @@ export class ReservationService {
   ngOnInit(): void {
     console.log(this.flight);
   }
-
+  getReservationById(userId: string): Observable<any> {
+    return this.http
+      .get<Reservation>(`${baseURL}user/reservations/${userId}`)
+      .pipe(
+        tap((data) => console.log('reservationBooked' + JSON.stringify(data))),
+        catchError(this.handleError<Reservation>('postReservation', null))
+      );
+  }
   postReservation(reservation: Reservation): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http

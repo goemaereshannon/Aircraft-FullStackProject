@@ -31,6 +31,7 @@
       class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center  max-w-lg "
     >
       <div
+        *ngIf="flight != null || flight != undefined"
         class="grid justify-items-center items-center custom-card-grid border-maintheme-grey"
       >
         <svg
@@ -116,7 +117,7 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col" *ngIf="reservation != null || reservation != undefined ">
       <label for="travelernr">Travelers</label>
       <div>
         <div *ngFor="let r of reservation.reservedSeats">

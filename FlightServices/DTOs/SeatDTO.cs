@@ -9,7 +9,5 @@ namespace FlightServices.DTOs
         public Guid Id { get; set; }  
         [DataType(DataType.Text)]
         public string Name { get; set; }
-       
-        public Guid Id { get; set; }
     }
 }

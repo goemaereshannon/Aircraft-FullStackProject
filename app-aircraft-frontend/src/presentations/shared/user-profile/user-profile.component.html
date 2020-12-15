@@ -157,8 +157,7 @@
   <div
     *ngIf="isLoggedIn"
     class="col-start-3 col-end-4 justify-items-center"
-    routerLink="/identity/login"
-    (click)="logout()"
+    (click)="visitProfile()"
   >
     <div *ngIf="user != undefined">
       Welkom {{ user.firstName }} {{ user.lastName }}
@@ -170,7 +169,7 @@
       viewBox="0 0 512 512"
       width="50"
       xmlns="http://www.w3.org/2000/svg"
-      class="flex self-center mx-auto"
+      class="flex self-center mx-auto cursor-pointer"
     >
       <g>
         <path
@@ -294,14 +293,9 @@
         </g>
       </g>
     </svg>
-    <p class="sm-text text-center">Log out</p>
+    <p class="sm-text text-center" routerLink="/identity/login">Log out</p>
   </div>
-  <div
-    *ngIf="!isLoggedIn"
-    class="col-start-3 col-end-4"
-    routerLink="/identity/login"
-    (click)="login()"
-  >
+  <div *ngIf="!isLoggedIn" class="col-start-3 col-end-4" (click)="login()">
     <svg height="50" width="50">
       <circle cx="25" cy="25" r="25" fill="gray" />
     </svg>

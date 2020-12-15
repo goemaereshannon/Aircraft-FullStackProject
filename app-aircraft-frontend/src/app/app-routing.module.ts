@@ -1,5 +1,5 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { NgModule } from '@angular/core';
+
 import { Routes, CanActivate, RouterModule } from '@angular/router';
 import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
 import { RegisterComponent } from '../presentations/identity/register/register.component';
@@ -17,6 +17,8 @@ import { AppModule } from './app.module';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { RoleGuardService as RoleGuard } from '../services/role-guard.service';
 import { AuthGuardService as AuthGuard } from 'services/guard.service';
+import { ProfileComponent } from '../presentations/profile/profile.component';
+
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
   {
@@ -97,7 +99,10 @@ const routes: Routes = [
         '../presentations/review/review.module'
       ).then((c) => c.ReviewModule),
   },
-  { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
   {
     path: 'reservation',
     children: [
@@ -111,6 +116,8 @@ const routes: Routes = [
       },
     ],
   },
+  { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
+
   // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 

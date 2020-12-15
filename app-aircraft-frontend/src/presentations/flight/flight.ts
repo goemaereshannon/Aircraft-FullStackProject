@@ -21,7 +21,7 @@ export interface Flight {
   timeOfDeparture: Date;
   timeOfArrival: Date;
   flightStatus: string;
-  flightDuration: Time;
+  flightDuration: Date;
   airplaneId: string;
   departureDTO: {
     locationDTO: {
@@ -41,5 +41,12 @@ export interface Flight {
     name: string;
     type: string;
     totalSeats: number;
+  };
+  price: {
+    id: string;
+    beginDate: Date;
+    endDate: Date;
+    value: number;
+    currency: string;
   };
 }

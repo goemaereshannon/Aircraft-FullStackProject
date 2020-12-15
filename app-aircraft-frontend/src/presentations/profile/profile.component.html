@@ -1,111 +1,7 @@
 <div class="min-h-screen h-full">
-  <header
-    class="grid custom-grid items-center bg-maintheme-darkblue custom-header md:custom-header relative pt-6 px-4 md:pt-12"
-  >
-    <a routerLink="/flight/discover">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20.583"
-        viewBox="0 0 24 20.583"
-      >
-        <g id="arrows" transform="translate(2 -47.842)">
-          <g
-            id="Group_28"
-            data-name="Group 28"
-            transform="translate(-2 47.842)"
-          >
-            <path
-              id="Path_30"
-              data-name="Path 30"
-              d="M22.557,40.448a1.716,1.716,0,0,0-.3-.022H5.329l.369-.172a3.434,3.434,0,0,0,.97-.687l4.748-4.748a1.777,1.777,0,0,0,.249-2.275,1.717,1.717,0,0,0-2.576-.223L.5,40.907a1.717,1.717,0,0,0,0,2.428h0l8.586,8.586a1.717,1.717,0,0,0,2.576-.172,1.777,1.777,0,0,0-.249-2.275L6.677,44.719a3.434,3.434,0,0,0-.859-.627L5.3,43.861H22.166a1.777,1.777,0,0,0,1.812-1.442A1.717,1.717,0,0,0,22.557,40.448Z"
-              transform="translate(0 -31.842)"
-              fill="#fff"
-            />
-          </g>
-        </g></svg
-    ></a>
-    <p class="text-white text-xl sm:text-2xl justify-self-center">
-      Available flights
-    </p>
-  </header>
   <main class="px-5 pb-5 relative custom-body sm:mx-12 md:mx-24 lg:mx-40">
-    <!-- Geen vluchten-->
     <div
-      *ngIf="searchedflights == undefined || searchedflights.length < 1"
-      class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center"
-    >
-      <p class="text-bold">No flights found</p>
-      <p class="text-maintheme-grey mb-12">
-        Try changing your departure and/or arrival date
-      </p>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="123.848"
-        height="158.909"
-        viewBox="0 0 123.848 158.909"
-      >
-        <g
-          id="Group_31"
-          data-name="Group 31"
-          transform="translate(-127.463 -364.239)"
-        >
-          <path
-            id="Path_35"
-            data-name="Path 35"
-            d="M2651.43,68.821s6.436-24.533,42.279-21.274c34.3,3.119,31.056,14.537,38.39,25.94h0c3.686,5,1.354,23.245-10.674,44.541-6.033,10.681-19.888,27.005-26.113,34.89-9.759,12.362-8.552,21.214-8.552,21.214"
-            transform="translate(-2523 318)"
-            fill="none"
-            stroke="#ffc4a1"
-            stroke-width="2"
-            stroke-dasharray="2 2"
-          />
-          <g
-            id="Group_15"
-            data-name="Group 15"
-            transform="translate(43.216 385)"
-          >
-            <g
-              id="Group_14"
-              data-name="Group 14"
-              transform="translate(175.427 114.405) rotate(-141)"
-            >
-              <path
-                id="Path_32"
-                data-name="Path 32"
-                d="M18.73.088C-.291-.307.018,4.714.018,4.714S63.16,9.44,45.234,2.21,26.422,7.8,26.422,7.8s-.754,16.344-5.133,15.968-3.623-16.99-3.623-16.99"
-                transform="translate(0 25.915)"
-                fill="none"
-                stroke="#4469c3"
-                stroke-width="2"
-              />
-              <path
-                id="Path_33"
-                data-name="Path 33"
-                d="M3.428,26.134l2.146-17S.279,4.53.006.98,8.154,4.669,8.154,4.669,12.7-.575,15.347.98c.49.288.1.615,0,1.216-.4,2.422-4.836,6.938-4.836,6.938l1.121,17"
-                transform="translate(14.102 0)"
-                fill="none"
-                stroke="#4469c3"
-                stroke-width="2"
-              />
-            </g>
-          </g>
-          <path
-            id="Path_36"
-            data-name="Path 36"
-            d="M2686.545,186.169s-3.874,6.45,2.4,6.728,4.577,7.661,4.577,7.661-5.544,6.97-10.484,1.375-1.458-7.414-1.458-7.414l28.921-22.172"
-            transform="translate(-2523 318)"
-            fill="none"
-            stroke="#ffc4a1"
-            stroke-width="2"
-            stroke-dasharray="2 2"
-          />
-        </g>
-      </svg>
-    </div>
-    <!--Available flight component-->
-    <div
-      *ngFor="let flight of searchedflights"
+      *ngFor="let reservation of bookedReservations"
       class="bg-white shadow-xs rounded-2xl my-5 p-2 sm-text relative"
     >
       <div
@@ -176,23 +72,23 @@
         </svg>
         <div class="border-maintheme-grey custom-border mb-2">
           <p class="text-base text-capitalize">
-            {{ flight.departureDTO.locationDTO.city }}
+            {{ reservation.flight.departureDTO.locationDTO.city }}
           </p>
-          <p class="pr-2">{{ flight.timeOfDeparture }}</p>
+          <p class="pr-2">{{ reservation.flight.timeOfDeparture }}</p>
           <p class="text-base text-capitalize pt-2">
-            {{ flight.destinationDTO.locationDTO.city }}
+            {{ reservation.flight.destinationDTO.locationDTO.city }}
           </p>
-          <p class="pr-2">{{ flight.timeOfArrival }}</p>
+          <p class="pr-2">{{ reservation.flight.timeOfArrival }}</p>
         </div>
         <div>
           <div class="flex">
             <p>Duration:</p>
-            <p>{{ flight.flightDuration }}</p>
+            <p>{{ reservation.flight.flightDuration }}</p>
           </div>
           <div class="flex">
             <p>Flight number:</p>
             <p class="font-bold text-uppercase">
-              {{ flight.airplaneDTO.name }}
+              {{ reservation.flight.airplaneDTO.name }}
             </p>
           </div>
         </div>
@@ -203,9 +99,7 @@
           <div>
             <div class="flex">
               <p>Economy class</p>
-              <p class="pl-2 font-bold">
-                {{ flight.price.value }} {{ flight.price.currency }}
-              </p>
+              <p class="pl-2 font-bold">{{ reservation.totalPrice }}</p>
             </div>
             <!-- <div class="flex">
               <p>Business class</p>
@@ -215,7 +109,7 @@
           <div>
             <div *ngIf="seats != undefined || seats != null" class="flex">
               <p>Seats available</p>
-              <p class="pl-2 font-bold">{{ seats }}</p>
+              <p class="pl-2 font-bold">{{ reservation.totalSeats }}</p>
             </div>
             <!-- <div class="flex">
               <p>Seats available</p>
@@ -226,8 +120,14 @@
       </div>
       <a
         class="text-white btn bg-maintheme-blue rounded-2xl absolute custom-button flex"
-        routerLink="../../reservation/travelerinfo"
-        [state]="{ data: flight.id }"
+        routerLink="../review"
+        [state]="{
+          data: {
+            id: reservation.flight.id,
+            destination: reservation.flight.destinationDTO.locationDTO.city,
+            departure: reservation.flight.departureDTO.locationDTO.city
+          }
+        }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +147,7 @@
             </g>
           </g>
         </svg>
-        Book
+        Review
       </a>
     </div>
   </main>

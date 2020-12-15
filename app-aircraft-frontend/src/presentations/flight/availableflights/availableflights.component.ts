@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
-import { FlightService } from '../flight.service';
+import { FlightService } from '../../../services/flight.service';
+import { Departure, Destination, Flight } from '../flight';
 var dateFormat = require('dataformat');
 
 @Component({
@@ -13,14 +14,14 @@ var dateFormat = require('dataformat');
 })
 export class AvailableflightsComponent {
   // implements OnInit
-  searchForm;
-  departure;
-  destination;
-  dateOfDeparture;
-  dateOfArrival;
+  searchForm: any;
+  departure: string;
+  destination: string;
+  dateOfDeparture: string;
+  dateOfArrival: string;
   query = '';
-  searchedflights;
-  seats;
+  searchedflights: Flight[];
+  seats: any;
 
   constructor(
     private flightService: FlightService,
@@ -51,24 +52,24 @@ export class AvailableflightsComponent {
           }
         });
       }
-      if (this.departure != '') {
+      if (this.departure != null) {
         this.query = `departureSearch=${this.departure}`;
       }
-      if (this.destination != '') {
+      if (this.destination != null) {
         if (this.query == '') {
           this.query = `destinationSearch=${this.destination}`;
         } else {
           this.query += `&destinationSearch=${this.destination}`;
         }
       }
-      if (this.dateOfDeparture != '') {
+      if (this.dateOfDeparture != null) {
         if (this.query == '') {
           this.query = `departureTimeSearch=${this.dateOfDeparture}`;
         } else {
           this.query += `&departureTimeSearch=${this.dateOfDeparture}`;
         }
       }
-      if (this.dateOfArrival != '') {
+      if (this.dateOfArrival != null) {
         if (this.query == '') {
           this.query = `arrivalTimeSearch=${this.dateOfArrival}`;
         } else {

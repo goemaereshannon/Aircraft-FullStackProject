@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder } from '@angular/forms';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppComponent } from 'app/app.component';
-import { FlightService } from '../flight.service';
+import { FlightService } from '../../../services/flight.service';
 import { UserService } from '../../../services/user.service';
 import { User } from 'presentations/identity/user';
+import { Flight, Destination, Departure } from '../flight';
 
 @Component({
   selector: 'app-discover',
@@ -12,10 +13,10 @@ import { User } from 'presentations/identity/user';
   styleUrls: ['./discover.component.scss', '../../../app/app.component.scss'],
 })
 export class DiscoverComponent implements OnInit {
-  flightstoday;
-  departures;
-  destinations;
-  searchForm;
+  flightstoday: Flight[];
+  departures: Departure[];
+  destinations: Destination[];
+  searchForm: FormGroup;
   isLoggedIn: Boolean;
   user: User;
 

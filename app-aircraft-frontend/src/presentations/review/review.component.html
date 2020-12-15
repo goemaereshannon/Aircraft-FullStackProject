@@ -60,7 +60,8 @@
 
     <div class="my-auto col-md-4">
       <div class="text-center my-3 text-3xl font-medium">
-        Review for flight {{ flightId }}
+        Review for flight from {{ data.departure }} to
+        {{ data.destination }}
       </div>
       <form
         novalidate
@@ -141,7 +142,6 @@
                   : 'Disabled until the form data is valid'
               "
               [disabled]="!reviewForm.valid"
-              (click)="postReview()"
             >
               Save Review
             </button>
