@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Flight, Destination, Departure } from '../presentations/flight/flight';
 import { environment } from '../environments/environment';
 
-var baseURL = 'http://localhost:32820/flight/';
+var baseURL = `${environment.baseUrl}flight/`;
 @Injectable({
   providedIn: 'root',
 })

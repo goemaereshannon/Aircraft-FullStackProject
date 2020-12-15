@@ -40,6 +40,9 @@ export class UserProfileComponent implements OnInit {
     this.isLoggedIn = this.userService.isLoggedIn;
     this.router.navigate(['/identity/login']);
   }
+  visitProfile(): void {
+    this.router.navigate(['/profile']);
+  }
   login(): void {
     //this.userService.logoutUser();
     //this.isLoggedIn = this.userService.isLoggedIn;

@@ -12,3 +12,7 @@ export interface Reservation {
     }
   ];
 }
+export interface Seat {
+  name: string;
+  id: string;
+}

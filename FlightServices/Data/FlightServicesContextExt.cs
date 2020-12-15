@@ -112,6 +112,11 @@ namespace FlightServices.Data
 
                 List<Seat> seats = new List<Seat>
                 {
+                     new Seat
+                     {
+                         Name="C1",
+                         AirplaneId= airplane.Id
+                     },
                     new Seat
                     {
                          Name = "C6",
@@ -138,12 +143,8 @@ namespace FlightServices.Data
                     {
                         Name= "A20",
                         AirplaneId = airplane.Id
-                    },
-                     new Seat
-                     {
-                         Name="C1",
-                         AirplaneId= airplane.Id
-                     }
+                    }
+                    
 
                 };
 

@@ -6,7 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { FlightService } from './flight.service';
 import { Reservation } from '../presentations/reservation/reservation';
 
-var baseURL = `${environment.baseUrl}`;
+var baseURL = `${environment.baseUrl}flight/`;
 
 @Injectable({
   providedIn: 'root',

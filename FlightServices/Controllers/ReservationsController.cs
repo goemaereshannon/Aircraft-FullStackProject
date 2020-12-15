@@ -317,7 +317,7 @@ namespace FlightServices.Controllers
                         if(price != null)
                         {
                             reservedSeat.TicketPrice = price.Value != 0 && flight.DistanceInKm != 0 ? price.Value * (flight.DistanceInKm / 1000) : 0;
-                           
+                            reservedSeat.PersonId = reservedSeat.Person.Id;
                             reservation.TotalPrice += reservedSeat.TicketPrice;
                             reservation.TotalSeats += 1;
                             flight.Airplane = await airplaneRepo.GetAsyncByGuid(flight.AirplaneId.Value);
