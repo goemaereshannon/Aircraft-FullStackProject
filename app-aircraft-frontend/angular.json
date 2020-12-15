@@ -13,6 +13,16 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "fr": { "translation": "src/locale/messages.fr.xlf", "baseHref": "" },
+          "zh": { "translation": "src/locale/messages.zh.xlf", "baseHref": "" },
+          "en": { "translation": "src/locale/messages.en.xlf", "baseHref": "" },
+          "nl": { "translation": "src/locale/messages.nl.xlf", "baseHref": "" },
+          "es": { "translation": "src/locale/messages.es.xlf", "baseHref": "" }
+        }
+      },
       "architect": {
         "build": {
           "builder": "ngx-build-plus:browser",
@@ -23,6 +33,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            // "localize": false,
             "aot": true,
             "assets": [
               "src/favicon.ico",
@@ -36,6 +47,41 @@
             "scripts": []
           },
           "configurations": {
+            "fr": {
+              "outputPath": "dist/app-aircraft-frontend-fr/",
+              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "fr",
+              "i18nMissingTranslation": "error"
+            },
+            "en": {
+              "outputPath": "dist/app-aircraft-frontend-en/",
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error"
+            },
+            "es": {
+              "outputPath": "dist/app-aircraft-frontend-es/",
+              "i18nFile": "src/locale/messages.es.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "es",
+              "i18nMissingTranslation": "error"
+            },
+            "zh": {
+              "outputPath": "dist/app-aircraft-frontend-zh/",
+              "i18nFile": "src/locale/messages.zh.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "zh",
+              "i18nMissingTranslation": "error"
+            },
+            "nl": {
+              "outputPath": "dist/app-aircraft-frontend-nl/",
+              "i18nFile": "src/locale/messages.nl.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "nl",
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -77,6 +123,21 @@
           "configurations": {
             "production": {
               "browserTarget": "app-aircraft-frontend:build:production"
+            },
+            "fr": {
+              "browserTarget": "app-aircraft-frontend:build:fr"
+            },
+            "en": {
+              "browserTarget": "app-aircraft-frontend:build:en"
+            },
+            "zh": {
+              "browserTarget": "app-aircraft-frontend:build:zh"
+            },
+            "es": {
+              "browserTarget": "app-aircraft-frontend:build:es"
+            },
+            "nl": {
+              "browserTarget": "app-aircraft-frontend:build:nl"
             }
           }
         },
@@ -99,9 +160,7 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
@@ -113,9 +172,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
