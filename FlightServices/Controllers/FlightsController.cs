@@ -505,11 +505,12 @@ namespace FlightServices.Controllers
 
         // GET: api/Flightstoday
         /// <summary>
-        /// Geeft alle vluchten terug van vandaag, cachet deze tot het einde van de dag
+        /// Returns all flights of today and caches these until the end of the day
         /// </summary>
-        /// <returns>Alle vluchten vandaag</returns>
+        /// <returns>All flights of today</returns>
         [HttpGet("/api/flightstoday")]
         [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<FlightDTO>>> GetFlightsToday()
         {
             IEnumerable<Flight> flightsCached;
@@ -624,7 +625,7 @@ namespace FlightServices.Controllers
 
         }
         /// <summary>
-        /// Gedeeltelijk updaten van vlucht: vluchtstatus 
+        /// Partial update of a flight: flightstatus
         /// </summary>
         /// <param name="flightId"></param>
         /// <param name="patchDoc">[{"value": "new value", "path":"FlightStatus", "op":"replace"}]</param>
@@ -693,6 +694,9 @@ namespace FlightServices.Controllers
         // GET: api/Flights
         [HttpGet("/api/flights/airplane/{id}/seats/nonreserved")]
         [ProducesResponseType(typeof(IEnumerable<SeatDTO>), StatusCodes.Status200OK)]
+       
+        [ProducesResponseType(typeof(IEnumerable<SeatDTO>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IEnumerable<SeatDTO>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<SeatDTO>>> GetAlNonReservedSeatsByAirplaneId(Guid id)
         {
             IEnumerable<Seat> seats;
@@ -729,6 +733,9 @@ namespace FlightServices.Controllers
         }
 
         [HttpPost("/api/flights/airplane")]
+        [ProducesResponseType(typeof(IEnumerable<AirplaneDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<AirplaneDTO>), StatusCodes.Status400BadRequest)]
+ 
         public async Task<ActionResult<AirplaneDTO>> PostAirplane([FromBody] AirplaneDTO airplaneDTO)
         {
             try
@@ -753,12 +760,15 @@ namespace FlightServices.Controllers
         }
 
         /// <summary>
-        /// Wijzigen van vliegtuig 
+        /// Updating a plane
         /// </summary>
         /// <param name="id"></param>
         /// <param name="airplaneDTO"></param>
         /// <returns> airplaneDTO </returns>
         [HttpPut("/api/flights/airplane/{id}")]
+        [ProducesResponseType(typeof(IEnumerable<AirplaneDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<AirplaneDTO>), StatusCodes.Status400BadRequest)]
+     
         public async Task<ActionResult<AirplaneDTO>> PutAirplane(Guid id, [FromBody] AirplaneDTO airplaneDTO)
         {
             if (ModelState.IsValid)
@@ -798,12 +808,15 @@ namespace FlightServices.Controllers
         
 
         /// <summary>
-        /// Wijzigen van vliegtuig 
+        /// Deleting an airplane based on airplaneID
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="airplaneDTO"></param>
-        /// <returns> airplaneDTO </returns>
+        
+        /// <returns> NoContent </returns>
         [HttpDelete("/api/flights/airplane/{id}")]
+        [ProducesResponseType(typeof(IEnumerable<AirplaneDTO>), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IEnumerable<AirplaneDTO>), StatusCodes.Status400BadRequest)]
+     
         public async Task<ActionResult> DeleteAirplane(Guid id)
         {
             if (ModelState.IsValid)
@@ -839,6 +852,9 @@ namespace FlightServices.Controllers
             return NoContent();
         }
         [HttpPost("/api/flights/departure")]
+        [ProducesResponseType(typeof(IEnumerable<DepartureDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<DepartureDTO>), StatusCodes.Status400BadRequest)]
+       
         public async Task<ActionResult<DepartureDTO>> PostDeparture([FromBody] DepartureDTO departureDTO)
         {
             if (ModelState.IsValid)
@@ -862,6 +878,9 @@ namespace FlightServices.Controllers
         }
 
         [HttpPost("/api/flights/destination")]
+        [ProducesResponseType(typeof(IEnumerable<DestinationDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<DestinationDTO>), StatusCodes.Status400BadRequest)]
+       
         public async Task<ActionResult<DestinationDTO>> PostDestination([FromBody] DestinationDTO destinationDTO)
         {
             Location location = mapper.Map<Location>(destinationDTO.LocationDTO);
@@ -886,6 +905,9 @@ namespace FlightServices.Controllers
 
         }
         [HttpPost("/api/flights/airplane/seat")]
+        [ProducesResponseType(typeof(IEnumerable<SeatDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<SeatDTO>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IEnumerable<SeatDTO>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<SeatDTO>> PostSeat([FromBody] SeatDTO seatDTO)
         {
             
@@ -936,6 +958,9 @@ namespace FlightServices.Controllers
         /// <param name="flightDTO"> </param>
         /// <returns > Nieuwe vlucht </returns>
         [HttpPost("/api/flights")]
+        [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IEnumerable<FlightDTO>), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<FlightCreateEditDTO>> PostFlight([FromBody] FlightCreateEditDTO flightDTO)
         {
             try
@@ -1030,83 +1055,6 @@ namespace FlightServices.Controllers
 
         }
 
-        // GET: api/Flights/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Flight>> GetFlight(Guid id)
-        //{
-        //    var flight = await _context.Flights.FindAsync(id);
-
-        //    if (flight == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return flight;
-        //}
-
-        //// PUT: api/Flights/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutFlight(Guid id, Flight flight)
-        //{
-        //    if (id != flight.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(flight).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!FlightExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Flights
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<Flight>> PostFlight(Flight flight)
-        //{
-        //    _context.Flights.Add(flight);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetFlight", new { id = flight.Id }, flight);
-        //}
-
-        //// DELETE: api/Flights/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Flight>> DeleteFlight(Guid id)
-        //{
-        //    var flight = await _context.Flights.FindAsync(id);
-        //    if (flight == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Flights.Remove(flight);
-        //    await _context.SaveChangesAsync();
-
-        //    return flight;
-        //}
-
-        //private bool FlightExists(Guid id)
-        //{
-        //    return _context.Flights.Any(e => e.Id == id);
-        //}
+       
     }
 }

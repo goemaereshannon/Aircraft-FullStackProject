@@ -58,7 +58,9 @@ namespace IdentityServices.Controllers
         ///     {
         ///         "email": "John.Doe@hotmail.com",
         ///         "password": "password",
-        ///         "ConfirmPassword": "password"
+        ///         
+        ///         "Firstname":"John",
+        ///         "LastName":"Doe"
         ///     }
         /// </remarks>
         [HttpPost]
@@ -112,10 +114,23 @@ namespace IdentityServices.Controllers
             }
 
         }
-
+        /// <summary>
+        /// Allow an existing user to login with their emailaddress and a password
+        /// </summary>
+        /// <param name="loginDTO"></param>
+        /// /// Sample Request:
+        /// 
+        ///     Post /login
+        ///     {
+        ///         "email": "John.Doe@hotmail.com",
+        ///         "password": "password",
+        ///        
+        ///     }
+        /// <returns></returns>
         [HttpPost]
         [Route("/api/auth/login")]
         [AllowAnonymous]
+           
        // [ValidateAntiForgeryToken]
         //CSRF: enkel nodig indien (statefull) via een browser , form ingelogd wordt
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
@@ -166,7 +181,12 @@ namespace IdentityServices.Controllers
             }
            // return BadRequest(returnMessage); //zo weinig mogelijk (hacker) info
         }
-
+        /// <summary>
+        /// Validate a user based on their email and a JWT token
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("/api/auth/validate")]
         public async Task<IActionResult> Validate([FromQuery(Name = "email")] string email, [FromQuery(Name = "token")] string token)

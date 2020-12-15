@@ -61,33 +61,41 @@ namespace IdentityServices.Data
 
         private static async Task SeedCustomers(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
-            
-            foreach(string email in EmailList)
+
+            try
             {
-                if (userManager.FindByNameAsync(email).Result == null)
+                foreach (string email in EmailList)
                 {
-                    User customer = new User
+                    if (userManager.FindByNameAsync(email).Result == null)
                     {
-                        Id = Guid.NewGuid(),
+                        User customer = new User
+                        {
+                            Id = Guid.NewGuid(),
 
-                        Email = email,
-                        UserName = email,
-                        FirstName = email.Split('.')[0],
-                        LastName = email.Split('.')[1].Split('@')[0]
-                
-                    
-                        
+                            Email = email,
+                            UserName = email,
+                            FirstName = email.Split('.')[0],
+                            LastName = email.Split('.')[1].Split('@')[0]
 
-                    };
-                    await userManager.CreateAsync(customer, "Wachtwoord");
-                    var role = roleManager.Roles.Where(r => r.Name.StartsWith("C")).FirstOrDefault();
-                    var userResult = await userManager.AddToRoleAsync(customer, role.Name);
 
-                    if (!userResult.Succeeded)
-                    {
-                        throw new InvalidOperationException("Failed to build user and roles");
+
+
+                        };
+                        await userManager.CreateAsync(customer, "Wachtwoord");
+                        var role = roleManager.Roles.Where(r => r.Name.StartsWith("C")).FirstOrDefault();
+                        var userResult = await userManager.AddToRoleAsync(customer, role.Name);
+
+                        if (!userResult.Succeeded)
+                        {
+                            throw new InvalidOperationException("Failed to build user and roles");
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex);
             }
         }
 
@@ -95,6 +103,10 @@ namespace IdentityServices.Data
         private static async Task SeedAdmins(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             var nmbrAdmins = 3;
+            try
+            {
+
+           
             for (var i = 1; i<= nmbrAdmins; i++)
             {
                 if (userManager.FindByNameAsync("emailAdmin" + i + "@howest.be").Result == null)
@@ -128,8 +140,13 @@ namespace IdentityServices.Data
                     }
                 }
             }
-           
-            
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex);
+            }
+
         }
 
         private static async Task SeedRoles(RoleManager<Role> roleManager)
