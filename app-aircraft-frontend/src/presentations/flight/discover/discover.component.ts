@@ -17,6 +17,7 @@ export class DiscoverComponent implements OnInit {
   destinations;
   searchForm;
   isLoggedIn: Boolean;
+  user: User;
 
   constructor(
     private flightService: FlightService,
@@ -33,8 +34,27 @@ export class DiscoverComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.userService.isLoggedIn;
-    console.log({ isloggedin: this.isLoggedIn });
+    // this.userService.ngOnInit();
+    // this.isLoggedIn = this.userService.isLoggedIn;
+    // this.user = this.userService.initializeUser();
+
+    // //TODO:refactor
+    // if (this.isLoggedIn) {
+    //   this.userService.getProfileInfoUser().subscribe({
+    //     next: (data) => (this.user = { ...data }),
+    //     error: (err) => {
+    //       console.log({ err });
+    //     },
+    //   });
+    // }
+
+    // // this.user = { ...this.userService.loggedInUser };
+
+    // console.log(this.userService.loggedInUser);
+    // console.log(this.userService.UserId);
+    // console.log({ isloggedin: this.isLoggedIn });
+    // console.log({ user: this.userService.loggedInUser });
+    // console.log({ dezeklojo: this.user });
     this.flightService.getFlightsToday().subscribe(
       (data) => {
         this.flightstoday = data;
@@ -62,11 +82,9 @@ export class DiscoverComponent implements OnInit {
       }
     );
   }
+
   findFlight(data): void {
     console.log(data);
     this.router.navigate(['/flight/availableflights']);
-  }
-  logout(): void {
-    this.userService.logoutUser();
   }
 }

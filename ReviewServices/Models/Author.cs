@@ -13,7 +13,9 @@ namespace ReviewServices.Models
         public Author() { }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        
+        public ObjectId Id { get; set; } = new ObjectId();
+
 
         [BsonRepresentation(BsonType.String)] //controleer type in Mongo
         [BsonElement("UserId")]

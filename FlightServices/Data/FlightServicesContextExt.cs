@@ -173,7 +173,20 @@ namespace FlightServices.Data
                 FlightStatus = "On time", 
                 DistanceInKm = 5885
 
-            }
+            },
+            //  new Flight
+            //{
+            //    Id = new Guid("33478a6b-437f-4416-932d-638b1c04156a"),
+            //     TimeOfDeparture = DateTime.Parse("2020-12-15T15:00:00Z"),
+            //    TimeOfArrival = DateTime.Parse("2020-12-15T15:30:00Z"),
+            //    DepartureId = new Guid("0AE2E025-10A8-4437-8A5B-9DDFFC77C180"),
+            //    DestinationId = new Guid("120DFA74-5A34-42DF-8C5D-345E3EC82458"),
+            //    AirplaneId = new Guid("9579B6CD-CAD5-4608-88A6-270CE03F5A35"),
+            //   // FlightDuration = "05:00:00",
+            //    FlightStatus = "On time",
+            //    DistanceInKm = 5885
+
+            //}
         };
         private readonly static List<Departure> _departureData = new List<Departure>
         {

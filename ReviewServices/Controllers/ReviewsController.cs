@@ -24,7 +24,14 @@ namespace ReviewServices.Controllers
 
         //TODO: filter by departureairport, destinationairport, timeofarrival, timeofdeparture
         //api/review?reviewfilter.subject=pricing&reviewFilter.id= ...
+        /// <summary>
+        /// Either get all the reviews, or get a filtered list depending on the filters you filled in: subject, flightId, DateOfCreation
+        /// </summary>
+        /// <param name="reviewFilter"></param>
+        /// <returns></returns>
         [HttpGet("/api/reviews")]
+        [ProducesResponseType(typeof(IEnumerable<Review>), StatusCodes.Status200OK)]
+       
         public async Task<IActionResult> Index([FromQuery] ReviewFilter reviewFilter)
         {
             var filter = new ReviewFilter();
@@ -35,7 +42,10 @@ namespace ReviewServices.Controllers
             }
             return Ok(await repo.GetAll(filter));
         }
-      
+      /// <summary>
+      /// groups reviews by their subject
+      /// </summary>
+      /// <returns></returns>
         [HttpGet("/api/reviews/groupedbysubject")]
         public async Task<ActionResult> ReviewsBySubject()
         {
@@ -44,6 +54,10 @@ namespace ReviewServices.Controllers
 
 
         }
+        /// <summary>
+        /// returns the unique subjects of reviews
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("/api/reviews/subjects")]
         public async Task<ActionResult> GetAllSubjects()
         {
@@ -55,9 +69,17 @@ namespace ReviewServices.Controllers
 
 
         }
-        //TODO: write postreview
+        /// <summary>
+        /// Post a new review linked to a flight and an author
+        /// </summary>
+        /// <param name="review"></param>
+        /// <returns></returns>
+      
         [HttpPost("/api/reviews")]
-    public async Task<ActionResult<Review>> PostReview([FromBody] Review review)
+        [ProducesResponseType(typeof(IEnumerable<Review>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Review>), StatusCodes.Status400BadRequest)]
+      
+        public async Task<ActionResult<Review>> PostReview([FromBody] Review review)
         {
 
             //  Location location = mapper.Map<Location>(destinationDTO.LocationDTO);

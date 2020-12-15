@@ -20,6 +20,9 @@ import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from '../presentations/shared/dialog/dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from 'presentations/shared/shared.module';
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +45,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     JwtModule,
     MatDialogModule,
     BrowserAnimationsModule,
-
+    SharedModule,
+    MatSelectModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

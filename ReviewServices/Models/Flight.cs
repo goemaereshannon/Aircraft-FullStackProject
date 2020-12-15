@@ -13,7 +13,8 @@ namespace ReviewServices.Models
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+
+        public ObjectId Id { get; set; } = new ObjectId();
         //navigatie property
         [BsonElement("flightId")]
         [BsonRepresentation(BsonType.String)]

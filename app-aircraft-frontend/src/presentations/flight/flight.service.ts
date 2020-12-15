@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Flight, Destination, Departure } from './flight';
 
-var baseURL = 'https://localhost:44347/api/';
+var baseURL = 'http://localhost:32820/flight/';
 @Injectable({
   providedIn: 'root',
 })
@@ -50,6 +50,17 @@ export class FlightService {
     return this.http
       .get<Flight[]>(`${baseURL}flights`)
       .pipe(catchError(this.handleError<Flight[]>('getFlights', [])));
+  }
+
+  //AVAILABLE FLIGHTS COMPONENT
+  getFlightById(flightId: string): Observable<Flight> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http
+      .get<Flight>(`${baseURL}flights/${flightId}`, { headers })
+      .pipe(
+        tap((data) => console.log(data)),
+        catchError(this.handleError<Flight>(`getFlightById`))
+      );
   }
   //ERROR HANDLING
   private handleError<T>(operation = 'operation', result?: T) {
