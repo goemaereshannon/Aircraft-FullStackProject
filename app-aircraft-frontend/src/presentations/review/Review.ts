@@ -14,8 +14,8 @@ export interface Review {
 export interface ReviewedFlight {
   id: {};
   flightId: string;
-  timeOfDeparture: Time;
-  timeOfArrival: Time;
+  timeOfDeparture: Date;
+  timeOfArrival: Date;
   departureAirport: string;
   destinationAirport: string;
 }

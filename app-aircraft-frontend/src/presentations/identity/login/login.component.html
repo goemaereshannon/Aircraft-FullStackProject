@@ -1,4 +1,6 @@
-<div class="flex justify-around px-20 align-items-center h-screen">
+<div
+  class="flex md:justify-around px-20 align-items-center h-full min-h-screen pt-4 md:pt-4 flex-col md:flex-row"
+>
   <div class="flex align-items-center justify-center col-md-5">
     <svg
       class="my-auto"
@@ -53,7 +55,7 @@
   </div>
 
   <div class="my-auto col-md-4">
-    <div class="text-center my-3 text-3xl font-medium">Sign In</div>
+    <div class="text-center my-3 text-xl md:text-3xl font-medium">Sign In</div>
     <form
       novalidate
       class="c-form"
@@ -179,7 +181,7 @@
             Login
           </button>
           <button
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-secondary hidden"
             type="button"
             (click)="populateTestData()"
           >

@@ -57,7 +57,7 @@ export class ReviewComponent implements OnInit {
     });
   }
   getFlight(): void {
-    this.flightService.getFlightById(this.flightId).subscribe({
+    this.flightService.getFlightDetails(this.flightId).subscribe({
       next: (data) => this.makeFlight(data),
       error: (err) => {
         console.log({ err });
