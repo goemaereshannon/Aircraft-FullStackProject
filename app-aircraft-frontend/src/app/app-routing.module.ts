@@ -1,5 +1,5 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { NgModule } from '@angular/core';
+
 import { Routes, CanActivate, RouterModule } from '@angular/router';
 import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
 import { RegisterComponent } from '../presentations/identity/register/register.component';
