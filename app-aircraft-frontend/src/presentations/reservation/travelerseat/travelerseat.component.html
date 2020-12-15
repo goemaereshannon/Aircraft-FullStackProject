@@ -126,8 +126,8 @@
           (click)="onSubmit(r.person.firstName)"
         >
           {{ r.person.firstName }} {{ r.person.lastName }}
-          <span class="font-bold" *ngIf="clickedSeat"
-            >: <span class="text-maintheme-blue">{{ clickedSeat }}</span>
+          <span class="font-bold" *ngIf="clickedSeat.name"
+            >: <span class="text-maintheme-blue">{{ clickedSeat.name }}</span>
           </span>
         </button>
         <svg
@@ -526,7 +526,9 @@
             </g>
             <g
               id="C6"
-              (click)="seatClicked('C6')"
+              (click)="
+                seatClicked('C6', '870e7791-5628-4d7f-9099-eec89b8bd773')
+              "
               class="cursor-pointer"
               data-name="Rectangle 50"
               transform="translate(88 826)"
@@ -539,7 +541,9 @@
             </g>
             <g
               id="B6"
-              (click)="seatClicked('B6')"
+              (click)="
+                seatClicked('B6', '3985ca2e-d493-4c02-8326-e8b0ade267c7')
+              "
               class="cursor-pointer"
               data-name="Rectangle 51"
               transform="translate(68 826)"
@@ -552,7 +556,9 @@
             </g>
             <g
               id="A6"
-              (click)="seatClicked('A6')"
+              (click)="
+                seatClicked('A6', 'b211fd6f-26d4-407f-8495-4d5de116d6d6')
+              "
               class="cursor-pointer"
               data-name="Rectangle 52"
               transform="translate(48 826)"
@@ -572,7 +578,9 @@
               <g transform="translate(-48 -850)">
                 <g
                   id="F7"
-                  (click)="seatClicked('F7')"
+                  (click)="
+                    seatClicked('F7', '1cedc9cf-d6ea-47bc-9571-089012cab6d9')
+                  "
                   class="cursor-pointer"
                   data-name="Rectangle 53"
                   transform="translate(172 850)"
@@ -585,7 +593,9 @@
                 </g>
                 <g
                   id="E7"
-                  (click)="seatClicked('E7')"
+                  (click)="
+                    seatClicked('E7', 'ded4321e-0f4f-42cb-a768-ae92ad48e157')
+                  "
                   class="cursor-pointer"
                   data-name="Rectangle 54"
                   transform="translate(152 850)"
@@ -1515,7 +1525,9 @@
                 </g>
                 <g
                   id="A20"
-                  (click)="seatClicked('A20')"
+                  (click)="
+                    seatClicked('A20', '656fd0de-e4f5-4f19-a131-907c0d4eceed')
+                  "
                   class="cursor-pointer"
                   data-name="Rectangle 58"
                   transform="translate(48 850)"
@@ -2097,11 +2109,12 @@
         </svg>
       </div>
       <div class="flex flex-col justify-center items-center">
-        <!-- routerLink="../confirmation" -->
         <a
           class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md mt-6"
           style="width: 208px"
+          (click)="toConfirmation()"
         >
+          <!-- [state]="{ data: flight, form: infoForm.value }" -->
           Next
         </a>
 

@@ -116,8 +116,8 @@
             <p>{{ flight.flightDuration }}</p>
           </div>
           <div class="flex">
-            <p  i18n="@@Flightnumber" class="pl-1">Flight number:</p>
-            <p  class="font-bold text-uppercase">
+            <p i18n="@@Flightnumber" class="pl-1">Flight number:</p>
+            <p class="font-bold text-uppercase">
               {{ flight.airplaneDTO.name }}
             </p>
           </div>
@@ -219,12 +219,12 @@
         />
         <div class="flex flex-col justify-center items-center">
           <a
+            [state]="{ data: flight, form: infoForm.value }"
             routerLink="../travelerseat"
             class="btn bg-maintheme-darkblue text-maintheme-lightblue rounded-md mt-6"
             style="width: 208px"
             i18n="@@Next"
           >
-            <!-- [state]="{ data: flight, form: infoForm.value }" -->
             Next
           </a>
 
