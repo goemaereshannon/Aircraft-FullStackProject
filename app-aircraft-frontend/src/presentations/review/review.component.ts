@@ -25,6 +25,7 @@ export class ReviewComponent implements OnInit {
   reviewedFlight: ReviewedFlight;
   review: Review;
   author: Author;
+  starRating: number;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +42,7 @@ export class ReviewComponent implements OnInit {
     });
     this.getsubjects();
     this.getFlight();
-
+    this.starRating = 0;
     console.log(this.userService.loggedInUser);
   }
 
@@ -76,6 +77,10 @@ export class ReviewComponent implements OnInit {
     this.author.firstName = user.firstName;
     this.author.lastName = user.lastName;
     this.author.userId = this.userService.UserId;
+  }
+  onRatingClicked(event: Event): void {
+    this.starRating = event['rating'];
+    console.log({ starRating: this.starRating });
   }
   postReview(): void {
     this.makeAuthor(this.userService.loggedInUser);

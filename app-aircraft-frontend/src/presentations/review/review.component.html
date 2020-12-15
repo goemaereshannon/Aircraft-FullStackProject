@@ -107,7 +107,10 @@
             </div>
           </div>
         </div>
-
+        <pm-star
+          [rating]="starRating"
+          (ratingClick)="onRatingClicked($event)"
+        ></pm-star>
         <div class="form-group row mb-4 border-b-0.5 border-maintheme-grey">
           <!-- <div class="m-2 flex align-items-center">
             <svg
