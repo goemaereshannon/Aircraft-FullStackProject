@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Flight } from 'presentations/flight/flight';
 import { Reservation } from '../reservation';
-import { ReservationService } from '../reservation.service';
+import { ReservationService } from '../../../services/reservation.service';
 
 @Component({
   selector: 'app-confirmation',

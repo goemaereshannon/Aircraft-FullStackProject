@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FlightService } from 'presentations/flight/flight.service';
+import { FlightService } from 'services/flight.service';
 import { getHeapStatistics } from 'v8';
 import { Reservation } from '../reservation';
-import { ReservationService } from '../reservation.service';
+import { ReservationService } from '../../../services/reservation.service';
 
 @Component({
   selector: 'app-travelerseat',

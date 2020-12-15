@@ -3,8 +3,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { FlightService } from '../flight/flight.service';
-import { Reservation } from './reservation';
+import { FlightService } from './flight.service';
+import { Reservation } from '../presentations/reservation/reservation';
 
 var baseURL = `${environment.baseUrl}`;
 

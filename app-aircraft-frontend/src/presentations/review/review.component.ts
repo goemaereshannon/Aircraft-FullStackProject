@@ -11,7 +11,7 @@ import { ReviewService } from '../../services/review.service';
 import { User } from '../identity/user';
 import { Flight } from 'presentations/flight/flight';
 import { Author, Review, ReviewedFlight } from './Review';
-import { FlightService } from 'presentations/flight/flight.service';
+import { FlightService } from 'services/flight.service';
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',

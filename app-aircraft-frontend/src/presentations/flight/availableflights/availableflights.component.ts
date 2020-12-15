@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
-import { FlightService } from '../flight.service';
+import { FlightService } from '../../../services/flight.service';
 var dateFormat = require('dataformat');
 
 @Component({

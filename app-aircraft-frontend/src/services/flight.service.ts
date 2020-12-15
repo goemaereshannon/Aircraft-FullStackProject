@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Flight, Destination, Departure } from './flight';
-import { environment } from '../../environments/environment';
+import { Flight, Destination, Departure } from '../presentations/flight/flight';
+import { environment } from '../environments/environment';
 
 var baseURL = 'http://localhost:32820/flight/';
 @Injectable({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppComponent } from 'app/app.component';
-import { FlightService } from '../flight.service';
+import { FlightService } from '../../../services/flight.service';
 import { UserService } from '../../../services/user.service';
 import { User } from 'presentations/identity/user';
 
