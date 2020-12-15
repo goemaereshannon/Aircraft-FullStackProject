@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
 import { RegisterComponent } from '../presentations/identity/register/register.component';
@@ -10,6 +10,12 @@ import { TravelerinfoComponent } from '../presentations/reservation/travelerinfo
 import { TravelerseatComponent } from '../presentations/reservation/travelerseat/travelerseat.component';
 
 import { ReviewComponent } from '../presentations/review/review.component';
+
+import { AppModule } from './app.module';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+const languageList = ['en', 'nl', 'fr', 'zh', 'es'];
+
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
   {
@@ -52,7 +58,11 @@ const routes: Routes = [
     path: 'reservation',
     children: [
       {
-        path: 'travelerinfo',
+        path: 'travelerinfo/*',
+        redirectTo: `/reservation/travelerinfo/en`,
+      },
+      {
+        path: 'travelerinfo/:lang',
         component: TravelerinfoComponent,
       },
       {

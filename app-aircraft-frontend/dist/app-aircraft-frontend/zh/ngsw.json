@@ -1,0 +1,120 @@
+{
+  "configVersion": 1,
+  "timestamp": 1607979084122,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/admin.chunk.js",
+        "/availableflights.chunk.js",
+        "/discover.chunk.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main.chunk.js",
+        "/manifest.webmanifest",
+        "/notfound.chunk.js",
+        "/polyfills.chunk.js",
+        "/register.chunk.js",
+        "/runtime.bundle.js",
+        "/styles.e58143cd04af115dcf67.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/Roboto-Regular.03523cf578d69fa92322.ttf",
+        "/assets/fonts/LICENSE.txt",
+        "/assets/fonts/Roboto-Black.ttf",
+        "/assets/fonts/Roboto-BlackItalic.ttf",
+        "/assets/fonts/Roboto-Bold.ttf",
+        "/assets/fonts/Roboto-BoldItalic.ttf",
+        "/assets/fonts/Roboto-Italic.ttf",
+        "/assets/fonts/Roboto-Light.ttf",
+        "/assets/fonts/Roboto-LightItalic.ttf",
+        "/assets/fonts/Roboto-Medium.ttf",
+        "/assets/fonts/Roboto-MediumItalic.ttf",
+        "/assets/fonts/Roboto-Regular.ttf",
+        "/assets/fonts/Roboto-Thin.ttf",
+        "/assets/fonts/Roboto-ThinItalic.ttf",
+        "/assets/fonts/Roboto.zip",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/Roboto-Regular.03523cf578d69fa92322.ttf": "096c9245b6a192d1403a82848e104a65f578a8ec",
+    "/admin.chunk.js": "c383aa362d9479b339e130dfe3cdec6e9a8125ec",
+    "/assets/fonts/LICENSE.txt": "2b8b815229aa8a61e483fb4ba0588b8b6c491890",
+    "/assets/fonts/Roboto-Black.ttf": "ee52f7cf8e54f3ee2afbc474a352d5c19514d9c1",
+    "/assets/fonts/Roboto-BlackItalic.ttf": "94ba47a5510d3e21ae4db0da0425b855686de586",
+    "/assets/fonts/Roboto-Bold.ttf": "3dd713113ff2d79b94d2df343e2e28fa8e7279cf",
+    "/assets/fonts/Roboto-BoldItalic.ttf": "60b9860b7fc93d6b0b322f170634105bc6a8cc8d",
+    "/assets/fonts/Roboto-Italic.ttf": "dc6756127707ab2d6e388a6023087351fa41999c",
+    "/assets/fonts/Roboto-Light.ttf": "92cc3b6f9440193c12fd02ed690e434d685a9cc8",
+    "/assets/fonts/Roboto-LightItalic.ttf": "a0440f60a96a59c4105c3eb639cb2573826f84fe",
+    "/assets/fonts/Roboto-Medium.ttf": "f6783010d5def128c4a1539333324f75701d9bab",
+    "/assets/fonts/Roboto-MediumItalic.ttf": "e4e31e55d279a9b12c32327a60a3a65c8350e5df",
+    "/assets/fonts/Roboto-Regular.ttf": "096c9245b6a192d1403a82848e104a65f578a8ec",
+    "/assets/fonts/Roboto-Thin.ttf": "711e666e7f52210ac487c7ed81a0ac68a2b52261",
+    "/assets/fonts/Roboto-ThinItalic.ttf": "75ffde032d49005faa643338eda97c311ad7d316",
+    "/assets/fonts/Roboto.zip": "9022307dd5c258c64f60a2c28d5ffcf088015df9",
+    "/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/availableflights.chunk.js": "6bfc3f53f58b06fbe02606a90ac084de6f21f922",
+    "/discover.chunk.js": "fdd370674bfd254b5dd2d63735a3ff93f25a4c92",
+    "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/index.html": "2a43c3fcacca46760d0773187fb7a63f7ca2fd3c",
+    "/main.chunk.js": "f955dbea3090569233251c88982d55c29bb46b62",
+    "/manifest.webmanifest": "a8264fa2b36bbbfa32aaa6f4687619a61ad713c2",
+    "/notfound.chunk.js": "e70c3e58efb68f9c2e7a12e751478c9d5dc59eb9",
+    "/polyfills.chunk.js": "3888925adfa6bd4b1b8681334c2d03fb93c8ff68",
+    "/register.chunk.js": "d0bfd450c7f4861a1d387274e38e755a85b4e62a",
+    "/runtime.bundle.js": "bf608de63328df58a4dd43282143b535c0c843e2",
+    "/styles.e58143cd04af115dcf67.css": "9889c65187a2615769069f59d4597dbed29634fd"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
