@@ -1,3 +1,4 @@
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { Routes, CanActivate, RouterModule } from '@angular/router';
 import { DiscoverComponent } from '../presentations/flight/discover/discover.component';
@@ -12,6 +13,8 @@ import { TravelerseatComponent } from '../presentations/reservation/travelerseat
 
 import { ReviewComponent } from '../presentations/review/review.component';
 import { ConfirmationComponent } from 'presentations/reservation/confirmation/confirmation.component';
+import { AppModule } from './app.module';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { RoleGuardService as RoleGuard } from '../services/role-guard.service';
 import { AuthGuardService as AuthGuard } from 'services/guard.service';
 const routes: Routes = [
@@ -66,7 +69,11 @@ const routes: Routes = [
     path: 'reservation',
     children: [
       {
-        path: 'travelerinfo',
+        path: 'travelerinfo/*',
+        redirectTo: `/reservation/travelerinfo/en`,
+      },
+      {
+        path: 'travelerinfo/:lang',
         component: TravelerinfoComponent,
       },
       {
