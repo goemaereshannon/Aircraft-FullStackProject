@@ -25,10 +25,10 @@
       Make reservation
     </p>
   </header>
-  <main class="px-5 sm:px-auto pb-5 relative custom-body sm:mx-auto max-w-lg">
+  <main class="px-5 sm:px-auto pb-5 relative custom-body sm:mx-auto">
     <!-- Geen vluchten-->
     <div
-      class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center"
+      class="bg-white shadow-xs rounded-2xl my-4 py-4 p-2 sm-text flex flex-col justify-items-center items-center  max-w-lg "
     >
       <div
         class="grid justify-items-center items-center custom-card-grid border-maintheme-grey"
@@ -118,21 +118,22 @@
     </div>
     <div class="flex flex-col">
       <label for="travelernr">Travelers</label>
-      <div *ngFor="let r of reservation.reservedSeats">
-        <button
-          class="btn bg-white text-maintheme-black rounded-md focus:border-maintheme-salmon focus:border-2"
-          (click)="onSubmit(r.person.firstName)"
-        >
-          {{ r.person.firstName }} {{ r.person.lastName }}
-          <span class="font-bold" *ngIf="clickedSeatName"
-            >: <span class="text-maintheme-blue">{{ clickedSeatName }}</span>
-          </span>
-        </button>
+      <div>
+        <div *ngFor="let r of reservation.reservedSeats">
+          <button
+            class="btn bg-white text-maintheme-black rounded-md focus:border-maintheme-salmon focus:border-2"
+            (click)="onSubmit(r.person.firstName)"
+          >
+            {{ r.person.firstName }} {{ r.person.lastName }}
+            <span class="font-bold" *ngIf="clickedSeatName"
+              >: <span class="text-maintheme-blue">{{ clickedSeatName }}</span>
+            </span>
+          </button>
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="537.937"
-          height="1021.169"
+          width="100%"
           viewBox="0 0 537.937 1021.169"
         >
           <defs>

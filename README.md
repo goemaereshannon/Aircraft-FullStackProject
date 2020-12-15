@@ -12,12 +12,7 @@ Table of contents
 
 ---
 
-1. [To Do - deadline 15 December 2020](#to-do---deadline-15-december-2020)
-
-   1. [Backend backlog](#backend-backlog)
-   2. [Frontend backlog](#frontend-backlog)
-
-2. [Backend](#backend)
+1. [Backend](#backend)
    1. [Generally](#generally)
    2. [Gateway](#gateway)
    3. [Docker Compose](#docker-compose)
@@ -26,34 +21,17 @@ Table of contents
    6. [Identity Service](#identity-service)
    7. [Realtime Service](#realtime-service)
    8. [Review Service](#review-service)
-3. [Frontend](#frontend)
+2. [Frontend](#frontend)
    1. [Framework](#framework)
    2. [Testing](#testing)
    3. [Styling](#styling)
    4. [PWA](#pwa)
    5. [Webpack optimisation](#webpack-optimisation)
    6. [Self-learning](#self-learning)
-4. [Project management](#project-management)
-5. [Successes](#successes)
-6. [Dificulties](#dificulties)
-7. [Future](#future)
-
-# To Do - deadline 15 December 2020
-
-## Backend backlog
-
-- connecting services with gateway (already set up and Identity Services are connected)
-- putting everything in docker containers (again, Identity Services already run on docker)
-- refactoring microservices
-
-## Frontend backlog
-
-- finalizing reservations
-- authorisation and login view
-- views to write review
-- display and rendering of real time messages
-- unit and integration test
-- multilanguage on reservation form
+3. [Project management](#project-management)
+4. [Successes](#successes)
+5. [Dificulties](#dificulties)
+6. [Future](#future)
 
 # Backend
 
@@ -138,6 +116,9 @@ When users provide a unknown path the Page Not Found component is shown and lead
 
 ## Testing
 
+We wrote both **unit and intergration tests**. As unit test we checked the component PageNotFound, the tests check if the component is loaded and has certain elements inside the template.
+As integration test we tested the routing for both filling in an empty path and when you click the button on PageNotFound, they both need to navigate back to discover.
+
 ## Styling
 
 The styling is added with **tailwindcss**. CSS classes with specific, reused styling not included in tailwind are added in **scss**.
@@ -157,7 +138,7 @@ The review module is **dynamicly imported** inside the app module causing the bi
 
 Aside learning Angular through Pluralsight we desided to add **reactive form** validation and take an Pluralsight course for it too. (Identity)
 
-To prevent unauthenticated users form accessing certain routes, we added angular **route guards**.
+To prevent unauthenticated users form accessing certain routes, we added angular **route guards**. Only authenticated users can book a flight, only authenticated admin users can visit the admin page.
 
 # Project management
 
@@ -174,9 +155,13 @@ We registrated our working hours with **Toggl** and the current subtotal is 199h
 
 # Successes
 
+- All requirements included
+
 # Dificulties
 
 - Post of flight
+- Testing
+- Documentation on web is often about older Angular versions.
 
 # Future
 
@@ -189,7 +174,9 @@ We registrated our working hours with **Toggl** and the current subtotal is 199h
 - delayedFlight (1h)
 - deleteFlight (status = cancelled) (1h)
 - getFlightsBasedOnCarrier (6h)
-  **Frontend**
+
+**Frontend**
+
 - custom select (1h)
 - modules (8h)
 - states inputs and buttons (2h)
