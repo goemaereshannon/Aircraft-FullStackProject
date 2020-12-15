@@ -18,8 +18,8 @@ export interface Departure {
 
 export interface Flight {
   id: string;
-  timeOfDeparture: Date;
-  timeOfArrival: Date;
+  timeOfDeparture: Time;
+  timeOfArrival: Time;
   flightStatus: string;
   flightDuration: Time;
   airplaneId: string;

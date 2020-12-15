@@ -4,6 +4,7 @@ import { FlightService } from 'services/flight.service';
 import { getHeapStatistics } from 'v8';
 import { Reservation } from '../reservation';
 import { ReservationService } from '../../../services/reservation.service';
+import { Flight } from 'presentations/flight/flight';
 
 @Component({
   selector: 'app-travelerseat',
@@ -14,10 +15,10 @@ import { ReservationService } from '../../../services/reservation.service';
   ],
 })
 export class TravelerseatComponent implements OnInit {
-  flight;
+  flight: Flight;
   reservation: Reservation;
-  clickedSeatId;
-  clickedSeatName;
+  clickedSeatId: any;
+  clickedSeatName: any;
 
   constructor(
     private reservationService: ReservationService,

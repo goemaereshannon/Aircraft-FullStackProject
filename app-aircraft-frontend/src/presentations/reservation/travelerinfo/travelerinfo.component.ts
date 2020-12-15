@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FlightService } from '../../../services/flight.service';
 import { ReservationService } from '../../../services/reservation.service';
 import { Reservation } from '../reservation';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Flight } from 'presentations/flight/flight';
 
 @Component({
   selector: 'app-travelerinfo',
@@ -13,8 +14,8 @@ import { FormBuilder } from '@angular/forms';
   ],
 })
 export class TravelerinfoComponent implements OnInit {
-  flight;
-  infoForm;
+  flight: Flight;
+  infoForm: FormGroup;
 
   constructor(
     private flightService: FlightService,
