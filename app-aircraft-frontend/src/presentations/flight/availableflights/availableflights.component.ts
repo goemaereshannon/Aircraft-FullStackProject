@@ -15,10 +15,10 @@ var dateFormat = require('dataformat');
 export class AvailableflightsComponent {
   // implements OnInit
   searchForm: any;
-  departure: Departure;
-  destination: Destination;
-  dateOfDeparture: Date;
-  dateOfArrival: Date;
+  departure: string;
+  destination: string;
+  dateOfDeparture: string;
+  dateOfArrival: string;
   query = '';
   searchedflights: Flight[];
   seats: any;
@@ -38,10 +38,10 @@ export class AvailableflightsComponent {
       this.dateOfDeparture = this.searchForm.dateOfDeparture;
       this.dateOfArrival = this.searchForm.dateOfArrival;
       if (
-        this.departure == null &&
-        this.destination == null &&
-        this.dateOfDeparture == null &&
-        this.dateOfArrival == null
+        this.departure == '' &&
+        this.destination == '' &&
+        this.dateOfDeparture == '' &&
+        this.dateOfArrival == ''
       ) {
         this.flightService.getFutureFlights().subscribe((data) => {
           this.searchedflights = data;

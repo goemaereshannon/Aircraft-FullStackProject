@@ -17,6 +17,8 @@ import { AppModule } from './app.module';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { RoleGuardService as RoleGuard } from '../services/role-guard.service';
 import { AuthGuardService as AuthGuard } from 'services/guard.service';
+import { ProfileComponent } from '../presentations/profile/profile.component';
+
 const routes: Routes = [
   { path: '', component: DiscoverComponent, pathMatch: 'full' },
   {
@@ -110,6 +112,10 @@ const routes: Routes = [
         component: TravelerseatComponent,
       },
     ],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   },
   // { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
