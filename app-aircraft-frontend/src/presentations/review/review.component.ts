@@ -29,6 +29,7 @@ export class ReviewComponent implements OnInit {
   author: Author;
   starRating: number;
   subjectControl = new FormControl('', Validators.required);
+  data: { destination: string; departure: string };
 
   constructor(
     private fb: FormBuilder,
@@ -45,7 +46,9 @@ export class ReviewComponent implements OnInit {
     });
     this.getsubjects();
     if (history.state.data) {
-      this.flightId = history.state.data;
+      this.flightId = history.state.data.id;
+      this.data = { ...history.state.data };
+      console.log({ data: this.data });
       this.getFlight();
     }
 

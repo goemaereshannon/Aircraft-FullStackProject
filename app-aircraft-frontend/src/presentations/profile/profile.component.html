@@ -121,7 +121,13 @@
       <a
         class="text-white btn bg-maintheme-blue rounded-2xl absolute custom-button flex"
         routerLink="../review"
-        [state]="{ data: reservation.flight.id }"
+        [state]="{
+          data: {
+            id: reservation.flight.id,
+            destination: reservation.flight.destinationDTO.locationDTO.city,
+            departure: reservation.flight.departureDTO.locationDTO.city
+          }
+        }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
